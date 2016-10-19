@@ -1,0 +1,247 @@
+html {
+    font-size: 20px;
+}
+html,body {
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+}
+
+.g-wrapper {
+    position: relative;
+    padding-bottom: 7.5rem;
+    width: 100%;
+    background-color: #ffda44;
+    line-height: 1;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.g-header {
+    margin-bottom: 1.5rem;
+    width: 100%;
+    
+    img {
+        width: 100%;
+    }
+}
+
+.m-title {
+    position: relative;
+    left: 50%;
+    margin-left: -1.9rem;
+     margin-bottom: 1.5rem;
+    width: 3.8rem;
+    font-size: .7rem;
+    color: #61371a;
+    text-align: center;
+    
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        margin-top: -.5px;
+        width: 5.8rem;
+        height: 1px;
+        background-color: #61371a;
+    }
+    
+    &:before {
+        left: -5.8rem;
+    }
+    &:after {
+        right: -5.8rem;
+    }
+}
+
+.g-column-1 {
+    .m-bonus-box {
+        width: 13rem;
+        margin: {
+            bottom: .75rem;
+            left: auto;
+            right: auto;
+        };
+    }
+    
+    .m-bonus-box2 {
+        li {
+            border-bottom: 0;
+            border-left: 8px solid #f14a57;
+        }
+        
+        .text1 {
+            height: 3.5rem;
+            line-height: 4rem;
+        }
+        
+        .text2 {
+            padding-top: .7rem;
+            padding-left: 5.6rem;
+            line-height: 1;
+            text-align: left;
+            font-size: .7rem;
+            color: #7a7a7a;
+            
+            .text21 {
+                font-size: .9rem;
+                color: #dd3643;
+                margin-bottom: .5rem;
+            }
+        }
+    }
+    
+    li {
+        margin-bottom: .75rem;
+        width: 100%;
+        height: 3.5rem;
+        background-color: #fff;
+        border-radius: .3rem;
+        border-bottom: .5rem solid #f14a57;
+        
+        .text1 {
+            float: left;
+            width: 5rem;
+            height: 3rem;
+            font-size: .75rem;
+            line-height: 3rem;
+            text-align: center;
+            color: #f14a56;
+            border-right: 1px dashed #b0b0b0;
+            
+            span {
+                font-size: 1.5rem;
+                line-height: 3rem;
+            }
+        }
+        
+        .text2 {
+            padding-left: 5rem;
+            width: 100%;
+            font-size: .8rem;
+            line-height: 3rem;
+            color: #b0b0b0;
+            text-align: center;
+        }
+    }
+}
+
+.g-column-2 {
+    padding: {
+        left: 2rem;
+        right: 1.6rem;
+    };
+    font-size: .7rem;
+    line-height: 1.25rem;
+    text-align: justify;
+    color: #61371a;
+    
+    p {
+        position: relative;
+        
+        span {
+            position: absolute;
+            left: -1rem;
+            width: 1rem;
+        }
+    }
+    
+    .m-title {
+        margin-bottom: 1rem;
+    }
+}
+
+.color-yellow {
+    color: #ffda45;
+}
+
+.g-column-3.step0 {
+    height: 8rem;
+}
+.g-column-3 {
+    margin: {
+        left: auto;
+        right: auto;
+        bottom: 1.8rem;
+    };
+    padding: 1.25rem 1.575rem 0;
+    width: 16.1rem;
+    height: 10.5rem;
+    background-color: #ffcb01;
+    border-radius: 4px;
+    
+    
+    .m-box {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .u-yzm {
+        position: absolute;
+        right: .5rem;
+        top: .8rem;
+        color: #ffa800;
+        font-size: .7rem;
+    }
+    
+    input {
+        margin-bottom: .5rem;
+        padding-left: .5rem;
+        padding-right: .5rem;
+        width: 100%;
+        line-height: 2.2rem;
+        height: 2.2rem;
+        border: 0;
+        border-radius: 6px;
+    }
+    
+    ::-webkit-input-placeholder {
+        font-size: .7rem;
+        color: #b0b0b0;
+    }
+    
+    
+}
+
+.u-button {
+    margin: .5rem auto 0;
+    width: 9.8rem;
+    height: 2.25rem;
+    background: url(../img/button.png) 0 0 no-repeat;
+    background-size: cover;
+    color: #fff;
+    font-size: .8rem;
+    line-height: 2.25rem;
+    text-align: center;
+}
+
+
+.g-column-3 .m-register-box {
+    .u-button {
+        margin-top: 2.05rem;
+    }
+}
+
+.g-column-4 {
+    margin-bottom: 5.3rem;
+    height: 10.2rem;
+}
+
+.bonus-success {
+    margin-top: -.8rem;
+    margin-bottom: 1.5rem;
+    
+    p {
+        font-size: .7rem;
+        text-align: center;
+        color: #61371a;
+    }
+    
+    .u-button {
+        margin-top: 1rem;
+    }
+}

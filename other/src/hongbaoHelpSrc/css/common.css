@@ -1,0 +1,26 @@
+.help-page .list-box {
+    margin: 0;
+    color: #5d5d5d;
+}
+.list-block .item-after {
+    color: #b0b0b0;
+}
+.help-page .drop-ct {
+    margin: 0;
+    display: none;
+    border-bottom: 1px solid #e7e7e7;
+    box-shadow: none;
+}
+
+.card {
+    border-radius: .3rem !important;
+}
+.help-page .drop-ct .card-content-inner {
+    color: #b0b0b0;
+}
+.card-content-inner {
+    padding: .5rem .3rem;
+}
+.help-page .drop-ct p {
+    margin: 0 0 .3rem;
+}

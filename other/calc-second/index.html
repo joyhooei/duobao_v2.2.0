@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>黄金夺宝</title>
+		<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="email=no" />
+		
+		<link rel="stylesheet" href="css/reset.css" />
+		<link rel="stylesheet" href="css/common.css" />
+	</head>
+	<body>
+		<div class="calc-wrapper">
+			<div class="calc-rule">
+				<h2 class="calc-title">计算公式</h2>
+				<p>[ 数值A ÷ 商品所需人次 ] 取余数 + 10000001</p>
+			</div>
+			
+			<div class="calc-A">
+				<p class="calc-title">数值A&nbsp;&nbsp;<span class="calc-question calc-question1">？</span></p>
+				<p>= 截止该商品最后参与的50条夺宝时间的记录之和</p>
+				<p>= <b class="calc-color-red a-calc-sum">-</b></p>
+				<span class="btn calc-A-unfoldBtn" style="display: none;">展开</span>
+				<span class="btn calc-A-foldBtn" style="display: block;">收起</span>
+			</div>
+			
+			<div class="calc-list" style="display: block;">
+				<table class="calc-resultList" cellpadding="0" cellspacing="0">
+					<thead>
+						<tr>
+							<th class="calc-time">夺宝时间</th>
+							<th class="calc-user">用户帐号</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+					</tbody>
+				</table>
+			</div>
+			
+			<!--<div class="calc-B">
+				<p class="calc-title">数值B&nbsp;&nbsp;<span class="calc-question calc-question2">？</span></p>
+				<p>= 最近一期中国福利彩票“老时时彩”的揭晓结果</p>
+				<p>= <b class="calc-color-yellow a-calc-lottery">-</b>  (第<span class="a-calc-lotteryId">1</span>期)</p>
+				<span class="btn calc-B-btn">查看时时彩</span>
+			</div>-->
+			
+			<div class="calc-result">
+				<p class="calc-title">计算结果</p>
+				<p class="calc-result-code">幸运号码：<b class="calc-color-yellow a-calc-luckyCode">--</b></p>
+			</div>
+			
+			
+			<div class="calc-overlay calc-overlay1" style="display: none;">
+				<div class="calc-overlay-wrap">
+					<div class="calc-overlay-title">计算规则</div>
+					<p class="calc-overlay-text">根据用户参与夺宝的时间，按照时、分、秒、毫秒的顺序组合，如20:15:25.362则数值为201525362，将这50个夺宝时间的数值进行求和得出数值A</p>
+					<div class="calc-overlay-title">夺宝时间</div>
+					<p class="calc-overlay-text">用户参与夺宝并购买完成的时间戳</p>
+					<div class="calc-overlay-title">取值范围</div>
+					<p class="calc-overlay-text">若总夺宝时间戳少于50个，则取实际用户参与所产生的夺宝时间戳个数</p>
+				</div>
+			</div>
+			
+			<div class="calc-overlay calc-overlay2" style="display: none;">
+				<div class="calc-overlay-wrap">
+					<div class="calc-overlay-title">注：</div>
+					<p class="calc-overlay-text">如遇福彩中心有通讯故障，无法获取上述期数的中国福利彩票“老时时彩”揭晓结果，且24小时内“老时时彩”揭晓结果仍未公布，则默认“老时时彩”揭晓结果为00000</p>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript" src="js/jquery-1.11.3.min.js" ></script>
+		<script type="text/javascript" src="js/common.js" ></script>
+	</body>
+</html>

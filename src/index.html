@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>黄金夺宝</title>
+		<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1, maximum-scale=1">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+
+		<link rel="stylesheet" href="libs/msui.min.css?rev=@@hash">
+		<link rel="stylesheet" href="libs/msui-extend.min.css?rev=@@hash" />
+		<script type="text/javascript" src="js/css.js?rev=@@hash" ></script>
+
+		<!--主屏幕-->
+		<meta name="apple-mobile-web-app-title" content="黄金夺宝">
+		<link rel="apple-touch-icon" href="img/v-logo.png" />
+		<pnk rel="apple-touch-startup-image" href="img/startup1242a2148.png" media="(device-width: 414px)">
+		
+		
+	</head>
+
+	<body>
+		<div class="page-group" >
+			<div class="page page-current index_page index-style" id="p-index">
+				<header class="bar bar-nav c_header">
+					<h1 class="title" style="font-size: 1rem;">黄金夺宝</h1>
+				</header>
+				
+				<nav class="bar bar-tab nav-bottom a-nav-bottom">
+					<a class="tab-item active" name="index.html" href="javascript:;">
+						<span class="icon icon-1"></span>
+						<span class="tab-label icon-text">夺宝</span>
+					</a>
+					<a class="tab-item" name="chest.html" href="javascript:;">
+						<span class="icon icon-2"></span>
+						<span class="tab-label icon-text">宝箱</span>
+					</a>
+					<a class="tab-item" name="share.html" href="javascript:;">
+						<span class="icon icon-4"></span>
+						<span class="tab-label icon-text">晒单</span>
+					</a>
+					<a class="tab-item" name="personal.html" href="javascript:;">
+						<span class="icon icon-3"></span>
+						<span class="tab-label icon-text">个人</span>
+					</a>
+				</nav>
+				
+				
+				
+				
+				<div class="content pull-to-refresh-content infinite-scroll" data-distance="10" data-ptr-distance="55" id="index_content">
+					<div class="pull-to-refresh-layer">
+						<div class="preloader"></div>
+						<div class="pull-to-refresh-arrow"></div>
+					</div>
+					
+					<!--<div class="buttons-tab fixed-tab a-tab-list" data-offset="58">
+						<a class="tab-link active button">即将开奖</a>
+						<a class="tab-link button">人气</a>
+						<a class="tab-link button">高价</a>
+					</div>-->
+					
+<div class="swiper-container">
+	<div class="swiper-wrapper">
+		
+	</div>
+	<div class="swiper-pagination"></div>
+</div>
+					
+					
+					
+					<div class="buttons-tab a-tab-list">
+						<a class="tab-link active button">即将开奖</a>
+						<a class="tab-link button">人气</a>
+						<a class="tab-link button">高价</a>
+					</div>
+					
+					
+					
+					<div id="index-active-0" class="index-active clearfix"></div>
+					<div id="index-active-1" class="index-active clearfix"></div>
+					<div id="index-active-2" class="index-active clearfix"></div>
+					
+					
+					<p class="i_load_more pull-load-more text-center pull-left" style="display: none;width: 100%;">加载更多&darr;</p>
+				</div>
+				<div class="save-to-desktop" style="display: none;">
+					<i class="save-logo"></i>
+					<div class="text">
+						<p>先点击<span></span></p>
+						<p>再“添加到主屏幕”</p>
+						<p>黄金夺宝，收获惊喜</p>
+					</div>
+					<i class="icon-close"></i>
+				</div>
+				<div class="alert-resiger-bonus" style="display: none;">
+					<div class="ct">
+						<img src="img/alert-register-img.png" />
+						<div class="alert-button">我要领取</div>
+						<div class="alert-close"></div>
+					</div>
+				</div>
+			</div>
+			
+		</div>	
+			
+		<script type="text/javascript" src="libs/zepto.min.js?rev=@@hash" charset="utf-8"></script>
+		<script type="text/javascript" src="libs/msui.min.js?rev=@@hash" charset="utf-8"></script>
+		<script type="text/javascript" src="libs/crypto-js.js?rev=@@hash" charset="utf-8"></script>
+		<script type="text/javascript" src="js/base.js?rev=@@hash" charset="utf-8"></script>
+		
+		<script>
+			$.ajax({
+				type: "get",
+				url: "https://graph.qq.com/oauth2.0/me",
+				data: {
+					"access_token": $.getUrlParam("access_token")
+				},
+				dataType: 'jsonp',
+				async: false,
+				callback:function(o){
+					console.log(o)
+				}
+			});
+		</script>
+		
+	</body>
+
+</html>
+

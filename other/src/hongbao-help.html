@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>黄金夺宝</title>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="no" />
+
+		<link rel="stylesheet" href="hongbaoHelpSrc/libs/msui.min.css?rev=@@hash" />
+		<link rel="stylesheet" href="hongbaoHelpSrc/css/common.css" />
+		
+	</head>
+
+	<body>
+		<div class="page-group">
+			<div class="page page-current help-page" id="p-bonus-help">
+				
+				<div class="content">
+					<div class="list-block list-box">
+						<ul>
+							<li class="item-content list">
+								<div class="item-inner">
+									<div class="item-title">什么是黄金夺宝红包</div>
+									<div class="item-after">
+										<span class="icon icon-down"></span>
+									</div>
+								</div>
+							</li>
+							
+							<div class="card drop-ct">
+								<div class="card-content">
+									<div class="card-content-inner">
+										<p>黄金夺宝红包是为黄金夺宝发行和认可的优惠券，可在夺宝支付时使用并抵扣相应的金额。</p>
+									</div>
+								</div>
+							</div>
+							
+							<li class="item-content list">
+								<div class="item-inner">
+									<div class="item-title">红包的使用条件</div>
+									<div class="item-after">
+										<span class="icon icon-down"></span>
+									</div>
+								</div>
+							</li>
+							
+							<div class="card drop-ct">
+								<div class="card-content">
+									<div class="card-content-inner">
+										<p>1. 红包有类目和金额限制，需要在对应类目下且满足限制金额后可使用。</p>
+										<p>2. 每个订单仅限使用一个红包。</p>
+									</div>
+								</div>
+							</div>
+							
+							<li class="item-content list">
+								<div class="item-inner">
+									<div class="item-title">如何获得红包</div>
+									<div class="item-after">
+										<span class="icon icon-down"></span>
+									</div>
+								</div>
+							</li>
+							
+							<div class="card drop-ct">
+								<div class="card-content">
+									<div class="card-content-inner">
+										<p>1. 黄金夺宝会不定期举办送红包活动，通过参与活动可获得红包。</p>
+										<p>2. 抢微信好友分享的红包也可获得。</p>
+									</div>
+								</div>
+							</div>
+							
+							<li class="item-content list">
+								<div class="item-inner">
+									<div class="item-title">红包可以找零兑换吗</div>
+									<div class="item-after">
+										<span class="icon icon-down"></span>
+									</div>
+								</div>
+							</li>
+							
+							<div class="card drop-ct">
+								<div class="card-content">
+									<div class="card-content-inner">
+										黄金夺宝红包不找零、不兑换。
+									</div>
+								</div>
+							</div>
+						</ul>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		
+		<script type="text/javascript" src="hongbaoHelpSrc/libs/zepto.min.js?rev=@@hash" charset="utf-8"></script>
+		<!--<script type="text/javascript" src="libs/msui.min.js?rev=@@hash" charset="utf-8"></script>-->
+		<script>
+			!function bonusHelp(){
+				$(".list").click(function(){
+					$(this).next(".drop-ct").toggle();
+					$(this).find(".icon").toggleClass("icon-up")
+				})
+				$(".drop-ct").click(function(){
+					$(this).hide();
+					$(this).prev(".list").find(".icon").removeClass("icon-up");
+				})
+			}()
+		</script>		
+
+	</body>
+
+</html>
