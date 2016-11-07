@@ -1,6 +1,18 @@
 $(function(){
+	$("#iframe").attr("src",window.location.href.split("?url=")[1]);
 	
-	$("#iframe").attr("src",$.getUrlParam("url"));
+	$("#p-iframe .iframe-back").click(function(){
+		event.preventDefault();
+		if (sessionStorage.getItem("sm.router.maxStateId") <= 1) {
+			$.router.load("index.html");
+		}else{
+			$.router.back();
+		}
+	});
+	
+	if (!!/extract/.test(window.location.href)) {
+		
+	}
 })
 
 

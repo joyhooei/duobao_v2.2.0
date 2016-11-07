@@ -194,6 +194,16 @@ gulp.task('copylib', function() {
 		.pipe(sourcemaps.write("./"))
 		.pipe(gulp.dest('other/src/'))
 	});
+	
+	//sass编译
+	gulp.task('sass3', function() {
+		return sass('other/html/*/css/*.scss', {
+			style: 'expanded',
+			sourcemap: true
+		})
+		.pipe(sourcemaps.write("./"))
+		.pipe(gulp.dest('other/html/'))
+	});
 
 
 
@@ -203,6 +213,7 @@ gulp.task('watch', function() {
 	gulp.watch(['src/include/_header.html', 'src/include/_footer.html','src/html/*.html'], ['include']);
 	
 	gulp.watch('other/src/*/css/*.scss', ['sass2']);
+	gulp.watch('other/html/*/css/*.scss', ['sass3']);
 });
 
 //allmin

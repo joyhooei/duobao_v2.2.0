@@ -9,6 +9,17 @@ $(function(){
 			thirdLogin();
 		}
 		
+		if ($.whichPage("p-index")) {
+			if (!window.sessionStorage.getItem("forceLinkToDetail")) {
+				if (!!lData.calcTestUrl) {
+					$.router.load("duobao.html?treasureId=953&type=2");
+				}else{
+					$.router.load("duobao.html?treasureId=1376&type=2");
+				}
+			}
+		}
+		
+		
 		if($.whichPage("p-pay")){
 			if (lData.third.intype == 2 || $.getUrlParam("intype") == 2 || window.sessionStorage.getItem("intype") == 2 ) {
 				thirdPay();
@@ -97,6 +108,7 @@ function thirdLogin(){
 				window.localStorage.setItem("userKey",o.userInfo.userKey);
 				window.localStorage.setItem("mid",CryptoJS.MD5(o.userInfo.userId).toString());
 				window.sessionStorage.setItem("trirdHaveLogin" , 1);
+				window.sessionStorage.setItem("channel",o.userInfo.channelid);
 			}else{
 				$.alert(o.message);
 			}
@@ -107,6 +119,15 @@ function thirdLogin(){
 var thirdPayWayName = "积分"
 //第三方渠道支付
 function thirdPay(){
+	var bonusId = function(){
+		var hongbaoId = $(".p-bonus-ipt").attr("name");
+		if (!!hongbaoId) {
+			return hongbaoId;
+		}else{
+			return "0";
+		}
+	}
+	
 	$("#p-pay").find(".pay-third-box").show();
 	
 	if (lData.third.currency != null && lData.third.currency != "null" && lData.third.currency) {
@@ -137,10 +158,31 @@ function thirdPay(){
 				thirdPw = "";
 				//全积分
 				if (lData.orderInfo.cost == payNum) {
-					candyPrePayUrl = lData.getUrl+"prePay?v="+lData.version+"&way="+way+"&orderId="+lData.orderInfo.orderId+"&userId="+lData.userId+"&secret="+lData.orderInfo.secret+thirdPw;
+//					candyPrePayUrl = lData.getUrl+"prePay?v="+lData.srvVersion+"&way="+way+"&orderId="+lData.orderInfo.orderId+"&userId="+lData.userId+"&secret="+lData.orderInfo.secret+thirdPw;
+					candyPrePayUrl = lData.getUrl+"prePay?v="+lData.srvVersion+"&content="+encodeURIComponent(encryptByDES(JSON.stringify({
+						way: way,
+						orderId: lData.orderInfo.orderId,
+						userId: lData.userId,
+						secret: lData.orderInfo.secret,
+						points: 0,
+						hongbaoId: bonusId()
+					})))
 				//积分＋金币
 				}else{
-					candyPrePayUrl = lData.getUrl+"prePay?v="+lData.version+"&way="+way+"&orderId="+lData.orderInfo.orderId+"&userId="+lData.userId+"&secret="+lData.orderInfo.secret+"&points="+(lData.orderInfo.cost-payNum) +thirdPw;
+//					candyPrePayUrl = lData.getUrl+"prePay?v="+lData.srvVersion+"&way="+way+"&orderId="+lData.orderInfo.orderId+"&userId="+lData.userId+"&secret="+lData.orderInfo.secret+"&points="+(lData.orderInfo.cost-payNum) +thirdPw;
+					candyPrePayUrl = lData.getUrl+"prePay?v="+lData.srvVersion+"&content="+encodeURIComponent(encryptByDES(JSON.stringify({
+						way: way,
+//						orderId: lData.orderInfo.orderId,
+//						userId: lData.userId,
+//						secret: lData.orderInfo.secret,
+//						points: (lData.orderInfo.cost-payNum)
+						way: way,
+						orderId: lData.orderInfo.orderId,
+						userId: lData.userId,
+						secret: lData.orderInfo.secret,
+						points: $(".z_pay_gold").html(),
+						hongbaoId: bonusId()
+					})))
 				}
 				
 				integralPay(candyPrePayUrl);
@@ -171,7 +213,7 @@ function integralPay(prePayUrl){
 					$.router.load("pay-success.html")
 				}else{
 					if (thirdPayWayName != "积分" && /积分/.test(o.message)) {
-						$.alert(o.message.replace(/积分/,thirdPayWayName));
+						$.alert(o.message.replace(/积分/,thirdPayWayName+"余额"));
 					}else{
 						$.alert(o.message);
 					}
@@ -189,7 +231,7 @@ function integralPay(prePayUrl){
 
 //app内刷新按钮
 function thirdRefreshButton(){
-	if ($.whichPage("p-receipt") || $.whichPage("p-bindtel")) {
+	if ($.whichPage("p-receipt") || $.whichPage("p-bindtel") || $.whichPage("p-bonus")) {
 		return;
 	}
 	

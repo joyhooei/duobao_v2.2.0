@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>黄金夺宝</title>
+        <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="format-detection" content="email=no" />
+
+        <link rel="stylesheet" href="http://www.2333db.com/static/reset.css" />
+        <style>
+            body,html {width: 100%;height:100%;margin: 0;min-height: 24rem;line-height: 1;}
+            html {font-size: 20px;}
+            @media only screen and (max-width: 320px) and (max-height: 480px) {
+            	   .g-ft i {
+            	       margin-top: .4rem !important;
+            	   }
+            	   .g-ft button {
+            	       margin-top: .4rem !important;
+            	   }
+            }
+            
+            
+            .g-wrap {width: 100%;height: 100%;}
+            .g-hd {width: 100%;height: 75%;background: #ffda44;position: relative;text-align: center;display: inline-block;}
+            .g-hd img {width: 10.6rem;height: 18.8rem;max-height: 75%;position: absolute;bottom: 0;left: 50%;margin-left: -5.3rem;}
+            .g-hd .text {min-height: 13%;display: inline-block;padding: 8% 0 4%;}
+            .g-hd h1 {font-size: 1rem;}
+            .g-hd p {font-size: 1.2rem;font-weight: bold;margin-top: .9rem;margin-bottom: 8%;}
+            .g-ft {width: 100%;height: 25%;}
+            
+            .g-ft {display: inline-block;}
+            .g-ft i{display: block;width: 2.6rem;height: 2.6rem;background: url(image/logo.png) 0 0 no-repeat;background-size: contain;margin: .8rem auto .4rem;}
+            .g-ft {font-size: .7rem;text-align: center;}
+            .g-ft button {margin: .8rem auto 0;width: 6.5rem;height: 2rem;border: 0;background: #ffdc40;font-size: .7rem;border-radius: 5px;}
+            .g-ft button:active {background: #ffd000;}
+            .f-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 99;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,.8);
+            }
+            .u-arrow {
+    position: absolute;
+    top: .7rem;
+    right: 1rem;
+    width: 1.7rem;
+    height: 3.75rem;
+    background: url(image/arrowhead.png) 0 0 no-repeat;
+    background-size: 100% 100%;
+}
+.u-alert{
+    position: absolute;
+    left: 10%;
+    top: 8rem;
+    display: inline-block;
+    width: 80%;
+    height: 6rem;
+    font-size: .9rem;
+    background: #fff;
+    border-radius: .6rem;
+    text-align: center;
+    line-height: 1.6rem;
+}
+.alert-text {
+    margin-top: .55rem;
+}
+        </style>
+
+        <script type="text/javascript" src="http://www.2333db.com/static/jquery.min.js"></script>
+        <script>
+            var FZ = function(a, b) {
+                function getFZ() {
+                    var width = document.documentElement.clientWidth || document.body.clientWidth;
+                    var fontSize = (a / b) * width;
+                    return fontSize;
+                }
+                document.documentElement.style.fontSize = getFZ() + "px";
+                window.onresize = function() {
+                    setTimeout(function() {
+                        document.documentElement.style.fontSize = getFZ() + "px";
+                    }, 100);
+                }
+            }
+            FZ(20, 375);
+
+	var browser = {
+                versions : function() {
+                        var u = navigator.userAgent, app = navigator.appVersion;
+                        return {//移动终端浏览器版本信息
+                                trident : u.indexOf('Trident') > -1, //IE内核
+                                presto : u.indexOf('Presto') > -1, //opera内核
+                                webKit : u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                                gecko : u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                                mobile : !!u.match(/AppleWebKit.*Mobile.*/)
+                                                || !!u.match(/AppleWebKit/), //是否为移动终端
+                                ios : !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                                android : u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+                                iPhone : u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器
+                                iPad : u.indexOf('iPad') > -1, //是否iPad
+                                webApp : u.indexOf('Safari') == -1
+                        //是否web应该程序，没有头部与底部
+                        };
+                }(),
+                language : (navigator.browserLanguage || navigator.language)
+                                .toLowerCase()
+        }
+		
+	 function is_weixn() {
+                var ua = navigator.userAgent.toLowerCase();
+                if (ua.match(/MicroMessenger/i) == "micromessenger") {
+                        return true;
+                } else {
+                        return false;
+                }
+        }
+            $(function() {
+                document.body.addEventListener('touchstart', function () {})
+                
+                $(".g-ft button").click(function() {
+                    if (is_weixn()) {
+			    $(".f-overlay").show();
+                            $(".f-overlay").click(function() {
+                                $(this).hide();
+                            })
+                        
+                    } else {
+                        if (browser.versions.ios || browser.versions.iPhone
+                        || browser.versions.iPad) {
+                            alert('IOS版黄金夺宝暂未上线，敬请期待');
+                        } else {
+				window.location.href = "../down/hjdb_fenxiang.apk"; //安卓下载地址
+                        }
+                    }
+                })
+            })
+        </script>
+    </head>
+
+    <body>
+        <div class="g-wrap">
+            <div class="g-hd">
+                <div class="text">
+                    <h1>黄金夺宝</h1>
+                    <p>心仪宝贝1元夺</p>
+                </div>
+                <img src="image/phone.png" />
+            </div>
+            <div class="g-ft">
+                <i></i>
+                <p>实用宝贝随便挑</p>
+                <button>立即体验</button>
+            </div>
+
+            <div class="f-overlay">
+                <div class="u-arrow"></div>
+                <div class="u-alert">
+                    <div class="alert-text">点击右上角按钮
+                        <br />选择“在浏览器中打开”
+                        <br />前往黄金夺宝下载页面</div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>

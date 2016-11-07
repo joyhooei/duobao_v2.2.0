@@ -267,7 +267,7 @@ function upLoadImageToOwn(){
 	form.append("userId", lData.userId);
 	form.append("treasureId", $.getUrlParam("treasureId"));
 	form.append("shareContent", $("#textArea").val());
-	form.append("v",lData.version);
+	form.append("v",lData.srvVersion);
 	
 //	$.each(fileArr, function(i,n) {
 //		form.append("file", n);

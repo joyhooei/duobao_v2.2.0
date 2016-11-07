@@ -1,8 +1,9 @@
 $(function(){
 	try{
+		//服务器数据页数数组，0、1、2分别对应第1、2、3个tab
 		lData.indexTotalPage = [];
 		
-		
+		//弹出的红包活动事件
 		$(".alert-resiger-bonus .alert-close").click(function(){
 			$(".alert-resiger-bonus").hide();
 		});
@@ -13,44 +14,44 @@ $(function(){
 			}
 			$.router.load(alertRegisterUrl);
 		});
+		
+		//弹出的保存到桌面事件
 		$(".save-to-desktop").find(".icon-close").click(function() {
 			$(".save-to-desktop").hide();
 		});
 		
-		
-		
+		//tab是否处于fixed状态flag
 		window.indexFixedTabFlag = 0;
-//		if (!timerTextInfo) {
-			scrollInfo();		//滚动中奖信息
-//		}
-
+		
+		//调用首页信息滚动事件
+		scrollInfo();		//滚动中奖信息
+		
+		//调用加载banner事件
 		swiperBanner();
 		
+		//tab点击排序
+		tabClick();
 		
-		tabClick();		//tab点击排序
-		tabSelect(0,1);	//tab对应的请求数据
+		//tab对应的请求数据
+		tabSelect(0,1);
 		
-		dropRefresh("#p-index",indexRefresh);	//下拉刷新
+		//下拉刷新
+		dropRefresh("#p-index",indexRefresh);
 //		bottomLoadmore();	//上滑加载更多
 
-
+		//调用tab fixed相关事件
 		indexFixedTab();
 	}catch(e){
 		//TODO handle the exception
 	}
 })
 
-//a.sort(function(a,b){
-//          return a.a < b.a ? 1 : -1;
-//      });
-
-
+//判断tab是否处于fixed
+//相应修改了msui源码！！！
 function indexFixedTab(){
 	if (indexFixedTabFlag == 2) {
-//		if (window.sessionStorage.getItem("indexFiedTop")) {
-//			return;
-//		}
 		var indexOffset = 2* parseInt($("html").css("font-size"));
+		
 		$('.a-tab-list').fixedTab({offset:indexOffset});
 
 		window.sessionStorage.setItem("indexFiedTop",$("#p-index .pull-to-refresh-layer").height()+$("#p-index .swiper-container").height()+$("#scrollInfo").height());
@@ -63,8 +64,7 @@ function indexFixedTab(){
 	
 }
 
-
-
+//确定图片高度，防止图片加载失败，样式错误
 function cardHeight(){
 	var images = $("#p-index .index_model .card-header .card-cover");
 	console.log(images)
@@ -78,10 +78,13 @@ function cardHeight(){
 //中奖信息
 function scrollInfo(){
 	if ($("#scrollInfo").length == 0) {
-		$.get(lData.getUrl + "getLuckyInfo?v="+lData.version, function(o) {
+		$.get(lData.getUrl + "getLuckyInfo?v="+lData.srvVersion, function(o) {
 			console.log(o)
 			var scrolltextWidth = 0;
-			$("<div ontouchmove='javascript:event.preventDefault();' id='scrollInfo'><div class='scroll-image'></div><div class='scrolltestbar'><div class='scrolltext-box'></div></div</div>").insertAfter($("#p-index .swiper-container"));
+			$('<div style="width:100%;overflow-x:hidden;">'+
+				"<div ontouchmove='javascript:event.preventDefault();' id='scrollInfo'><div class='scroll-image'></div><div class='scrolltestbar'><div class='scrolltext-box'></div></div</div>"+
+			'</div>'
+			).insertAfter($("#p-index .swiper-container"));
 			$.each(o.notiInfoList, function(i) {
 				$("<div class='scrolltext' style='color:#b0b0b0;'>" +
 					"恭喜" +
@@ -96,20 +99,26 @@ function scrollInfo(){
 			$("#scrollInfo").width($(".scrolltext-box").width()-$("body").width());
 			
 			
+			
+			var timerTextInfo = null;
+			if (!!$.device.android && !timerTextInfo) {
+				$(".scrolltext-box").css("height","100%").removeClass("scrolltext-box").addClass("scrolltext-box2");;
+				var sl = 0;
+				if (timerTextInfo) {
+					clearInterval(timerTextInfo)
+				}
+				$("#scrollInfo").css("width","100%");
+				timerTextInfo = setInterval(function() {
+					sl += 1;
+					$(".scrolltestbar").scrollLeft(sl);
+					if ($(".scrolltestbar").scrollLeft() >= $(".scrolltext-box2").width() - $("body").width() - 5) {
+						sl = 0;
+					}
+				}, 20)
+			}
+			
+			
 			indexFixedTabFlag += 1;
-
-//			var sl = 0;
-//			if (timerTextInfo) {
-//				clearInterval(timerTextInfo)
-//			}
-//			timerTextInfo = setInterval(function() {
-//				sl += 1;
-//				$(".scrolltestbar").scrollLeft(sl);
-//				if ($(".scrolltestbar").scrollLeft() >= $(".scrolltext-box").width() - $("body").width() - 5) {
-//					sl = 0;
-//				}
-//			}, 20)
-
 		})
 	}else{
 		indexFixedTabFlag += 1;
@@ -153,7 +162,7 @@ function tabSelect(acIdx,curPage){
 	}
 	
 //	lData.indexTotalPage[acIdx] = 0;
-
+	//不同tab栏加载相应数据
 	$("#index-active-"+acIdx).find(".index_model").remove();
 	if (acIdx == 0) {
 		indexFillData(acIdx,curPage,2);
@@ -176,7 +185,8 @@ function indexFillData(acIdx,curPage,idx,callback){
 		data:{
 			"currentPage":curPage,
 			"order":idx,
-			v: lData.srvVersion
+			v: lData.srvVersion,
+			type: 1
 		},
 		async:true,
 		dataType:"json",
@@ -262,8 +272,6 @@ function appendData(ele,n){
 	)
 }
 
-
-
 //下拉刷新
 function indexRefresh(){
 	var acIdx = $(".a-tab-list").find(".active").index();
@@ -271,71 +279,16 @@ function indexRefresh(){
 	tabSelect(acIdx,1);
 	$(".i_load_more").html("加载更多&darr;");
 	window.sessionStorage.removeItem("indexLoadFinish");
-//	$.toast('刷新成功', 1000, 'toast-10');
 }
 
 
-//上滑加载更多
-//function bottomLoadmore(){
-//	var loadMoreFlag = false;
-//	$(document).on('infinite', '#p-index .infinite-scroll',function() {
-//		var acIdx = $(".a-tab-list").find(".active").index();
-//		
-//		if ($("#index-active-"+acIdx).height() < $("body").height()) {
-//			return;
-//		}
-//		
-//		
-//		if (clickNoLoadmore) {
-//			setTimeout(function(){clickNoLoadmore = 0;},500)
-//			return;
-//		}
-//		
-//		
-//		var indexCurrentPage = Math.ceil($("#index-active-"+acIdx).find(".index_model").length / 10);
-//		if (loadMoreFlag) {
-//			return;
-//		}
-//		
-//		if (indexCurrentPage >= lData.totalPage) {
-//			loadMoreFlag = true;
-//			if (lData.totalPage == 1) {
-//				return;
-//			}
-//			$.toast('没有更多数据', 1000, 'toast-80');
-//			$(".i_load_more").html("没有更多数据");
-//			setTimeout(function(){
-//				loadMoreFlag = false;
-//			},2000)
-//			return;
-//		}
-//		loadMoreFlag = true;
-//		$.showIndicator();
-//		
-//		setTimeout(function(){
-//			var acIdx = $(".a-tab-list").find(".active").index();
-//			var curPage = indexCurrentPage+1;
-//			if (acIdx == 0) {
-//				indexFillData(acIdx,curPage,2);
-//			}else if(acIdx == 1){
-//				indexFillData(acIdx,curPage,3);
-//			}else if(acIdx == 2){
-//				indexFillData(acIdx,curPage,1);
-//			}
-//			$.hideIndicator();
-//			$.toast('加载成功', 1000, 'toast-80');
-//			loadMoreFlag = false;
-//		},2000)
-//
-//	})
-//	
-//}
 
 if (window.sessionStorage.getItem("indexLoadFinish")) {
 	var indexLoadFinish = window.sessionStorage.getItem("indexLoadFinish").split(",");
 }else{
 	var indexLoadFinish = new Array(3);
 }
+
 //上拉加载更多
 function indexBottomLoadmore(){
 	$(document).off('infinite', '#p-index .infinite-scroll');
@@ -386,7 +339,9 @@ function indexBottomLoadmore(){
 					$.hideIndicator();
 					$.toast('没有更多数据', 1000, 'toast-80');
 					$(".i_load_more").html("没有更多数据");
-					loadMoreFlag = false;
+					setTimeout(function(){
+						loadMoreFlag = false;
+					},500);
 					indexLoadFinish[acIdx] = 1;
 				},200)
 				return;
@@ -396,7 +351,9 @@ function indexBottomLoadmore(){
 				setTimeout(function(){
 					$.hideIndicator();
 					$.toast('加载成功', 1000, 'toast-80');
-					loadMoreFlag = false;
+					setTimeout(function(){
+						loadMoreFlag = false;
+					},500);
 				},100)
 			}
 			
@@ -462,13 +419,32 @@ function swiperBanner(){
 }
 
 
+
+//banner点击跳转
+function bannerClickFuc(bannerUrl){
+	if (!!/extract/.test(bannerUrl)) {
+		if (!lData.userId) {
+			$.alert("请先登陆",function(){
+				$.router.load("personal.html");
+			});
+			return;
+		}
+	}
+	$.router.load(bannerUrl);
+}
+
+
+//banner图
 function fillBanner(bannerInfo){
 //	$.each(bannerInfo, function(i,n) {
 //		$("#p-index .swiper-container .swiper-wrapper").append(
 //			'<div class="swiper-slide"><img src="'+n.webImage+'" alt=""></div>'
 //		);
 //	});
-
+	
+	var extractUrl = (!!lData.calcTestUrl) ? "extract.html?test=1&userId="+lData.userId+"&userKey="+window.localStorage.getItem("userKey")+"&from=web" : "extract.html?userId="+lData.userId+"&userKey="+window.localStorage.getItem("userKey")+"&from=web";
+	
+	//banner数据 数组
 	var bannerInfoLocal = [{
 //		bannerUrl: "http://www.2333db.com/activity/act-register.html?backurl="+lData.bannerBackUrl,
 		bannerUrl: "iframe.html?url=http://www.2333db.com/activity/act-register.html?backurl="+lData.bannerBackUrl,
@@ -477,25 +453,33 @@ function fillBanner(bannerInfo){
 //		bannerUrl: "http://www.2333db.com/activity/act-recharge.html?backurl="+lData.bannerBackUrl,
 		bannerUrl: "iframe.html?url=http://www.2333db.com/activity/act-recharge.html?backurl="+lData.bannerBackUrlRecharge,
 		webImage: "img/banner-recharge.jpg"
+	},{
+		bannerUrl: "iframe.html?url=http://www.2333db.com/html/"+extractUrl,
+		webImage: "img/banner-card.jpg"
 	}]
 	
+	//若本地测试加载相应本地数据
 	if (/127.0.0.1/.test(window.location.href)) {
-		bannerInfoLocal[0].bannerUrl = "iframe.html?url=http://127.0.0.1:8020/duobao_v2.1.0/other/src/act-register.html?backurl=http://127.0.0.1:8020/duobao_v2.1.0/src/register.html";
-		bannerInfoLocal[1].bannerUrl = "iframe.html?url=http://127.0.0.1:8020/duobao_v2.1.0/other/src/act-recharge.html?backurl=http://127.0.0.1:8020/duobao_v2.1.0/src/personal.html";
+		bannerInfoLocal[0].bannerUrl = "iframe.html?url=http://127.0.0.1:8020/duobao_v"+lData.version+"/other/src/act-register.html?backurl=http://127.0.0.1:8020/duobao_v"+lData.version+"/src/register.html";
+		bannerInfoLocal[1].bannerUrl = "iframe.html?url=http://127.0.0.1:8020/duobao_v"+lData.version+"/other/src/act-recharge.html?backurl=http://127.0.0.1:8020/duobao_v"+lData.version+"/src/personal.html";
+		bannerInfoLocal[2].bannerUrl = "iframe.html?url=http://127.0.0.1:8020/duobao_v"+lData.version+"/other/html/"+extractUrl;
 	}
 	
+	//填充banner数据数组到相应banner
 	$.each(bannerInfoLocal, function(i,n) {
 		$("#p-index .swiper-container .swiper-wrapper").append(
 			'<div class="swiper-slide">'+
-				'<a onclick="javascript:$.router.load(\''+n.bannerUrl+'\');">'+
+				'<a onclick="bannerClickFuc(\''+n.bannerUrl+'\')">'+
 					'<img src="'+n.webImage+'" alt="">'+
 				'</a>'+
 			'</div>'
 		);
 	});
 	
+	//加载msui-extend的js、css
 	_getScript("libs/msui-extend.min.js",function(){
 		_getCss("libs/msui-extend.min.css",function(){
+			//调用msui中swiper
 			$(".swiper-container").swiper({
 				pagination: '.swiper-pagination',
 				slidesPerView: 1,

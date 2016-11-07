@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="format-detection" content="telephone=no"/>
+        <meta name="format-detection" content="email=no"/>
+        
+        <link rel="stylesheet" href="http://www.2333db.com/static/reset.css" />
+        <link rel="stylesheet" href="css/share.css" />
+        
+        <script>
+            var FZ = function(a,b){
+                function getFZ() {
+                    var width = document.documentElement.clientWidth || document.body.clientWidth;
+                    var fontSize = (a / b) * width;
+                    return fontSize;
+                }
+                document.documentElement.style.fontSize = getFZ() + "px";
+                window.onresize = function() {
+                    setTimeout(function() {
+                        document.documentElement.style.fontSize = getFZ() + "px";
+                    }, 100);
+                }
+            }
+            FZ(20,360);
+        </script>
+    </head>
+    <body>
+        <div class="g-wrapper">
+            <div class="g-hd">
+                <i></i>
+                <div class="u-lf">
+                    <h1>黄金夺宝</h1>
+                    <p>1元夺iPhone,1元夺iPad</p>
+                </div>
+                <button id="down-btn">去拼手气</button>
+            </div>
+            
+            <div class="g-ft-wrap">
+                <div class="g-ft-scroll">
+                    <div class="g-ft">
+                        <img src="img/shouji.png" />
+                        <!--<h2>黄金夺宝</h2>
+                        <p>心仪宝贝1元夺</p>-->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="f-overlay">
+                <div class="u-arrow"></div>
+                <div class="u-alert">
+                    <div class="alert-text">点击右上角按钮<br />选择“在浏览器中打开”<br />前往黄金夺宝下载页面</div>
+                </div>
+            </div>
+        </div>
+        
+        <script type="text/javascript" src="http://www.2333db.com/static/jquery.min.js" ></script>
+        <script>
+        		var marTop = $(window).height()-$(".g-ft").find("img").height()-$(".g-hd").height();
+        		$(".g-ft").find("img").animate({
+        			"margin-top":parseInt(marTop)*.77
+        		})
+//      		$(".g-ft").find("img").css("margin-top",parseInt(marTop)*.77+"px")
+        
+            var browser = { //设备判断
+                ua : navigator.userAgent.toLowerCase(),
+                isAndroid: function() {
+                    return (/android/.test(browser.ua)) ? true : false;
+                },
+                isIos: function() {
+                    return (/iphone/.test(browser.ua)) ? true : false;
+                },
+                isWX: function() {
+                    return (/micromessenger/.test(browser.ua)) ? true : false;
+                },
+            }
+            $(function() {
+                document.body.addEventListener('touchstart', function () {})
+                
+                $("#down-btn").click(function() {
+                    if (browser.isAndroid()) {
+                       // window.location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.doumob.treasure"; //安卓下载地址
+			window.location.href = "http://alicdn.2333db.com/apk/hjdb2.0.1_344715.apk"; //安卓下载地址
+                    } else if (browser.isIos()) {
+                    		 //微信内
+	                    if (browser.isWX()) {
+	                        $(".f-overlay").show();
+	                        $(".f-overlay").click(function() {
+	                            $(this).hide();
+	                        })
+	                    }else{
+                       	 window.location.href = "http://itunes.apple.com/us/app/huang-jin-duo-bao/id1144036041?l=zh&ls=1&mt=8"; //苹果下载地址
+                       }
+                    }
+                })
+            })
+        </script>
+    </body>
+</html>

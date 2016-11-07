@@ -1,7 +1,19 @@
 $(function(){
+	if (!window.sessionStorage.getItem("forceLinkToDetail")) {
+		window.sessionStorage.setItem("forceLinkToDetail",1);
+	}
+	
 	if (/幸运码/.test($(".popup").html())) {
 		$.closeModal(".popup");
 	}
+	
+	$("#p-duobao .duobao-back").on("click",function(){
+		if (sessionStorage.getItem("sm.router.maxStateId") <= 1) {
+			$.router.load("index.html");
+		}else{
+			$.router.back();
+		}
+	});
 	
 	window.pageVisible = 0;
 //	pageVisibility.visibilitychange(function(){
@@ -79,6 +91,8 @@ function getDetail(treasureId,type){
 			}else{
 				$.alert(o.message);
 			}
+			
+			$.hideIndicator();
 		}
 	});
 }
@@ -171,10 +185,13 @@ function timeCutDown(time){
 		var currentTime = min+":"+sec+":"+milsec;
 		$(".timeCutDown").html(currentTime);
 		
-		if (time <= 0) {
+		if (time <= .5) {
+			$(".timeCutDown").html("获取结果中……");
 			clearInterval(CutDownTimer);
 			var treasureId = $.getUrlParam("treasureId");
-			getDetail(treasureId);
+			setTimeout(function(){
+				getDetail(treasureId);
+			},1000)
 			window.sessionStorage.setItem("recordForceRefresh","0&1&2");
 			window.sessionStorage.setItem("prizeForceRefresh","1");
 			setTimeout(function(){
@@ -186,7 +203,7 @@ function timeCutDown(time){
 
 //跳转计算详情
 function linkToCalc(treasureId,goodstype){
-	if (goodstype == 2) {
+	if (goodstype == 2 || goodstype == 201 || goodstype == 202 || goodstype == 203) {
 		$.router.load("calc.html?treasureId="+treasureId+"&goodtype=2");
 	}else{
 		$.router.load("calc.html?treasureId="+treasureId);
@@ -326,6 +343,9 @@ function dbBuyButton(fewestCount,leftCount,treasureId){
 			dbSaveOrder(iptNum,treasureId);
 		}
 	}
+	setTimeout(function(){
+		$.hideIndicator();
+	},100);
 }
 
 

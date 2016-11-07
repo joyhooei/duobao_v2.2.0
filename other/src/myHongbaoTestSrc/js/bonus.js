@@ -45,7 +45,6 @@ function bonusFillData(){
 					
 					var endTime = function(endTime){
 						var time = new Date(endTime);
-						console.log(time)
 						var year = time.getFullYear();
 						var month = time.getMonth()+1 < 10 ? '0'+(time.getMonth()+1) : (time.getMonth()+1);
 						var day = time.getDate() < 10 ? '0'+time.getDate():time.getDate();

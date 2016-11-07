@@ -1,0 +1,1 @@
+function version(){$(".version_page .v-text").html("黄金夺宝 v"+lData.version)}$(function(){try{version()}catch(n){}});

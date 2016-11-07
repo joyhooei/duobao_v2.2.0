@@ -1,0 +1,1 @@
+function calc(a,c){var t=lData.calcTestUrl;2==c?$("#calc-iframe").attr("src","http://www.2333db.com/calc-second/index.html?treasureId="+a+t):$("#calc-iframe").attr("src","http://www.2333db.com/calc/index.html?treasureId="+a+t)}$(function(){try{var a=$.getUrlParam("treasureId"),c=$.getUrlParam("goodtype");calc(a,c)}catch(a){}});

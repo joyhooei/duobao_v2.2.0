@@ -57,9 +57,9 @@ $("#rechargeBtn").on("click",function(){
 	}else{
 		var ua = navigator.userAgent.toLowerCase();
 		if (/iphone/.test(ua)) {
-			window.location.href = "hongbaoRecharge://";
+			window.location.href = "hongbaorecharge://";
 		}else if (/android/.test(ua)){
-			window.sbandroid.sb();
+			callRegister.callRechargeActivity();
 		}else{
 			window.location.href = "http://www.2333db.com/share/download.html";
 		}

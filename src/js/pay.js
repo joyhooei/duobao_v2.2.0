@@ -75,47 +75,6 @@ function payFillData(){
 		$(".z_pay_bonus").html(lData.canUseBonus.disCount);
 		var bonusUsedNum = lData.canUseBonus.disCount;
 		
-//		$(".p-bonus-ipt-icon").click(function(){
-//			if ($(".p-bonus-ipt").is(":checked")) {
-//				$(".p-bonus-ipt").prop("checked",false);
-//				$(".p_checkbox").find(".icon-form-checkbox").removeClass("cannotCheckBG");
-//				$(".p_checkbox").find(".item-inner").removeClass("cannotCheckC");
-//				$(".p_checkbox").find("input").removeAttr("disabled");
-//				$(".p-bonus-ipt").removeAttr("name");
-//				bonusUsedNum = 0;
-//			}else{
-//				$(".p-bonus-ipt").prop("checked",true);
-//				$(".p-bonus-ipt").attr("name",lData.canUseBonus.userHongbaoId);
-//				
-//				bonusUsedNum = lData.canUseBonus.disCount;
-//				if (leftPayNum == 0) {
-//					$(".p_checkbox").find(".icon-form-checkbox").addClass("cannotCheckBG");
-//					$(".p_checkbox").find(".item-inner").addClass("cannotCheckC");
-//					$(".p_checkbox").find("input").attr("disabled","disabled");
-//				}
-//			}
-//			$(".z_pay_bonus").html(bonusUsedNum);
-//			
-//			var cost = lData.orderInfo.cost - bonusUsedNum;
-//			
-//			if ($(".p-gold-ipt").is(":checked")) {
-//				var havePoint = lData.userInfo.detailInfo.points;
-//				var goldUsed = havePoint >= cost? cost : havePoint;
-//				$(".z_pay_money").html(lData.orderInfo.cost);
-//				$(".z_pay_gold").html(goldUsed);
-//				$(".z_pay_money_left").html(cost-goldUsed);
-//				leftPayNum = cost-goldUsed;
-//			}else{
-//				var havePoint = lData.userInfo.detailInfo.points;
-//				var goldUsed = 0;
-//				$(".z_pay_money").html(lData.orderInfo.cost);
-//				$(".z_pay_gold").html(goldUsed);
-//				$(".z_pay_money_left").html(cost-goldUsed);
-//				leftPayNum = cost-goldUsed;
-//			}
-//			
-//			return false;
-//		});
 	}else{
 		bonusUsedNum = 0;
 		lData.bonusUseCheckboxOld = $(".bonus-right-box").html();
@@ -137,8 +96,15 @@ function payFillData(){
 	}
 	
 	$(".z_pay_money").html(lData.orderInfo.cost);
+	if (goldUsed < 0) {
+		goldUsed = 0;
+	}
 	$(".z_pay_gold").html(goldUsed);
-	$(".z_pay_money_left").html(cost-goldUsed);
+	var moneyLEFT = cost-goldUsed;
+	if (moneyLEFT < 0 ) {
+		moneyLEFT = 0;
+	}
+	$(".z_pay_money_left").html(moneyLEFT);
 	
 	if (cost-goldUsed == 0) {
 		$(".p_checkbox").find(".icon-form-checkbox").addClass("cannotCheckBG");
@@ -180,7 +146,13 @@ function payFillData(){
 				$(".p_checkbox").find("input").attr("disabled","disabled");
 			}
 		}
+		if (goldUsedNum < 0) {
+			goldUsedNum = 0;
+		}
 		$(".z_pay_gold").html(goldUsedNum);
+		if (leftPayNum < 0) {
+			leftPayNum = 0;
+		}
 		$(".z_pay_money_left").html(leftPayNum);
 		return false;
 	});
@@ -213,22 +185,21 @@ function prePay(payNum,bonusMoneyNum){
 	//全金币
 	if (payNum == 0) {
 		way = 10;
+		var pointUse = lData.orderInfo.cost-bonusMoneyNum;
+		if (pointUse< 0) {
+			pointUse = 0;
+		}
 		$.ajax({
 			type:"post",
 			url:lData.getUrl+"prePay",
 			data:{
-//				v: "2.0.0",
-//				way : way,
-//				orderId : lData.orderInfo.orderId,
-//				userId : lData.userId,
-
 				v: lData.srvVersion,
 				content: encryptByDES(JSON.stringify({
 					way : way,
 					orderId : lData.orderInfo.orderId,
 					userId : lData.userId,
 					secret: lData.orderInfo.secret,
-					points: lData.orderInfo.cost-bonusMoneyNum,
+					points: pointUse,
 					channelId: lData.channel,
 					hongbaoId: bonusId()
 				}))
@@ -256,8 +227,8 @@ function prePay(payNum,bonusMoneyNum){
 			var callbackUrl = "&goodsDetailUrl="+emptyPage+"&paySuccessUrl="+emptyPage;
 			//全支付宝
 			if (lData.orderInfo.cost == parseInt(payNum) + parseInt(bonusMoneyNum)) {
-//				var zfbPrePayUrl = lData.getUrl+"prePay?v="+lData.version+"&way="+way+"&orderId="+lData.orderInfo.orderId+"&userId="+lData.userId  +callbackUrl;
-				var zfbPrePayUrl = lData.getUrl+"prePay?v="+lData.version+"&content="+ encodeURIComponent(encryptByDES(JSON.stringify({
+//				var zfbPrePayUrl = lData.getUrl+"prePay?v="+lData.srvVersion+"&way="+way+"&orderId="+lData.orderInfo.orderId+"&userId="+lData.userId  +callbackUrl;
+				var zfbPrePayUrl = lData.getUrl+"prePay?v="+lData.srvVersion+"&content="+ encodeURIComponent(encryptByDES(JSON.stringify({
 					way: way,
 					orderId: lData.orderInfo.orderId,
 					userId: lData.userId,
@@ -274,8 +245,8 @@ function prePay(payNum,bonusMoneyNum){
 				}
 			//支付宝＋金币
 			}else{
-//				var zfbPointPrePayUrl = lData.getUrl+"prePay?v="+lData.version+"&way="+way+"&orderId="+lData.orderInfo.orderId+"&userId="+lData.userId+"&points="+payNum +callbackUrl;
-				var zfbPointPrePayUrl = lData.getUrl+"prePay?v="+lData.version+"&content="+encodeURIComponent(encryptByDES(JSON.stringify({
+//				var zfbPointPrePayUrl = lData.getUrl+"prePay?v="+lData.srvVersion+"&way="+way+"&orderId="+lData.orderInfo.orderId+"&userId="+lData.userId+"&points="+payNum +callbackUrl;
+				var zfbPointPrePayUrl = lData.getUrl+"prePay?v="+lData.srvVersion+"&content="+encodeURIComponent(encryptByDES(JSON.stringify({
 					way: way,
 					orderId: lData.orderInfo.orderId,
 					userId: lData.userId,

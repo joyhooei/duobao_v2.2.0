@@ -105,7 +105,8 @@ function bindTelBind(tel){
 //			telephone : tel,
 			v: lData.srvVersion,
 			content: encryptByDES(JSON.stringify({
-				userId : lData.userId,
+//				userId : lData.userId,
+				userKey: window.localStorage.getItem("userKey"),
 				telephone : tel
 			}))
 		},

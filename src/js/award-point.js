@@ -222,11 +222,17 @@ function awardChoose(){
 			url:lData.getUrl+"changePrizeStatus",
 			data:{
 //				userId : lData.userId,
-				userKey: window.localStorage.getItem("userKey"),
-				treasureId : treasureId,
-				status : 2,
-				addressId : lData.awardAddId,
-				v: lData.srvVersion
+//				userKey: window.localStorage.getItem("userKey"),
+//				treasureId : treasureId,
+//				status : 2,
+//				addressId : lData.awardAddId,
+				v: lData.srvVersion,
+				content:encryptByDES(JSON.stringify({
+					userKey: window.localStorage.getItem("userKey"),
+					treasureId : treasureId,
+					status : 2,
+					addressId : lData.awardAddId
+				}))
 			},
 			async:true,
 			dataType:"json",
@@ -605,10 +611,15 @@ function awardConfirmGetBtn(that){
 				url:lData.getUrl+"changePrizeStatus",
 				data:{
 //					userId : lData.userId,
-					userKey: window.localStorage.getItem("userKey"),
-					treasureId : treasureId,
-					status : 1,
-					v: lData.srvVersion
+//					userKey: window.localStorage.getItem("userKey"),
+//					treasureId : treasureId,
+//					status : 1,
+					v: lData.srvVersion,
+					content:encryptByDES(JSON.stringify({
+						userKey: window.localStorage.getItem("userKey"),
+						treasureId : treasureId,
+						status : 1
+					}))
 				},
 				async:true,
 				dataType:"json",

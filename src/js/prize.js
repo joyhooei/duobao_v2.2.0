@@ -1,6 +1,10 @@
 $(function(){
 	
 	try{
+		window.sessionStorage.removeItem("awardCardRadioCardFinish");
+		window.sessionStorage.removeItem("awardCardRadioGoldFinish");
+		window.sessionStorage.removeItem("awardCardJdFinish");
+		
 		
 		if (window.sessionStorage.getItem("prizeForceRefresh") == null && $("#p-prize").find(".z_my_prize_model").length > 0) {
 			return;
@@ -41,7 +45,7 @@ function prizeGetData(curPage,callback){
 			console.log(o);
 			
 			if (o.stateCode == 0){
-				if (o.prizeList.length == 0) {
+				if (o.prizeList.length == 0 && o.currentPage == 1) {
 					noPrize();
 				}else{
 					if ($("#p-prize").find(".z_not_record").length > 0) {
@@ -95,8 +99,8 @@ function prizeBackhome(){
 function havePrize(o){
 	$.each(o.prizeList, function(i,n) {
 		$("#p-prize").find(".content").append(
-//			'<div onclick="prizeToDuobaoOld('+n.treasureId+');" class="card z_my_prize_model">'+
-			'<div onclick="prizeAward('+i+',this,'+n.goodstype+','+n.treasureId+');" class="card z_my_prize_model">'+
+			'<div onclick="prizeToDuobaoOld('+n.treasureId+');" class="card z_my_prize_model">'+
+//			'<div onclick="prizeAward('+i+',this,'+n.goodstype+','+n.treasureId+');" class="card z_my_prize_model">'+
 				'<div class="card-content">'+
 					'<div class="list-block media-list">'+
 						'<ul>'+
@@ -123,7 +127,8 @@ function havePrize(o){
 				'<div class="card-footer">'+
 					'<span></span>'+
 					'<span>'+
-						'<span onclick="shareButton(\''+n.treasureId+'\',\''+n.hasdone+'\',\''+n.shared+'\',\''+n.description+'\','+n.goodstype+');" class="btn btn1 '+hasdoneClass(n.hasdone,n.goodstype,n.shared)+'">'+hasdoneText(n.hasdone,n.goodstype,n.shared)+'</span>'+
+						'<span onclick="prizeAward('+i+',this,'+n.goodstype+','+n.treasureId+');" class="btn btn1 '+hasdoneClass(n.hasdone,n.goodstype,n.shared)+'">'+hasdoneText(n.hasdone,n.goodstype,n.shared)+'</span>'+
+//						'<span onclick="shareButton(\''+n.treasureId+'\',\''+n.hasdone+'\',\''+n.shared+'\',\''+n.description+'\','+n.goodstype+');" class="btn btn1 '+hasdoneClass(n.hasdone,n.goodstype,n.shared)+'">'+hasdoneText(n.hasdone,n.goodstype,n.shared)+'</span>'+
 //						'<span onclick="prizeShare();" class="btn btn2">分享</span>'+
 					'</span>'+
 				'</div>'+
@@ -155,8 +160,8 @@ function prizeToLotteryDetail(treasureId,name,phase,time,lucky,count){
 
 //领奖按钮文字
 function hasdoneText(hasdone,goodstype,shared){
-	if (goodstype == 2) {
-		return "奖品详情";
+	if (goodstype == 2 || goodstype == 202 || goodstype == 203) {
+			return "奖品详情";
 	}else{
 		//领奖流程
 		if (hasdone == 0) {
@@ -190,7 +195,8 @@ function hasdoneText(hasdone,goodstype,shared){
 //领奖文字样式
 function hasdoneClass(hasdone,goodstype,shared){
 	//领奖
-	if (hasdone == 2 || (hasdone == 1 && shared != 0)) {
+//	if (hasdone == 2 || (hasdone == 1 && shared != 0) || (hasdone == 1 && (goodstype ==201 || goodstype == 202 || goodstype == 203))) {
+	if (hasdone == 2 || (hasdone == 1 && shared != 0) ) {
 		return "btn3";
 	}else{
 		return "";
@@ -198,7 +204,7 @@ function hasdoneClass(hasdone,goodstype,shared){
 }
 
 //领奖流程
-function prizeAward(i,that,type,treasureId){
+function prizeAward(i,that,goodstype,treasureId){
 	event.stopPropagation();
 //	if (hasdone != 1) {
 		//领奖
@@ -211,13 +217,15 @@ function prizeAward(i,that,type,treasureId){
 	//		return;
 	//	}
 		
-		var idx = Math.ceil($(that).index()/10);
+		var idx = Math.ceil($(that).parents(".z_my_prize_model").index()/10);
 		var prizeArrObj = $.parseJSON(window.sessionStorage.getItem("prize"+idx));
 		window.sessionStorage.setItem("prizeInfo",JSON.stringify(prizeArrObj.prizeList[i]))
 		window.sessionStorage.setItem("prizeAddress",JSON.stringify(prizeArrObj.userAddressList))
 		
-		if (type == 2) {
+		if (goodstype == 2) {
 			$.router.load("award-point.html");
+		}else if(goodstype == 202 || goodstype == 203){
+			$.router.load("award-card.html",true);
 		}else{
 			$.router.load("award.html");
 		}

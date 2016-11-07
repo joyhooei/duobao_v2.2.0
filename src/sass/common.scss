@@ -53,7 +53,8 @@ $iconColor: yellow;  //底部导航栏背景图
     .card-header .card-cover {
         border-radius: .3rem !important;
     }
-    #p-index .card-header .card-cover {
+    #p-index .card-header .card-cover,
+    #p-chest .card-header .card-cover, {
         height: 5.964rem;
     }
     /*头部ffda44  ffa800*/
@@ -2573,9 +2574,9 @@ $iconColor: yellow;  //底部导航栏背景图
         width: 1rem;
         height: 1rem;
         line-height: 1rem;
-        border: 1px solid #5d5d5d;
+        border: 1px solid $colorButtonText;
         border-radius: 100%;
-        color: #5d5d5d;
+        color: $colorButtonText;
         text-align: center;
     }
     
@@ -2736,6 +2737,206 @@ $iconColor: yellow;  //底部导航栏背景图
     top: 0;
     padding-bottom: .6rem;
 }
+
+#p-bonus-help {
+    .back {
+        color: $colorButtonText;
+    }
+}
+
+#p-award-card { 
+    .content {
+        top: 0;
+        padding-bottom: .6rem;
+        overflow-x: hidden;
+    }
+    
+    .j-card-exchange-box {
+        display: block;
+        
+        .item-inner {
+            padding-right: 0;
+            display: block;
+            min-height: initial;
+            padding-bottom: .2rem;
+            
+            .item-title {
+                margin-top: -.65rem;
+            }
+        }
+    }
+    
+    .j-card-exchange-time {
+        position: absolute;
+        right: 1.5rem;
+        top: 0;
+        color: #b0b0b0;
+    }
+    
+    .j-card-exchange-way {
+        display: block;
+//      padding: .3rem .8rem;
+//      width: 16.2rem;
+        max-height: initial;
+//      background-color: #e8e8e8;
+//      border: 1px solid #c6c6c6;
+//      
+        ul , .award-card-choose-finish {
+            padding-top: .2rem;
+            padding-bottom: .2rem;
+            width: 16.2rem;
+            padding-left: 0;
+            background-color: #e8e8e8;
+            border: 1px solid #c6c6c6;
+            
+            li {
+                width: 100%;
+            }
+        }
+        
+        .item-media {
+            width: .9rem;
+            position: absolute;
+        }
+        
+        .item-inner {
+            height: 1.75rem;
+            min-height: 1.75rem;
+        }
+        .item-text {
+            font-size: .75rem;
+            line-height: 1rem;
+            height: 1rem;
+            min-height: 1rem;
+        }
+
+        .icon {
+            position: relative;
+            left: 0;
+            top: 0;
+            width: .9rem;
+            height: .9rem;
+        }
+
+        label {
+            display: inline-block;
+            width: 100%;
+            min-height: 1.65rem;
+            height: 1.65rem;
+            line-height: 1.65rem;
+            
+            span {
+                padding-left: 1.3rem;
+                display: inline-block;
+                width: 100%;
+                color: #595959;
+                font-size: .75rem;
+            }
+        }
+        
+        
+        .award-card-choose-finish {
+            margin-bottom: .5rem;
+            padding: .5rem .75rem;
+            color: #595959;
+            font-size: .75rem;
+        }
+    }
+    
+    .award-card-button-box {
+        display: block;
+        padding-top: .8rem;
+        padding-bottom: .5rem;
+        width: 100%;
+        
+        .award-card-btn {
+            float: right;
+            margin-right: 1.6rem;
+            width: 3rem;
+            height: 1.2rem;
+            color: #fff;
+            background-color: #d83956;
+            font-size: .75rem;
+            line-height: 1.25rem;
+            text-align: center;
+            border-radius: .3rem;
+        }
+    }
+    
+    
+    
+    .j-card-finish-box {
+        display: block;
+        max-height: initial;
+        
+        .item-inner {
+            position: relative;
+            display: block;
+            min-height: initial;
+            padding-right: 0;
+            
+            .item-title {
+                margin-top: -.6rem;
+            }
+        }
+        
+        
+        .j-card-finish {
+            display: block;
+            max-height: initial;
+        }
+        
+        .j-card-finish-1-info {
+            font-size: .75rem;
+            color: #595959;
+            
+            .j-card-finish-1-btn {
+                float: right;
+                margin-right: 1.15rem;
+                padding: .2rem .35rem;
+                color: #359df5;
+            }
+        }
+        
+        .j-card-finish-all {
+            margin-top: .3rem;
+            margin-bottom: .5rem;
+            padding-top: .5rem;
+            padding-bottom: .5rem;
+            width: 16.2rem;
+            padding-left: .75rem;
+            background-color: #e8e8e8;
+            border: 1px solid #c6c6c6;
+            color: #595959;
+            font-size: .75rem;
+        }
+        
+        .j-card-finish-2 {
+            margin-top: .3rem;
+        }
+        
+        .j-card-finish-time {
+            position: absolute;
+            right: 1.5rem;
+            top: -.25rem;
+            color: #b0b0b0;
+        }
+        
+    }
+    
+    .award-card-jd-ipt {
+        padding-left: .5rem;
+        padding-right: .5rem;
+        width: 16.1rem;
+        border: 1px solid #b0b0b0;
+    }
+}
+
+.p-award .status-info-list .active .icon-form-checkbox {
+    background-color: initial;
+}
+
+
 
 
 /*ios隐藏上下栏*/

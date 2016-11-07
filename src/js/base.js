@@ -15,6 +15,26 @@ var FZ = function(a, b) {
 
 FZ(20, 375);
 
+//判断是否支持storage
+var storageTest = function(storage){
+    if(!!storage){
+        try {
+            storage.setItem("key", "value");
+            storage.removeItem("key");
+            return true;
+        } catch(e){
+            return false;
+        }
+    }else{
+        return false;
+    }
+}
+
+//判断iphone是否是无痕浏览模式
+if (!storageTest(window.localStorage)){
+	$.alert("请关闭Safari的无痕浏览模式");
+}
+
 
 //获取文件名中的参数
 $.getUrlParam = function(name) {
@@ -24,7 +44,7 @@ $.getUrlParam = function(name) {
 	return null;
 };
 
-
+//cookie操作
 var cookie = {
 	setCookie: function(name, value, time) {
 		var strsec = cookie.getsec(time);
@@ -69,7 +89,7 @@ var cookie = {
 	}
 };
 
-
+//带clear参数，清除所有本地数据及登录信息
 if ($.getUrlParam("clear") == 1) {
 	window.localStorage.clear();
 	window.sessionStorage.clear();
@@ -134,7 +154,7 @@ var pageVisibility = (function() {
 	};
 })(undefined);
 
-//判断浏览器类别
+//判断浏览器类型
 var browser = {
 	ua: navigator.userAgent.toLowerCase(),
 	isAndroid: function() {
@@ -205,24 +225,10 @@ function _getCss(href,callback){
 }
 
 
-//判断是否支持storage
-var storageTest = function(storage){
-    if(!!storage){
-        try {
-            storage.setItem("key", "value");
-            storage.removeItem("key");
-            return true;
-        } catch(e){
-            return false;
-        }
-    }else{
-        return false;
-    }
-}
-
-//判断当前页面
+//判断当前页面 page的 id   （主页 p-index）
 $.whichPage = function(page) {
 	return $("#"+page).length>0?true:false; 
+	//根据url判断页面
 //	var reg = new RegExp(page);
 //	var r = reg.test(window.location.href);
 //	return r;
@@ -230,6 +236,7 @@ $.whichPage = function(page) {
 
 //下拉刷新函数
 function dropRefresh(ele,callback){
+	//先解绑，防止重复调用
 	$(document).off('refresh', ele+' .pull-to-refresh-content');
 	
 	$(document).on('refresh', ele+' .pull-to-refresh-content', function(e) {
@@ -280,6 +287,7 @@ var baseFuc = {
 		}
 	},
 	
+	//右滑返回
 	swipe : function(){
 		_getJs("libs/touch.js",function(){
 			touch.on('.content', 'swiperight', function(ev) {
@@ -294,24 +302,6 @@ var baseFuc = {
 
 }
 
-//function getOpenId() {
-//	if ($.getUrlParam("access_token") != null && window.sessionStorage.getItem("openId") == null) {
-//		$.ajax({
-//			type: "get",
-//			url: "https://graph.qq.com/oauth2.0/me",
-//			data: {
-//				"access_token": $.getUrlParam("access_token")
-//			},
-//			dataType: 'jsonp',
-//			async: false,
-//			callback: function(o) {
-//				console.log(o);
-//			}
-//		});
-//	} else if ($.getUrlParam("access_token") != null && window.sessionStorage.getItem("openId") != null) {
-//		QCsaveAuth(window.sessionStorage.getItem("openId"), window.sessionStorage.getItem("nickName"))
-//	}
-//}
 
 //强制注销
 function forceSignOut(){
@@ -322,19 +312,18 @@ function forceSignOut(){
 
 	lData.userId = "";
 	
-//		var smcurrentState = window.sessionStorage.getItem("sm.router.currentState");
-//		var smmaxStateId = window.sessionStorage.getItem("sm.router.maxStateId");
 	var channel = window.sessionStorage.getItem("channel");
 	var skin = window.sessionStorage.getItem("skin");
 	
 	window.localStorage.clear();
 	window.sessionStorage.clear();
-//		window.sessionStorage.setItem("sm.router.currentState",smcurrentState);
-//		window.sessionStorage.setItem("sm.router.maxStateId",smmaxStateId);
+	
+	//保留channel、skin参数
 	if (channel) {
 		window.sessionStorage.setItem("channel",channel);
 	}
 	window.sessionStorage.setItem("skin",skin);
+	//防止重复调用
 	window.sessionStorage.setItem("forceSignOutFlag",1);
 	window.location.href = "personal.html";
 }
@@ -380,7 +369,6 @@ function callback(o) {
 
 //ios提示保存到桌面
 function saveToDesktop() {
-	
 	if (!$.device.ios || $.getUrlParam("platform") == 20 || navigator.standalone || window.sessionStorage.getItem("qktId") || $.getUrlParam("qktId") || navigator.userAgent.indexOf("QQ") > -1 || navigator.userAgent.indexOf("MicroMessenger") > -1 || $.getUrlParam("token") || window.sessionStorage.getItem("thirdId") ) {
 		$(".save-to-desktop").hide();
 		return;
@@ -398,6 +386,7 @@ function saveToDesktop() {
 	}
 }
 
+//弹出注册领红包遮罩层
 function alertRegisterBonus(status){
 	if (status == "show") {
 		if (!lData.userId) {
@@ -422,20 +411,11 @@ $.ajaxSettings.error = function(e,f){
 
 //传入数据
 var lData = {
-	userId: "",
-	version: "2.1.1",
-	srvVersion: "2.1.0",
-	channel: "h5",
-	jsVersion: CryptoJS.MD5("1017").toString(),
-	
-	
-//	//支付页
-//	pay: {},
-//
-//	//订单提交倒计时时间(分 int)
-//	countDown: 10,
-	
-	
+	userId: "",		//用户ID
+	version: "2.2.0",	//客户端版本号
+	srvVersion: "2.1.0",		//服务端版本号
+	channel: "h5",		//channel ID
+	jsVersion: CryptoJS.MD5("1101").toString(),    //先加载的js文件版本号
 	
 	//正式网
 	getUrl: "http://api.2333db.com/raiders/restWeb/",
@@ -450,19 +430,12 @@ var lData = {
 //	calcTestUrl: "&test=1",
 //	bannerBackUrl: "http://www.2333db.com/test/register.html",
 //	bannerBackUrlRecharge: "http://www.2333db.com/test/personal.html",
-	
-	
 
 	test : function(){
-//		if (/（/.test($("h1.title").html())){
-//			return;
-//		}
-//		$("h1.title").html($("h1.title").html()+"（测试版）");
-		
-		
-//		$("#p-index").find(".content").prepend(
-//			"<p style='margin:0;'>黄金夺宝测试版，仅供内部测试使用<br />请升级至7块糖最新版</p>"
-//		)
+		if (/（/.test($("h1.title").html())){
+			return;
+		}
+		$("h1.title").html($("h1.title").html()+"（测试版）");
 	}
 }
 
@@ -520,15 +493,15 @@ function getUserInfo(){
 						$("#balanceSum").html(o.userInfo.detailInfo.points);
 					}
 					
+					//红包数目
 					var bonusNumber = 0;
 					$.each(o.userInfo.hongbaoList, function(i,n) {
-						if (n.status == 0) {
+						if (n.status == 0 || n.status == 3) {
 							bonusNumber += 1;
 						}
 					});
 					
 					if ($("#a-bonus-count > span").length == 0) {
-						
 						$("#a-bonus-count").prepend(
 							'<span style="line-height: 1.2rem;padding-right: .5rem;font-size: .7rem;color: #b0b0b0;"><span class="count" style="color: #f24957;">'+bonusNumber+'</span> 个</span>'
 						);
@@ -536,6 +509,7 @@ function getUserInfo(){
 						$("#a-bonus-count .count").html(bonusNumber);
 					}
 					
+					//判断是否有充值送红包活动
 					if (o.hasActivity == 1) {
 						if ($("#recharge-bonus-haveornot .haveornot-text").length == 0) {
 							$("#recharge-bonus-haveornot").prepend(
@@ -546,6 +520,7 @@ function getUserInfo(){
 						$("#recharge-bonus-haveornot .haveornot-text").remove();
 					}
 					
+					//判断是否绑定了手机号
 					if (!o.userInfo.usertelephone) {
 						if ($(".j-perInfo").find(".item-after > span").length == 0) {
 							$(".j-perInfo").find(".item-after").prepend(
@@ -574,9 +549,29 @@ function getUserInfo(){
 var _hmt = _hmt || [];
 function bdhm(){
 	var hm = document.createElement("script");
-	hm.src = "//hm.baidu.com/hm.js?4f28eb9b781b73245b030d415b69713f";
+	hm.src = "//hm.baidu.com/hm.js?fb86b39e6dd3593f60f69218a8b815a5";
 	var s = document.getElementsByTagName("script")[0];
 	s.parentNode.insertBefore(hm, s);
+}
+
+//vds统计
+function vdshm(){
+	var _vds = _vds || [];
+	window._vds = _vds;
+	(function(){
+		_vds.push(['setAccountId', 'bdd0f83d74ae607c']);
+		_vds.push(['setCS1', 'channel', lData.channel]);
+		_vds.push(['setCS2', 'version', lData.version]);
+
+		(function() {
+			var vds = document.createElement('script');
+			vds.type='text/javascript';
+			vds.async = true;
+			vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(vds, s);
+		})();
+	})();
 }
 
 //初始化
@@ -584,6 +579,7 @@ function init(){
 	window.sessionStorage.removeItem("indexForceRefresh");
 	window.sessionStorage.removeItem("indexLoadFinish");
 	window.sessionStorage.removeItem("duobaoRefresh");
+	//msui初始化
 	$.init();
 }
 
@@ -591,25 +587,25 @@ function init(){
 $(function(){
 	init();
 	
-	if (!storageTest(window.localStorage)){
-		$.alert("请关闭Safari的无痕浏览模式");
-	}
-	
+	//调用保存到桌面函数
 	saveToDesktop();
 	
-//	百度统计
-	if (!lData.calcTestUrl) {
+//	正式网调用百度统计
+	if (!lData.calcTestUrl && !/127.0.0.1/.test(window.location.href)) {
 		bdhm();
+		vdshm();
 	}
 
 })
 
 //各页面注册时触发
 $(document).on("pageInit", function(e, pageId, $page) {
+	//加入telphone=no meta标签
 	if ($("meta[content='telephone=no']").length == 0) {
 		$("meta[content=black]").after('<meta name="format-detection" content="telephone=no" />');
 	}
 	
+	//若userId状态不正常，强制注销
 	if (pageId != "p-personal") {
 		if (window.localStorage.getItem("userId")&&CryptoJS.MD5(window.localStorage.getItem("userId")).toString() != window.localStorage.getItem("mid")) {
 			forceSignOut();
@@ -621,14 +617,7 @@ $(document).on("pageInit", function(e, pageId, $page) {
 		}
 	}
 	
-//	if (!!window.localStorage.getItem("loginSrv") && window.localStorage.getItem("loginSrv") != lData.getUrl) {
-//		$.alert("出现问题了～请重新登陆",function(){
-//			forceSignOut();
-//		});
-//	}
-	
-	
-	//nav点击跳转
+	//nav点击，根据name值跳转
 	if (pageId == "p-index"||"p-chest"||"p-personal" || "p-share" ) {
 		$(".a-nav-bottom").find(".tab-item").click(function(){
 			if (!$(this).hasClass("active")){
@@ -636,7 +625,6 @@ $(document).on("pageInit", function(e, pageId, $page) {
 			}
 		})
 	}
-	
 	
 	//7块糖相关js
 	if (window.sessionStorage.getItem("qktId") != null || $.getUrlParam("qktId") != null) {
@@ -649,7 +637,7 @@ $(document).on("pageInit", function(e, pageId, $page) {
 		_getScript("js/third.js?rev="+lData.jsVersion);
 	}
 	
-	
+	//七块糖注册、绑定等页面无相应页面js文件
 	if (/qkt/.test(pageId)) {
 		return;
 	}
@@ -657,13 +645,16 @@ $(document).on("pageInit", function(e, pageId, $page) {
 	//加载对应页面js
 	_getScript("js/"+ pageId.substring(2) + ".js?rev="+lData.jsVersion);
 	
-	lData.test();
+	//测试网调用标题栏加测试文字
+	if (!!lData.calcTestUrl) {
+		lData.test();
+	}
 });
  
 
 
 
-//安卓webview返回键
+//安卓webview返回键 七块糖
 function qktAndroidBackFuc(){
 	if ($.whichPage("p-index") || $.whichPage("p-chest") || $.whichPage("p-personal") || $.whichPage("p-share")) {
 		window.jsToJava.javaMethod(true);
@@ -674,7 +665,7 @@ function qktAndroidBackFuc(){
 }
 
 
-//安卓webview返回
+//安卓webview返回 抢红包
 function duobaoBackFuc(){
 	if ($.whichPage("p-index") || $.whichPage("p-chest") || $.whichPage("p-personal") || $.whichPage("p-share")) {
 		window.duoBaoCallBack.finish();

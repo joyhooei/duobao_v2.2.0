@@ -263,10 +263,10 @@ function qktPay(){
 				candyPw = "&password="+CryptoJS.MD5(value);
 				//全糖块
 				if (lData.orderInfo.cost == payNum) {
-					candyPrePayUrl = lData.getUrl+"prePay?v="+lData.version+"&way="+way+"&orderId="+lData.orderInfo.orderId+"&userId="+lData.userId+"&secret="+lData.orderInfo.secret+candyPw;
+					candyPrePayUrl = lData.getUrl+"prePay?v="+lData.srvVersion+"&way="+way+"&orderId="+lData.orderInfo.orderId+"&userId="+lData.userId+"&secret="+lData.orderInfo.secret+candyPw;
 				//糖块＋金币
 				}else{
-					candyPrePayUrl = lData.getUrl+"prePay?v="+lData.version+"&way="+way+"&orderId="+lData.orderInfo.orderId+"&userId="+lData.userId+"&secret="+lData.orderInfo.secret+"&points="+(lData.orderInfo.cost-payNum) +candyPw;
+					candyPrePayUrl = lData.getUrl+"prePay?v="+lData.srvVersion+"&way="+way+"&orderId="+lData.orderInfo.orderId+"&userId="+lData.userId+"&secret="+lData.orderInfo.secret+"&points="+(lData.orderInfo.cost-payNum) +candyPw;
 				}
 				
 				candyPay(candyPrePayUrl);

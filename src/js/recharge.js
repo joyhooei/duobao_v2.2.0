@@ -53,10 +53,10 @@ function preRecharge(way,num){
 	var callBackUrl = "&goodsDetailUrl="+emptyPage+"&paySuccessUrl="+emptyPage;
 	
 
-//	var preChargeUrl = lData.getUrl+"preCharge?v="+lData.version+"&way=" + way + "&userId="+lData.userId + "&points="+num +callBackUrl;
+//	var preChargeUrl = lData.getUrl+"preCharge?v="+lData.srvVersion+"&way=" + way + "&userId="+lData.userId + "&points="+num +callBackUrl;
 
 
-	var preChargeUrl = lData.getUrl+"preCharge?v="+lData.version+"&content="+ encodeURIComponent(encryptByDES(JSON.stringify({
+	var preChargeUrl = lData.getUrl+"preCharge?v="+lData.srvVersion+"&content="+ encodeURIComponent(encryptByDES(JSON.stringify({
 		way: way,
 		userId: lData.userId,
 		points: num,
