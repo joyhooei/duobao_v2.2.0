@@ -23,6 +23,20 @@ $(function(){
 //	extract.init();
 })
 
+var _vds = _vds || [];
+(function(){
+	_vds.push(['setAccountId', 'bdd0f83d74ae607c']);
+
+	(function() {
+		var vds = document.createElement('script');
+		vds.type='text/javascript';
+		vds.async = true;
+		vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(vds, s);
+	})();
+})();
+
 
 var Zepto = (function($){
 	$.getUrlParam = function(name) {
@@ -60,11 +74,18 @@ var Zepto = (function($){
 			}
 		}
 	}
-	$.copyBtn = function(str){
+	$.copyBtn = function(str,type){
 		var str = str.replace(/[^a-z\d]/ig,"");
 		if ($.getUrlParam("from") != "web") {
 			if (!!$.device.android) {
-				window.callRegister.copySecretKey(str);
+				if (type == 1) {
+					var typeText = "卡号复制成功";
+				}else if(type ==2){
+					var typeText = "卡密复制成功";
+				}else{
+					var typeText = "";
+				}
+				window.callRegister.copySecretKey(str,typeText);
 			}else{
 				window.location.href = "copy://"+str;
 			}
@@ -188,8 +209,8 @@ var extract = (function($){
 							'</div>'+
 						'</div>'+
 						'<div class="m-bottom">'+
-							'<p class="m-text1">卡号：'+n.cardNum+'<span class="copy" onclick="$.copyBtn(\''+n.cardNum+'\')">复制</span></p>'+
-							'<p class="m-text2">卡密：'+n.cardPwd+'<span class="copy" onclick="$.copyBtn(\''+n.cardPwd+'\')">复制</span></p>'+
+							'<p class="m-text1">卡号：'+n.cardNum+'<span class="copy" onclick="$.copyBtn(\''+n.cardNum+'\',1)">复制</span></p>'+
+							'<p class="m-text2">卡密：'+n.cardPwd+'<span class="copy" onclick="$.copyBtn(\''+n.cardPwd+'\',2)">复制</span></p>'+
 						'</div>'+
 					'</li>'
 				);

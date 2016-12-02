@@ -1,0 +1,121 @@
+html{
+    font-size: 20px;
+}
+* {
+    box-sizing: border-box;
+}
+html,body{
+    width: 100%;
+    height: 100%;
+}
+.g-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+    line-height: 1;
+    background-color: #e83d57;
+}
+
+.g-header {
+    position: relative;
+    padding-top: 2.6rem;
+    
+    .m-top-bg {
+        position: absolute;
+        top: 0;
+        left: .175rem;
+        width: 17.65rem;
+        height: 4.225rem;
+        background: url(../img/headbg.png) 0 0 no-repeat;
+        background-size: contain;
+    }
+    
+    .m-title {
+        margin: 0 auto;
+        width: 11.625rem;
+        height: 7.45rem;
+        background: url(../img/title.png) 0 0 no-repeat;
+        background-size: contain;
+    }
+}
+
+.g-content {
+    width: 100%;
+    padding: .5rem 1.5rem 0;
+
+    .m-hand-bg {
+        margin: 0 1.3rem;
+        width: 12.4rem;
+        height: 5.5rem;
+        background: url(../img/hand.png) 0 0 no-repeat;
+        background-size: contain;
+    }
+    
+    .m-step {
+        margin-top: -.8rem;
+        width: 100%;
+        height: 43.425rem;
+        background: url(../img/step.png) 0 0 no-repeat;
+        background-size: contain;
+    }
+}
+
+//.m-column {
+//  padding: 2.1rem 1.35rem 3.1rem;
+//  width: 100%;
+//  font-size: .7rem;
+//  text-align: justify;
+//  color: #fff;
+//  
+//  .m-title {
+//      position: relative;
+//      margin: 0 auto 1.25rem;
+//      width: 3.7rem;
+//      text-align: center;
+//      
+//      &:before,
+//      &:after {
+//          content: "";
+//          position: absolute;
+//          top: .3rem;
+//          width: 5.8rem;
+//          height: 1px;
+//          background-color: #fff;
+//      }
+//      
+//      &:before {
+//          left: -5.8rem;
+//      }
+//      
+//      &:after {
+//          right: -5.8rem;
+//      }
+//  }
+//  
+//  .m-text {
+//      .m-text-header {
+//          font-size: .8rem;
+//          line-height: 1.3rem;
+//      }
+//      
+//      .m-text-content {
+//          line-height: 1.3rem;
+//          
+//          b {
+//              font-weight: bold;
+//              color: #fff10b;
+//          }
+//      }
+//  }
+//  
+//}
+
+.m-column {
+    margin: 2.1rem auto 0;
+    padding-bottom: 3.1rem;
+    width: 15.25rem;
+    height: 30.8rem;
+    background: url(../img/notice.png) 0 0 no-repeat;
+    background-size: contain;
+}

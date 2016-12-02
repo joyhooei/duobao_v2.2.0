@@ -4,18 +4,18 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>黄金夺宝</title>
+		<title>一元街</title>
 		<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1, maximum-scale=1">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
 
-		<link rel="stylesheet" href="libs/msui.min.css?rev=@@hash">
-		<link rel="stylesheet" href="libs/msui-extend.min.css?rev=@@hash" />
-		<script type="text/javascript" src="js/css.js?rev=@@hash" ></script>
+		<link rel="stylesheet" href="libs/msui.min.css?rev=7f7959a4d2abaf0008af064026dfbb2d">
+		<link rel="stylesheet" href="libs/msui-extend.min.css?rev=1537689eafec06b9043fa38b0615b12e" />
+		<script type="text/javascript" src="js/css.js?rev=7d7ed093aeecbbfd40903ffd55fe93bd" ></script>
 
 		<!--主屏幕-->
-		<meta name="apple-mobile-web-app-title" content="黄金夺宝">
+		<meta name="apple-mobile-web-app-title" content="一元街">
 		<link rel="apple-touch-icon" href="img/v-logo.png" />
 		<pnk rel="apple-touch-startup-image" href="img/startup1242a2148.png" media="(device-width: 414px)">
 		
@@ -26,17 +26,17 @@
 		<div class="page-group" >
 			<div class="page page-current index_page index-style" id="p-index">
 				<header class="bar bar-nav c_header">
-					<h1 class="title" style="font-size: 1rem;">黄金夺宝</h1>
+					<h1 class="title" style="font-size: 1rem;">一元街</h1>
 				</header>
 				
 				<nav class="bar bar-tab nav-bottom a-nav-bottom">
-					<a class="tab-item active" name="index.html" href="javascript:;">
+					<!--<a class="tab-item active" name="index.html" href="javascript:;">
 						<span class="icon icon-1"></span>
-						<span class="tab-label icon-text">夺宝</span>
+						<span class="tab-label icon-text">一元街</span>
 					</a>
 					<a class="tab-item" name="chest.html" href="javascript:;">
 						<span class="icon icon-2"></span>
-						<span class="tab-label icon-text">宝箱</span>
+						<span class="tab-label icon-text">秒开</span>
 					</a>
 					<a class="tab-item" name="share.html" href="javascript:;">
 						<span class="icon icon-4"></span>
@@ -44,8 +44,8 @@
 					</a>
 					<a class="tab-item" name="personal.html" href="javascript:;">
 						<span class="icon icon-3"></span>
-						<span class="tab-label icon-text">个人</span>
-					</a>
+						<span class="tab-label icon-text">我</span>
+					</a>-->
 				</nav>
 				
 				
@@ -63,12 +63,37 @@
 						<a class="tab-link button">高价</a>
 					</div>-->
 					
-<div class="swiper-container">
-	<div class="swiper-wrapper">
-		
-	</div>
-	<div class="swiper-pagination"></div>
-</div>
+					<!--滚动banner-->
+					<div class="swiper-container">
+						<div class="swiper-wrapper">
+							
+						</div>
+						<div class="swiper-pagination"></div>
+					</div>
+
+					<div class="index-top-list">
+						<ul id="barInfoList" class="clearfix">
+							<!--<li class="list-li-1">
+								<i></i>
+								<p>晒单</p>
+							</li>
+							<li class="list-li-2">
+								<i></i>
+								<p>即将揭晓</p>
+							</li>
+							<li class="list-li-3">
+								<i></i>
+								<p>11</p>
+							</li>-->
+						</ul>
+					</div>
+
+					<!--中奖者信息滚动-->
+					<div id="scrollWrapper" style="width:100%;overflow-x:hidden;">
+						
+					</div>
+
+
 					
 					
 					
@@ -92,7 +117,7 @@
 					<div class="text">
 						<p>先点击<span></span></p>
 						<p>再“添加到主屏幕”</p>
-						<p>黄金夺宝，收获惊喜</p>
+						<p>一元街，1元有惊喜</p>
 					</div>
 					<i class="icon-close"></i>
 				</div>
@@ -107,10 +132,10 @@
 			
 		</div>	
 			
-		<script type="text/javascript" src="libs/zepto.min.js?rev=@@hash" charset="utf-8"></script>
-		<script type="text/javascript" src="libs/msui.min.js?rev=@@hash" charset="utf-8"></script>
-		<script type="text/javascript" src="libs/crypto-js.js?rev=@@hash" charset="utf-8"></script>
-		<script type="text/javascript" src="js/base.js?rev=@@hash" charset="utf-8"></script>
+		<script type="text/javascript" src="libs/zepto.min.js?rev=1abd55c514bd00abc726cca455f6b4c9" charset="utf-8"></script>
+		<script type="text/javascript" src="libs/msui.min.js?rev=98956127b0639298e088ef82a30dd9ac" charset="utf-8"></script>
+		<script type="text/javascript" src="libs/crypto-js.js?rev=94d68770f4037bcfddc40623308e285a" charset="utf-8"></script>
+		<script type="text/javascript" src="js/base.js?rev=dd1344d8084e90308172d52149b4b324" charset="utf-8"></script>
 		
 		<script>
 			$.ajax({

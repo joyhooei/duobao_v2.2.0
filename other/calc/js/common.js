@@ -22,7 +22,7 @@ $.getUrlParam = function(name) {
 }
 
 //var getUrl = "http://www.7kuaitang.com:8081/raiders/restWeb/";
-var getUrl = "http://www.2333db.com/raiders/restWeb/";
+var getUrl = "http://api.2333db.com/raiders/restWeb/";
 
 if ($.getUrlParam("test") == 1) {
 	getUrl = "http://www.7kuaitang.com:8081/raiders/restWeb/";

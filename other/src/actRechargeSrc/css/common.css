@@ -67,43 +67,6 @@ html, body {
   right: -5.8rem;
 }
 
-.g-column-1 .m-bonus-box {
-  width: 13rem;
-  margin-bottom: 1.2rem;
-  margin-left: auto;
-  margin-right: auto;
-}
-.g-column-1 li {
-  margin-bottom: .75rem;
-  width: 100%;
-  height: 3.5rem;
-  background-color: #fff;
-  border-radius: .3rem;
-  border-bottom: .5rem solid #f14a57;
-}
-.g-column-1 li .text1 {
-  float: left;
-  width: 5rem;
-  height: 3rem;
-  font-size: .75rem;
-  line-height: 3rem;
-  text-align: center;
-  color: #f14a56;
-  border-right: 1px dashed #b0b0b0;
-}
-.g-column-1 li .text1 span {
-  font-size: 1.5rem;
-  line-height: 3rem;
-}
-.g-column-1 li .text2 {
-  padding-left: 5rem;
-  width: 100%;
-  font-size: .8rem;
-  line-height: 3rem;
-  color: #b0b0b0;
-  text-align: center;
-}
-
 .g-column-2 {
   padding-left: 2rem;
   padding-right: 1.6rem;
@@ -126,6 +89,49 @@ html, body {
 
 .color-yellow {
   color: #ffda45;
+}
+
+.g-column-1 .m-bonus-box {
+  width: 13rem;
+  margin-bottom: 1.2rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.g-column-1 li {
+  margin-bottom: .75rem;
+  width: 100%;
+  height: 3.5rem;
+  background-color: #fff;
+  border-radius: .3rem;
+}
+.g-column-1 li .text1 {
+  float: left;
+  width: 4rem;
+  height: 3.5rem;
+  font-size: .75rem;
+  line-height: 3.5rem;
+  text-align: center;
+  color: #090001;
+}
+.g-column-1 li .text1 span {
+  margin-left: 1.2rem;
+  margin-top: .75rem;
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid #090001;
+  font-size: 1.1rem;
+  line-height: 2rem;
+  background-color: #ffd946;
+  border-radius: 100%;
+}
+.g-column-1 li .text2 {
+  padding-left: 4rem;
+  width: 100%;
+  font-size: .8rem;
+  line-height: 3.5rem;
+  color: #b1b1b1;
+  text-align: left;
 }
 
 

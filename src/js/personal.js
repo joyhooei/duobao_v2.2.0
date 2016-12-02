@@ -298,7 +298,7 @@ $(function(){
 	
 	if (!!window.sessionStorage.getItem("fromActRecharge")) {
 		if (!!lData.userId) {
-			if (!!lData.userInfo.phoneNumber) {
+			if (!!lData.userInfo.usertelephone) {
 				$.router.load("recharge.html");
 			}else{
 				$.alert("请先绑定手机号",function(){
@@ -318,7 +318,7 @@ $(function(){
 		if (!lData.userId) {
 			$.router.load("login.html");
 		}else{
-			$.alert('您已经是黄金夺宝老主顾啦～我们为您奉上"充值狂欢大礼包"',function(){
+			$.alert('您已经是一元街老主顾啦～我们为您奉上"充值狂欢大礼包"',function(){
 				window.sessionStorage.removeItem("fromActRegister");
 			});
 		}

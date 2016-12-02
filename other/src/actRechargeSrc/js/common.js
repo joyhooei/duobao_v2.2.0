@@ -14,6 +14,20 @@ var FZ = function(a, b) {
 
 FZ(20, 360);
 
+var _vds = _vds || [];
+(function(){
+	_vds.push(['setAccountId', 'bdd0f83d74ae607c']);
+
+	(function() {
+		var vds = document.createElement('script');
+		vds.type='text/javascript';
+		vds.async = true;
+		vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(vds, s);
+	})();
+})();
+
 $.ajax({
 	type:"post",
 	url:"http://api.2333db.com/raiders/restWeb/getHongbaoList",		//正式网
@@ -28,14 +42,24 @@ $.ajax({
 		console.log(o)
 		
 		if (o.stateCode == 0) {
+//			$.each(o.hongbaoList, function(i,n) {
+//				$("#j-bonus-box").append(
+//					'<li class="clearfix">'+
+//						'<div class="text1">¥  <span>'+n.discount+'</span></div>'+
+//						'<div class="text2">'+n.discription+'</div>'+
+//					'</li>'
+//				);
+//			});
+
 			$.each(o.hongbaoList, function(i,n) {
 				$("#j-bonus-box").append(
 					'<li class="clearfix">'+
-						'<div class="text1">¥  <span>'+n.discount+'</span></div>'+
-						'<div class="text2">'+n.discription+'</div>'+
+						'<div class="text1"><span>'+n.discount+'</span></div>'+
+						'<div class="text2">充值满'+n.grantCondition+'元送'+n.discount+'金币</div>'+
 					'</li>'
 				);
 			});
+			
 		}else{
 			alert(o.message);
 		}

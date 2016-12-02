@@ -23,11 +23,19 @@ $(function(){
 		//tab是否处于fixed状态flag
 		window.indexFixedTabFlag = 0;
 		
-		//调用首页信息滚动事件
-		scrollInfo();		//滚动中奖信息
+		//调用加载banner、中奖信息、bar信息
+		homePageInfo();
 		
-		//调用加载banner事件
-		swiperBanner();
+		if ($(".index-top-list").find(".list-li-all").length > 0) {
+			indexTopList();
+		}
+	
+		
+		//调用首页信息滚动事件
+//		scrollInfo();		//滚动中奖信息
+		
+		//banner下方list点击事件
+//		indexTopList();
 		
 		//tab点击排序
 		tabClick();
@@ -72,57 +80,76 @@ function cardHeight(){
 }
 
 
+function scrollInfoFill(o){
+	var scrolltextWidth = 0;
+	$("#scrollWrapper").append(
+		'<div ontouchmove="javascript:event.preventDefault();" id="scrollInfo">'+
+			'<div class="scroll-image"></div>'+
+			'<div class="scrolltestbar">'+
+				'<div class="scrolltext-box"></div>'+
+			'</div>'+
+		'</div>'
+	);
+	$.each(o.notiInfoList, function(i,n) {
+		$("<div class='scrolltext' style='color:#b0b0b0;'>" +
+			"恭喜" +
+			"<span class='a8'>" + n.nickName + "</span>" +
+			n.luckyTime + "前获得" +
+			"<span style='color:#5d5d5d;'>" + n.goodsTitle + "</span>" +
+			"</div>"
+		).appendTo($("#scrollInfo").find(".scrolltext-box"));
+		scrolltextWidth += $(".scrolltext").eq(i).width();
+	});
+	$(".scrolltext-box").width(scrolltextWidth + 30);
+	$("#scrollInfo").width($(".scrolltext-box").width()-$("body").width());
+	
+	
+	
+	var timerTextInfo = null;
+	if (!!$.device.android && !timerTextInfo) {
+		$(".scrolltext-box").css("height","100%").removeClass("scrolltext-box").addClass("scrolltext-box2");;
+		var sl = 0;
+		if (timerTextInfo) {
+			clearInterval(timerTextInfo)
+		}
+		$("#scrollInfo").css("width","100%");
+		timerTextInfo = setInterval(function() {
+			sl += 1;
+			$(".scrolltestbar").scrollLeft(sl);
+			if ($(".scrolltestbar").scrollLeft() >= $(".scrolltext-box2").width() - $("body").width() - 5) {
+				sl = 0;
+			}
+		}, 20)
+	}
+	
+	
+	indexFixedTabFlag += 1;
+}
+
 
 
 //var timerTextInfo = null;
 //中奖信息
 function scrollInfo(){
-	if ($("#scrollInfo").length == 0) {
-		$.get(lData.getUrl + "getLuckyInfo?v="+lData.srvVersion, function(o) {
-			console.log(o)
-			var scrolltextWidth = 0;
-			$('<div style="width:100%;overflow-x:hidden;">'+
-				"<div ontouchmove='javascript:event.preventDefault();' id='scrollInfo'><div class='scroll-image'></div><div class='scrolltestbar'><div class='scrolltext-box'></div></div</div>"+
-			'</div>'
-			).insertAfter($("#p-index .swiper-container"));
-			$.each(o.notiInfoList, function(i) {
-				$("<div class='scrolltext' style='color:#b0b0b0;'>" +
-					"恭喜" +
-					"<span class='a8'>" + o.notiInfoList[i].nickName + "</span>" +
-					o.notiInfoList[i].luckyTime + "前获得" +
-					"<span style='color:#5d5d5d;'>" + o.notiInfoList[i].goodsTitle + "</span>" +
-					"</div>"
-				).appendTo($("#scrollInfo").find(".scrolltext-box"));
-				scrolltextWidth += $(".scrolltext").eq(i).width();
-			});
-			$(".scrolltext-box").width(scrolltextWidth + 30);
-			$("#scrollInfo").width($(".scrolltext-box").width()-$("body").width());
-			
-			
-			
-			var timerTextInfo = null;
-			if (!!$.device.android && !timerTextInfo) {
-				$(".scrolltext-box").css("height","100%").removeClass("scrolltext-box").addClass("scrolltext-box2");;
-				var sl = 0;
-				if (timerTextInfo) {
-					clearInterval(timerTextInfo)
-				}
-				$("#scrollInfo").css("width","100%");
-				timerTextInfo = setInterval(function() {
-					sl += 1;
-					$(".scrolltestbar").scrollLeft(sl);
-					if ($(".scrolltestbar").scrollLeft() >= $(".scrolltext-box2").width() - $("body").width() - 5) {
-						sl = 0;
-					}
-				}, 20)
-			}
-			
-			
-			indexFixedTabFlag += 1;
-		})
-	}else{
-		indexFixedTabFlag += 1;
-	}
+//	if ($("#scrollInfo").length == 0) {
+//		if (!!lData.homePageInfo) {
+//			scrollInfoFill(lData.homePageInfo);
+//		}else{
+//			$.ajax({
+//				type:"get",
+//				url:lData.getUrl+"getLuckyInfo",
+//				data:{
+//					v: lData.srvVersion
+//				},
+//				async:true,
+//				success: function(o){
+//					scrollInfoFill(o)
+//				}
+//			})
+//		}
+//	}else{
+//		indexFixedTabFlag += 1;
+//	}
 }
 
 
@@ -375,7 +402,23 @@ function indexBottomLoadmore(){
 
 
 
-
+//barInfo
+function barInfo(barInfo){
+	if (!barInfo) {
+		return;
+	}
+	
+	$.each(barInfo,function(i,n){
+		$("#barInfoList").append(
+			'<li name="'+n.bannerType+'" class="list-li-all list-li-'+i+'" style="width:'+100/barInfo.length+'%;">'+
+				'<i style="background:url('+n.webImage+') 0 0 no-repeat;background-size:contain;"></i>'+
+				'<p>'+n.bannerName+'</p>'+
+			'</li>'
+		);
+	});
+	
+	indexTopList();
+}
 
 
 //跳转到夺宝页
@@ -386,7 +429,7 @@ function routerToDuobao(treasureId){
 
 
 
-function swiperBanner(){
+function homePageInfo(){
 	if ($("#p-index .swiper-container .swiper-slide img").length > 0) {
 		indexFixedTabFlag += 1;
 	}else{
@@ -412,9 +455,38 @@ function swiperBanner(){
 //					}
 //				}
 //			});
-//		
 //		}
-		fillBanner();
+
+		if (!!lData.homePageInfo) {
+			fillBanner(lData.homePageInfo.bannerInfo);
+			if ($("#scrollInfo").length == 0) {
+				scrollInfoFill(lData.homePageInfo);
+			}
+			barInfo(o.barInfo);
+		}else{
+			$.ajax({
+				type:"post",
+				url:lData.getUrl + "getHomePageInfo",
+				data: {
+					v: lData.srvVersion
+				},
+				async:true,
+				dataType: "json",
+				success: function(o){
+					console.log(o);
+					if (o.stateCode == 0) {
+						lData.homePageInfo = o;
+						fillBanner(o.bannerInfo);
+						if ($("#scrollInfo").length == 0) {
+							scrollInfoFill(o);
+						}
+						barInfo(o.barInfo);
+					}else{
+						$.alert(o.message);
+					}
+				}
+			});
+		}
 	}
 }
 
@@ -430,6 +502,9 @@ function bannerClickFuc(bannerUrl){
 			return;
 		}
 	}
+	if (!/iframe.html?url=/.test(bannerUrl)) {
+		bannerUrl = "iframe.html?url="+bannerUrl;
+	}
 	$.router.load(bannerUrl);
 }
 
@@ -442,31 +517,66 @@ function fillBanner(bannerInfo){
 //		);
 //	});
 	
-	var extractUrl = (!!lData.calcTestUrl) ? "extract.html?test=1&userId="+lData.userId+"&userKey="+window.localStorage.getItem("userKey")+"&from=web" : "extract.html?userId="+lData.userId+"&userKey="+window.localStorage.getItem("userKey")+"&from=web";
+	var extractUrl = (!!lData.calcTestUrl) ? "?test=1&userId="+lData.userId+"&userKey="+window.localStorage.getItem("userKey")+"&from=web" : "?userId="+lData.userId+"&userKey="+window.localStorage.getItem("userKey")+"&from=web";
 	
 	//banner数据 数组
-	var bannerInfoLocal = [{
-//		bannerUrl: "http://www.2333db.com/activity/act-register.html?backurl="+lData.bannerBackUrl,
-		bannerUrl: "iframe.html?url=http://www.2333db.com/activity/act-register.html?backurl="+lData.bannerBackUrl,
-		webImage: "img/banner-register.jpg"
-	},{
-//		bannerUrl: "http://www.2333db.com/activity/act-recharge.html?backurl="+lData.bannerBackUrl,
-		bannerUrl: "iframe.html?url=http://www.2333db.com/activity/act-recharge.html?backurl="+lData.bannerBackUrlRecharge,
-		webImage: "img/banner-recharge.jpg"
-	},{
-		bannerUrl: "iframe.html?url=http://www.2333db.com/html/"+extractUrl,
-		webImage: "img/banner-card.jpg"
-	}]
+//	var bannerInfoLocal = [{
+////		bannerUrl: "http://www.2333db.com/activity/act-register.html?backurl="+lData.bannerBackUrl,
+//		bannerUrl: "iframe.html?url=http://www.2333db.com/activity/act-register.html?backurl="+lData.bannerBackUrl,
+//		webImage: "img/banner-register.jpg"
+//	},{
+////		bannerUrl: "http://www.2333db.com/activity/act-recharge.html?backurl="+lData.bannerBackUrl,
+//		bannerUrl: "iframe.html?url=http://www.2333db.com/activity/act-recharge.html?backurl="+lData.bannerBackUrlRecharge,
+//		webImage: "img/banner-recharge.jpg"
+//	},{
+//		bannerUrl: "iframe.html?url=http://www.2333db.com/html/extract.html"+extractUrl,
+//		webImage: "img/banner-card.jpg"
+//	}
+////	,{
+////		bannerUrl: "iframe.html?url=http://www.2333db.com/activity/act-qun.html",
+////		webImage: "img/banner-qun.png"
+////	}
+//	]
 	
-	//若本地测试加载相应本地数据
-	if (/127.0.0.1/.test(window.location.href)) {
-		bannerInfoLocal[0].bannerUrl = "iframe.html?url=http://127.0.0.1:8020/duobao_v"+lData.version+"/other/src/act-register.html?backurl=http://127.0.0.1:8020/duobao_v"+lData.version+"/src/register.html";
-		bannerInfoLocal[1].bannerUrl = "iframe.html?url=http://127.0.0.1:8020/duobao_v"+lData.version+"/other/src/act-recharge.html?backurl=http://127.0.0.1:8020/duobao_v"+lData.version+"/src/personal.html";
-		bannerInfoLocal[2].bannerUrl = "iframe.html?url=http://127.0.0.1:8020/duobao_v"+lData.version+"/other/html/"+extractUrl;
-	}
+//	//若本地测试加载相应本地数据
+//	if (/127.0.0.1/.test(window.location.href)) {
+//		bannerInfoLocal[0].bannerUrl = "iframe.html?url=http://127.0.0.1:8020/duobao_v"+lData.version+"/other/src/act-register.html?backurl=http://127.0.0.1:8020/duobao_v"+lData.version+"/src/register.html";
+//		bannerInfoLocal[1].bannerUrl = "iframe.html?url=http://127.0.0.1:8020/duobao_v"+lData.version+"/other/src/act-recharge.html?backurl=http://127.0.0.1:8020/duobao_v"+lData.version+"/src/personal.html";
+//		bannerInfoLocal[2].bannerUrl = "iframe.html?url=http://127.0.0.1:8020/duobao_v"+lData.version+"/other/html/extract.html"+extractUrl;
+////		bannerInfoLocal[3].bannerUrl = "iframe.html?url=http://127.0.0.1:8020/duobao_v"+lData.version+"/other/src/act-qun.html";
+//	}
+	
+	
+	
+	
+	console.log(bannerInfo)
+	//getBanner
+	$.each(bannerInfo, function(i,n) {
+		if (!/127.0.0.1/.test(window.location.href)) {
+			if (!!/register/.test(n.bannerUrl)) {
+				n.bannerUrl = n.bannerUrl+"?backurl="+lData.bannerBackUrl;
+			}else if(!!/recharge/.test(n.bannerUrl)){
+				n.bannerUrl = n.bannerUrl+"?backurl="+lData.bannerBackUrlRecharge;
+			}else if(!!/extract/.test(n.bannerUrl)) {
+				n.bannerUrl = n.bannerUrl+extractUrl;
+			}
+		}else{
+			if (!!/register/.test(n.bannerUrl)) {
+				n.bannerUrl = "http://127.0.0.1:8020/duobao_v"+lData.version+"/other/src/act-register.html?backurl=http://127.0.0.1:8020/duobao_v"+lData.version+"/src/register.html";
+			}else if(!!/recharge/.test(n.bannerUrl)){
+				n.bannerUrl = "http://127.0.0.1:8020/duobao_v"+lData.version+"/other/src/act-recharge.html?backurl=http://127.0.0.1:8020/duobao_v"+lData.version+"/src/personal.html";
+			}else if(!!/extract/.test(n.bannerUrl)) {
+				n.bannerUrl = "http://127.0.0.1:8020/duobao_v"+lData.version+"/other/html/extract.html"+extractUrl;
+			}else if(!!/qun/.test(n.bannerUrl)) {
+				n.bannerUrl = "http://127.0.0.1:8020/duobao_v"+lData.version+"/other/src/act-qun.html";
+			}
+		}
+	});
+	
 	
 	//填充banner数据数组到相应banner
-	$.each(bannerInfoLocal, function(i,n) {
+//	$.each(bannerInfoLocal, function(i,n) {
+	$.each(bannerInfo, function(i,n) {
 		$("#p-index .swiper-container .swiper-wrapper").append(
 			'<div class="swiper-slide">'+
 				'<a onclick="bannerClickFuc(\''+n.bannerUrl+'\')">'+
@@ -494,4 +604,21 @@ function fillBanner(bannerInfo){
 		})
 		
 	})
+}
+
+
+function indexTopList(){
+	$(".index-top-list").find(".list-li-all").on('click',function(){
+		var bannerType = $(this).attr("name");
+		if (bannerType == 1) {
+			$.router.load("share.html");
+		}else if(bannerType == 2) {
+			$.router.load("results.html",false);
+		}else if(bannerType == 4){
+			$.alert("qq群号为：<span>21859967</span>");
+		}else{
+			$.alert("TODO");
+		}
+		
+	});
 }

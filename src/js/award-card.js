@@ -357,9 +357,9 @@ function alreadyFinish(awardObj){
 			
 			if (o.stateCode == 0 ) {
 				if (awardObj.goodstype == 202 && !!o.card) {
-					if (!o.card.cardValue) {
+					if (o.card.changeType == 2) {
 						awardCardRadioCardFinish(o);
-					}else{
+					}else if(o.card.changeType == 1){
 						awardCardRadioGoldFinish(o);
 					}
 				}else if(awardObj.goodstype == 203) {

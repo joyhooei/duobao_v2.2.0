@@ -1,0 +1,46 @@
+html {
+  font-size: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+.g-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 28rem;
+  overflow-x: hidden;
+  line-height: 1;
+  background-color: #ff4701;
+}
+.g-wrapper .g-bg {
+  width: 100%;
+  height: 100%;
+  background: url(../img/bg.png) 0 0 no-repeat;
+  background-size: contain;
+}
+.g-wrapper .m-btn {
+  position: absolute;
+  bottom: 2.75rem;
+  left: 50%;
+  margin-left: -6.5rem;
+  width: 13rem;
+  height: 1.75rem;
+  background: url(../img/button.png) 0 0 no-repeat;
+  background-size: contain;
+  font-size: .8rem;
+  color: #ff4701;
+  line-height: 1.75rem;
+  text-align: center;
+}
+
+
+
+/*# sourceMappingURL=common.css.map */

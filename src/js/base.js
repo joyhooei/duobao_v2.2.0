@@ -412,10 +412,10 @@ $.ajaxSettings.error = function(e,f){
 //传入数据
 var lData = {
 	userId: "",		//用户ID
-	version: "2.2.0",	//客户端版本号
+	version: "2.3.0",	//客户端版本号
 	srvVersion: "2.1.0",		//服务端版本号
 	channel: "h5",		//channel ID
-	jsVersion: CryptoJS.MD5("1101").toString(),    //先加载的js文件版本号
+	jsVersion: CryptoJS.MD5("1202").toString(),    //先加载的js文件版本号
 	
 	//正式网
 	getUrl: "http://api.2333db.com/raiders/restWeb/",
@@ -590,13 +590,24 @@ $(function(){
 	//调用保存到桌面函数
 	saveToDesktop();
 	
-//	正式网调用百度统计
+//	//正式网调用百度统计
 	if (!lData.calcTestUrl && !/127.0.0.1/.test(window.location.href)) {
+		if ($.getUrlParam("userId") != null && $.getUrlParam("token") != null ) {
+			lData.channel = "hongbao";
+		}else if (!!$.getUrlParam("qktId")) {
+			lData.channel = "qikuaitang";
+		}else if(!!$.getUrlParam("channel")) {
+			lData.channel = $.getUrlParam("channel");
+		}
+		
 		bdhm();
 		vdshm();
 	}
 
 })
+
+
+
 
 //各页面注册时触发
 $(document).on("pageInit", function(e, pageId, $page) {
@@ -618,7 +629,31 @@ $(document).on("pageInit", function(e, pageId, $page) {
 	}
 	
 	//nav点击，根据name值跳转
-	if (pageId == "p-index"||"p-chest"||"p-personal" || "p-share" ) {
+	if (pageId == "p-index"||"p-chest"||"p-personal" ) {
+		if ($(".a-nav-bottom").find("a").length == 0) {
+			$(".a-nav-bottom").append(
+				'<a class="tab-item p-index" name="index.html" href="javascript:;">'+
+					'<span class="icon icon-1"></span>'+
+					'<span class="tab-label icon-text">一元街</span>'+
+				'</a>'+
+				'<a class="tab-item p-chest" name="chest.html" href="javascript:;">'+
+					'<span class="icon icon-2"></span>'+
+					'<span class="tab-label icon-text">秒开</span>'+
+				'</a>'+
+//				'<a class="tab-item p-share" name="share.html" href="javascript:;">'+
+//					'<span class="icon icon-4"></span>'+
+//					'<span class="tab-label icon-text">晒单</span>'+
+//				'</a>'+
+				'<a class="tab-item p-personal" name="personal.html" href="javascript:;">'+
+					'<span class="icon icon-3"></span>'+
+					'<span class="tab-label icon-text">我</span>'+
+				'</a>'
+			);
+		}
+		
+		$(".a-nav-bottom").find(".active").removeClass("active");
+		$(".a-nav-bottom").find("."+pageId).addClass("active");
+		
 		$(".a-nav-bottom").find(".tab-item").click(function(){
 			if (!$(this).hasClass("active")){
 				$.router.load($(this).attr("name"));
@@ -636,6 +671,9 @@ $(document).on("pageInit", function(e, pageId, $page) {
 	if ((window.sessionStorage.getItem("thirdId") != null && window.sessionStorage.getItem("thirdToken") != null ) || ($.getUrlParam("token") != null && $.getUrlParam("userId") != null )) {
 		_getScript("js/third.js?rev="+lData.jsVersion);
 	}
+	
+	
+	
 	
 	//七块糖注册、绑定等页面无相应页面js文件
 	if (/qkt/.test(pageId)) {
@@ -673,3 +711,6 @@ function duobaoBackFuc(){
 		$.router.back();
 	}
 }
+
+
+

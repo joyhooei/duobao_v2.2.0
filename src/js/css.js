@@ -42,7 +42,7 @@ function appendCss(cssName){
 
 if (!cssRepeat()) {
 	var skin = getSkinParam("skin") || window.sessionStorage.getItem("skin");
-	if (skin && (skin == "green" || skin == "red") || skin=="blcak") {
+	if (skin && (skin == "test" || skin == "red" )) {
 		appendCss("common-"+skin);
 	}else{
 		appendCss("common");

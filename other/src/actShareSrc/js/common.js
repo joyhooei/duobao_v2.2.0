@@ -30,6 +30,20 @@ var FZ = function(a, b) {
 	}
 }()
 
+var _vds = _vds || [];
+(function(){
+	_vds.push(['setAccountId', 'bdd0f83d74ae607c']);
+
+	(function() {
+		var vds = document.createElement('script');
+		vds.type='text/javascript';
+		vds.async = true;
+		vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(vds, s);
+	})();
+})();
+
 
 var getUrlParam = function(name) {
 	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -163,7 +177,7 @@ function toggleBox(status){
 function bonus(tel){
 	$.ajax({
 		type:"post",
-		url:getUrl+"receiveRed",
+		url:getUrl+"receiveOldRed",
 		data:{
 			v: "2.1.0",
 			content:encryptByDES(JSON.stringify({
@@ -185,7 +199,7 @@ function bonus(tel){
 				
 				getBonusSuccess(tel);
 			}else if (o.stateCode == 11){
-				alert("请先注册黄金夺宝，红包将直接发放到您的帐号");
+				alert("请先注册一元街，红包将直接发放到您的帐号");
 				toggleBox(0);
 			}else{
 				alert(o.message);
