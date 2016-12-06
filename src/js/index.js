@@ -1,14 +1,14 @@
 $(function(){
 	try{
 		//服务器数据页数数组，0、1、2分别对应第1、2、3个tab
-		lData.indexTotalPage = [];
+		luanmingli.indexTotalPage = [];
 		
 		//弹出的红包活动事件
 		$(".alert-resiger-bonus .alert-close").click(function(){
 			$(".alert-resiger-bonus").hide();
 		});
 		$(".alert-resiger-bonus .alert-button").click(function(){
-			var alertRegisterUrl = "iframe.html?url=http://www.2333db.com/activity/act-register.html?backurl="+lData.bannerBackUrl
+			var alertRegisterUrl = "iframe.html?url=http://www.2333db.com/activity/act-register.html?backurl="+luanmingli.bannerBackUrl
 			if (/127.0.0.1/.test(window.location.href)) {
 				alertRegisterUrl = "iframe.html?url=http://127.0.0.1:8020/duobao_v2.1.0/other/src/act-recharge.html?backurl=http://127.0.0.1:8020/duobao_v2.1.0/src/register.html";
 			}
@@ -132,14 +132,14 @@ function scrollInfoFill(o){
 //中奖信息
 function scrollInfo(){
 //	if ($("#scrollInfo").length == 0) {
-//		if (!!lData.homePageInfo) {
-//			scrollInfoFill(lData.homePageInfo);
+//		if (!!luanmingli.homePageInfo) {
+//			scrollInfoFill(luanmingli.homePageInfo);
 //		}else{
 //			$.ajax({
 //				type:"get",
-//				url:lData.getUrl+"getLuckyInfo",
+//				url:luanmingli.getUrl+"getLuckyInfo",
 //				data:{
-//					v: lData.srvVersion
+//					v: luanmingli.srvVersion
 //				},
 //				async:true,
 //				success: function(o){
@@ -188,7 +188,7 @@ function tabSelect(acIdx,curPage){
 		}
 	}
 	
-//	lData.indexTotalPage[acIdx] = 0;
+//	luanmingli.indexTotalPage[acIdx] = 0;
 	//不同tab栏加载相应数据
 	$("#index-active-"+acIdx).find(".index_model").remove();
 	if (acIdx == 0) {
@@ -208,11 +208,11 @@ function indexFillData(acIdx,curPage,idx,callback){
 	$.showIndicator();
 	$.ajax({
 		type:"get",
-		url:lData.getUrl+"getTreasureList",
+		url:luanmingli.getUrl+"getTreasureList",
 		data:{
 			"currentPage":curPage,
 			"order":idx,
-			v: lData.srvVersion,
+			v: luanmingli.srvVersion,
 			type: 1
 		},
 		async:true,
@@ -223,7 +223,7 @@ function indexFillData(acIdx,curPage,idx,callback){
 				return;
 			}
 			
-			lData.indexTotalPage[acIdx] = o.totalPage
+			luanmingli.indexTotalPage[acIdx] = o.totalPage
 			
 			$.each(o.treasureInfoList, function(i,n) {
 				appendData($("#index-active-"+acIdx),n);
@@ -361,7 +361,7 @@ function indexBottomLoadmore(){
 		
 		setTimeout(function(){
 			var curPage = (Math.ceil(indexCurrentPageLength/10) + 1);
-			if (curPage>lData.indexTotalPage[acIdx]) {
+			if (curPage>luanmingli.indexTotalPage[acIdx]) {
 				setTimeout(function(){
 					$.hideIndicator();
 					$.toast('没有更多数据', 1000, 'toast-80');
@@ -439,9 +439,9 @@ function homePageInfo(){
 //		}else{
 //			$.ajax({
 //				type:"post",
-//				url:lData.getUrl + "getBannerInfo",
+//				url:luanmingli.getUrl + "getBannerInfo",
 //				data: {
-//					v: lData.srvVersion
+//					v: luanmingli.srvVersion
 //				},
 //				async:true,
 //				dataType: "json",
@@ -457,25 +457,25 @@ function homePageInfo(){
 //			});
 //		}
 
-		if (!!lData.homePageInfo) {
-			fillBanner(lData.homePageInfo.bannerInfo);
+		if (!!luanmingli.homePageInfo) {
+			fillBanner(luanmingli.homePageInfo.bannerInfo);
 			if ($("#scrollInfo").length == 0) {
-				scrollInfoFill(lData.homePageInfo);
+				scrollInfoFill(luanmingli.homePageInfo);
 			}
 			barInfo(o.barInfo);
 		}else{
 			$.ajax({
 				type:"post",
-				url:lData.getUrl + "getHomePageInfo",
+				url:luanmingli.getUrl + "getHomePageInfo",
 				data: {
-					v: lData.srvVersion
+					v: luanmingli.srvVersion
 				},
 				async:true,
 				dataType: "json",
 				success: function(o){
 					console.log(o);
 					if (o.stateCode == 0) {
-						lData.homePageInfo = o;
+						luanmingli.homePageInfo = o;
 						fillBanner(o.bannerInfo);
 						if ($("#scrollInfo").length == 0) {
 							scrollInfoFill(o);
@@ -495,7 +495,7 @@ function homePageInfo(){
 //banner点击跳转
 function bannerClickFuc(bannerUrl){
 	if (!!/extract/.test(bannerUrl)) {
-		if (!lData.userId) {
+		if (!luanmingli.userId) {
 			$.alert("请先登陆",function(){
 				$.router.load("personal.html");
 			});
@@ -517,16 +517,16 @@ function fillBanner(bannerInfo){
 //		);
 //	});
 	
-	var extractUrl = (!!lData.calcTestUrl) ? "?test=1&userId="+lData.userId+"&userKey="+window.localStorage.getItem("userKey")+"&from=web" : "?userId="+lData.userId+"&userKey="+window.localStorage.getItem("userKey")+"&from=web";
+	var extractUrl = (!!luanmingli.calcTestUrl) ? "?test=1&userId="+luanmingli.userId+"&userKey="+window.localStorage.getItem("userKey")+"&from=web" : "?userId="+luanmingli.userId+"&userKey="+window.localStorage.getItem("userKey")+"&from=web";
 	
 	//banner数据 数组
 //	var bannerInfoLocal = [{
-////		bannerUrl: "http://www.2333db.com/activity/act-register.html?backurl="+lData.bannerBackUrl,
-//		bannerUrl: "iframe.html?url=http://www.2333db.com/activity/act-register.html?backurl="+lData.bannerBackUrl,
+////		bannerUrl: "http://www.2333db.com/activity/act-register.html?backurl="+luanmingli.bannerBackUrl,
+//		bannerUrl: "iframe.html?url=http://www.2333db.com/activity/act-register.html?backurl="+luanmingli.bannerBackUrl,
 //		webImage: "img/banner-register.jpg"
 //	},{
-////		bannerUrl: "http://www.2333db.com/activity/act-recharge.html?backurl="+lData.bannerBackUrl,
-//		bannerUrl: "iframe.html?url=http://www.2333db.com/activity/act-recharge.html?backurl="+lData.bannerBackUrlRecharge,
+////		bannerUrl: "http://www.2333db.com/activity/act-recharge.html?backurl="+luanmingli.bannerBackUrl,
+//		bannerUrl: "iframe.html?url=http://www.2333db.com/activity/act-recharge.html?backurl="+luanmingli.bannerBackUrlRecharge,
 //		webImage: "img/banner-recharge.jpg"
 //	},{
 //		bannerUrl: "iframe.html?url=http://www.2333db.com/html/extract.html"+extractUrl,
@@ -540,10 +540,10 @@ function fillBanner(bannerInfo){
 	
 //	//若本地测试加载相应本地数据
 //	if (/127.0.0.1/.test(window.location.href)) {
-//		bannerInfoLocal[0].bannerUrl = "iframe.html?url=http://127.0.0.1:8020/duobao_v"+lData.version+"/other/src/act-register.html?backurl=http://127.0.0.1:8020/duobao_v"+lData.version+"/src/register.html";
-//		bannerInfoLocal[1].bannerUrl = "iframe.html?url=http://127.0.0.1:8020/duobao_v"+lData.version+"/other/src/act-recharge.html?backurl=http://127.0.0.1:8020/duobao_v"+lData.version+"/src/personal.html";
-//		bannerInfoLocal[2].bannerUrl = "iframe.html?url=http://127.0.0.1:8020/duobao_v"+lData.version+"/other/html/extract.html"+extractUrl;
-////		bannerInfoLocal[3].bannerUrl = "iframe.html?url=http://127.0.0.1:8020/duobao_v"+lData.version+"/other/src/act-qun.html";
+//		bannerInfoLocal[0].bannerUrl = "iframe.html?url=http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/other/src/act-register.html?backurl=http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/src/register.html";
+//		bannerInfoLocal[1].bannerUrl = "iframe.html?url=http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/other/src/act-recharge.html?backurl=http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/src/personal.html";
+//		bannerInfoLocal[2].bannerUrl = "iframe.html?url=http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/other/html/extract.html"+extractUrl;
+////		bannerInfoLocal[3].bannerUrl = "iframe.html?url=http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/other/src/act-qun.html";
 //	}
 	
 	
@@ -554,21 +554,21 @@ function fillBanner(bannerInfo){
 	$.each(bannerInfo, function(i,n) {
 		if (!/127.0.0.1/.test(window.location.href)) {
 			if (!!/register/.test(n.bannerUrl)) {
-				n.bannerUrl = n.bannerUrl+"?backurl="+lData.bannerBackUrl;
+				n.bannerUrl = n.bannerUrl+"?backurl="+luanmingli.bannerBackUrl;
 			}else if(!!/recharge/.test(n.bannerUrl)){
-				n.bannerUrl = n.bannerUrl+"?backurl="+lData.bannerBackUrlRecharge;
+				n.bannerUrl = n.bannerUrl+"?backurl="+luanmingli.bannerBackUrlRecharge;
 			}else if(!!/extract/.test(n.bannerUrl)) {
 				n.bannerUrl = n.bannerUrl+extractUrl;
 			}
 		}else{
 			if (!!/register/.test(n.bannerUrl)) {
-				n.bannerUrl = "http://127.0.0.1:8020/duobao_v"+lData.version+"/other/src/act-register.html?backurl=http://127.0.0.1:8020/duobao_v"+lData.version+"/src/register.html";
+				n.bannerUrl = "http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/other/src/act-register.html?backurl=http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/src/register.html";
 			}else if(!!/recharge/.test(n.bannerUrl)){
-				n.bannerUrl = "http://127.0.0.1:8020/duobao_v"+lData.version+"/other/src/act-recharge.html?backurl=http://127.0.0.1:8020/duobao_v"+lData.version+"/src/personal.html";
+				n.bannerUrl = "http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/other/src/act-recharge.html?backurl=http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/src/personal.html";
 			}else if(!!/extract/.test(n.bannerUrl)) {
-				n.bannerUrl = "http://127.0.0.1:8020/duobao_v"+lData.version+"/other/html/extract.html"+extractUrl;
+				n.bannerUrl = "http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/other/html/extract.html"+extractUrl;
 			}else if(!!/qun/.test(n.bannerUrl)) {
-				n.bannerUrl = "http://127.0.0.1:8020/duobao_v"+lData.version+"/other/src/act-qun.html";
+				n.bannerUrl = "http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/other/src/act-qun.html";
 			}
 		}
 	});

@@ -31,13 +31,13 @@ $(function(){
 function checkAddress(){
 	$.ajax({
 		type:"post",
-		url:lData.getUrl+"addressManager",
+		url:luanmingli.getUrl+"addressManager",
 		data:{
-//			userId : lData.userId,
+//			userId : luanmingli.userId,
 //			way : 1,
-			v: lData.srvVersion,
+			v: luanmingli.srvVersion,
 			content: encryptByDES(JSON.stringify({
-				userId : lData.userId,
+				userId : luanmingli.userId,
 				way : 1
 			}))
 		},

@@ -39,11 +39,11 @@ function winGetData(treasureId,curPage,callback){
 	
 	$.ajax({
 		type:"get",
-		url:lData.getUrl+"getPreviousLuckyUserList",
+		url:luanmingli.getUrl+"getPreviousLuckyUserList",
 		data:{
 			treasureId:treasureId,
 			currentPage:curPage,
-			v: lData.srvVersion
+			v: luanmingli.srvVersion
 		},
 		async:true,
 		dataType:"json",

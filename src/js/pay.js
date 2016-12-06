@@ -1,10 +1,10 @@
 $(function(){
 	try{
-		lData.orderInfo = $.parseJSON(window.sessionStorage.getItem("orderInfo"));
+		luanmingli.orderInfo = $.parseJSON(window.sessionStorage.getItem("orderInfo"));
 		if (!!window.sessionStorage.getItem("canUseBonus")) {
-			lData.canUseBonus = $.parseJSON(window.sessionStorage.getItem("canUseBonus"));
+			luanmingli.canUseBonus = $.parseJSON(window.sessionStorage.getItem("canUseBonus"));
 		}else{
-			lData.canUseBonus = false;
+			luanmingli.canUseBonus = false;
 		}
 		
 		if (navigator.userAgent.indexOf('UCBrowser') > -1 || !supportCss3('justify-content')) {
@@ -37,13 +37,13 @@ function payBackButton(){
 function deleteOrder(){
 	$.ajax({
 		type:"post",
-		url:lData.getUrl+"deleteOrder",
+		url:luanmingli.getUrl+"deleteOrder",
 		data:{
 			_method : "delete",
-//			orderId : lData.orderInfo.orderId,
-			v: lData.srvVersion,
+//			orderId : luanmingli.orderInfo.orderId,
+			v: luanmingli.srvVersion,
 			content: encryptByDES(JSON.stringify({
-				orderId : lData.orderInfo.orderId
+				orderId : luanmingli.orderInfo.orderId
 			}))
 		},
 		async:true,
@@ -65,26 +65,26 @@ function deleteOrder(){
 
 function payFillData(){
 	
-	if (!!lData.canUseBonus) {
-		if (!!lData.bonusUseCheckboxOld) {
-			$(".bonus-right-box").html(lData.bonusUseCheckboxOld);
+	if (!!luanmingli.canUseBonus) {
+		if (!!luanmingli.bonusUseCheckboxOld) {
+			$(".bonus-right-box").html(luanmingli.bonusUseCheckboxOld);
 		}
 		
 		$(".p-bonus-ipt").prop("checked",true);
-		$(".p-bonus-ipt").attr("name",lData.canUseBonus.userHongbaoId);
-		$(".z_pay_bonus").html(lData.canUseBonus.disCount);
-		var bonusUsedNum = lData.canUseBonus.disCount;
+		$(".p-bonus-ipt").attr("name",luanmingli.canUseBonus.userHongbaoId);
+		$(".z_pay_bonus").html(luanmingli.canUseBonus.disCount);
+		var bonusUsedNum = luanmingli.canUseBonus.disCount;
 		
 	}else{
 		bonusUsedNum = 0;
-		lData.bonusUseCheckboxOld = $(".bonus-right-box").html();
+		luanmingli.bonusUseCheckboxOld = $(".bonus-right-box").html();
 		$(".bonus-right-box").html("暂无可用红包");
 	}
 	
 	
 	
-	var cost = lData.orderInfo.cost - bonusUsedNum;
-	var havePoint = lData.userInfo.detailInfo.points;
+	var cost = luanmingli.orderInfo.cost - bonusUsedNum;
+	var havePoint = luanmingli.userInfo.detailInfo.points;
 	
 	var goldUsed = havePoint >= cost? cost : havePoint;
 	
@@ -95,7 +95,7 @@ function payFillData(){
 		$(".p-gold-ipt").prop("checked",true);
 	}
 	
-	$(".z_pay_money").html(lData.orderInfo.cost);
+	$(".z_pay_money").html(luanmingli.orderInfo.cost);
 	if (goldUsed < 0) {
 		goldUsed = 0;
 	}
@@ -118,8 +118,8 @@ function payFillData(){
 	
 	var leftPayNum = cost-goldUsed;
 	$(".p-gold-ipt-icon").click(function(){
-		var cost = lData.orderInfo.cost - bonusUsedNum;
-		var havePoint = lData.userInfo.detailInfo.points;
+		var cost = luanmingli.orderInfo.cost - bonusUsedNum;
+		var havePoint = luanmingli.userInfo.detailInfo.points;
 		
 		var goldUsed = havePoint >= cost? cost : havePoint;
 		
@@ -159,8 +159,8 @@ function payFillData(){
 	
 	
 	$(".p-pay-button").click(function(){
-		if (!!lData.canUseBonus && $(".p-bonus-ipt").is(":checked")) {
-			bonusMoneyNum = lData.canUseBonus.disCount;
+		if (!!luanmingli.canUseBonus && $(".p-bonus-ipt").is(":checked")) {
+			bonusMoneyNum = luanmingli.canUseBonus.disCount;
 			prePay(leftPayNum,bonusMoneyNum);
 		}else{
 			prePay(leftPayNum,0);
@@ -185,22 +185,22 @@ function prePay(payNum,bonusMoneyNum){
 	//全金币
 	if (payNum == 0) {
 		way = 10;
-		var pointUse = lData.orderInfo.cost-bonusMoneyNum;
+		var pointUse = luanmingli.orderInfo.cost-bonusMoneyNum;
 		if (pointUse< 0) {
 			pointUse = 0;
 		}
 		$.ajax({
 			type:"post",
-			url:lData.getUrl+"prePay",
+			url:luanmingli.getUrl+"prePay",
 			data:{
-				v: lData.srvVersion,
+				v: luanmingli.srvVersion,
 				content: encryptByDES(JSON.stringify({
 					way : way,
-					orderId : lData.orderInfo.orderId,
-					userId : lData.userId,
-					secret: lData.orderInfo.secret,
+					orderId : luanmingli.orderInfo.orderId,
+					userId : luanmingli.userId,
+					secret: luanmingli.orderInfo.secret,
 					points: pointUse,
-					channelId: lData.channel,
+					channelId: luanmingli.channel,
 					hongbaoId: bonusId()
 				}))
 			},
@@ -208,7 +208,7 @@ function prePay(payNum,bonusMoneyNum){
 			dataType:"json",
 			success:function(o){
 				console.log(o);
-				window.sessionStorage.setItem("paying",lData.orderInfo.orderId);
+				window.sessionStorage.setItem("paying",luanmingli.orderInfo.orderId);
 				if (o.stateCode == 0) {
 					checkPay();
 				}else{
@@ -221,49 +221,49 @@ function prePay(payNum,bonusMoneyNum){
 		if ($(".p_pay_way").find("input[type=radio]:checked").attr("class") == "zfb") {
 			way = 2;
 			var emptyPage = "http://www.2333db.com/callback/callback_empty.html";
-			if (lData.qktId || lData.thirdId || navigator.userAgent.indexOf("QQ") > -1) {
-				emptyPage = window.location.href+"?backId="+lData.orderInfo.treasureId;
+			if (luanmingli.qktId || luanmingli.thirdId || navigator.userAgent.indexOf("QQ") > -1) {
+				emptyPage = window.location.href+"?backId="+luanmingli.orderInfo.treasureId;
 			}
 			var callbackUrl = "&goodsDetailUrl="+emptyPage+"&paySuccessUrl="+emptyPage;
 			//全支付宝
-			if (lData.orderInfo.cost == parseInt(payNum) + parseInt(bonusMoneyNum)) {
-//				var zfbPrePayUrl = lData.getUrl+"prePay?v="+lData.srvVersion+"&way="+way+"&orderId="+lData.orderInfo.orderId+"&userId="+lData.userId  +callbackUrl;
-				var zfbPrePayUrl = lData.getUrl+"prePay?v="+lData.srvVersion+"&content="+ encodeURIComponent(encryptByDES(JSON.stringify({
+			if (luanmingli.orderInfo.cost == parseInt(payNum) + parseInt(bonusMoneyNum)) {
+//				var zfbPrePayUrl = luanmingli.getUrl+"prePay?v="+luanmingli.srvVersion+"&way="+way+"&orderId="+luanmingli.orderInfo.orderId+"&userId="+luanmingli.userId  +callbackUrl;
+				var zfbPrePayUrl = luanmingli.getUrl+"prePay?v="+luanmingli.srvVersion+"&content="+ encodeURIComponent(encryptByDES(JSON.stringify({
 					way: way,
-					orderId: lData.orderInfo.orderId,
-					userId: lData.userId,
-					secret: lData.orderInfo.secret,
+					orderId: luanmingli.orderInfo.orderId,
+					userId: luanmingli.userId,
+					secret: luanmingli.orderInfo.secret,
 					points: 0,
 					goodsDetailUrl: emptyPage,
 					paySuccessUrl: emptyPage,
 					hongbaoId: bonusId()
 				})));
-				if ((lData.qktId && !lData.qkt.backUrl) || lData.thirdId || navigator.userAgent.indexOf("QQ") > -1) {
+				if ((luanmingli.qktId && !luanmingli.qkt.backUrl) || luanmingli.thirdId || navigator.userAgent.indexOf("QQ") > -1) {
 					window.location.href = zfbPrePayUrl;
 				}else{
 					window.open(zfbPrePayUrl);
 				}
 			//支付宝＋金币
 			}else{
-//				var zfbPointPrePayUrl = lData.getUrl+"prePay?v="+lData.srvVersion+"&way="+way+"&orderId="+lData.orderInfo.orderId+"&userId="+lData.userId+"&points="+payNum +callbackUrl;
-				var zfbPointPrePayUrl = lData.getUrl+"prePay?v="+lData.srvVersion+"&content="+encodeURIComponent(encryptByDES(JSON.stringify({
+//				var zfbPointPrePayUrl = luanmingli.getUrl+"prePay?v="+luanmingli.srvVersion+"&way="+way+"&orderId="+luanmingli.orderInfo.orderId+"&userId="+luanmingli.userId+"&points="+payNum +callbackUrl;
+				var zfbPointPrePayUrl = luanmingli.getUrl+"prePay?v="+luanmingli.srvVersion+"&content="+encodeURIComponent(encryptByDES(JSON.stringify({
 					way: way,
-					orderId: lData.orderInfo.orderId,
-					userId: lData.userId,
-					secret: lData.orderInfo.secret,
+					orderId: luanmingli.orderInfo.orderId,
+					userId: luanmingli.userId,
+					secret: luanmingli.orderInfo.secret,
 					points: payNum,
 					goodsDetailUrl: emptyPage,
 					paySuccessUrl: emptyPage,
 					hongbaoId: bonusId()
 				})));
-				if ((lData.qktId && !lData.qkt.backUrl) || lData.thirdId || navigator.userAgent.indexOf("QQ") > -1) {
+				if ((luanmingli.qktId && !luanmingli.qkt.backUrl) || luanmingli.thirdId || navigator.userAgent.indexOf("QQ") > -1) {
 					window.location.href = zfbPointPrePayUrl;
 				}else{
 					window.open(zfbPointPrePayUrl);
 				}
 			}
 			
-			window.sessionStorage.setItem("paying",lData.orderInfo.orderId);
+			window.sessionStorage.setItem("paying",luanmingli.orderInfo.orderId);
 			$.confirm('是否支付完成?', function() {
 				checkPay();
 			});
@@ -274,15 +274,15 @@ function prePay(payNum,bonusMoneyNum){
 
 //检查支付状态
 function checkPay(){
-	var orderId = lData.orderInfo.orderId;
-	var secret = lData.orderInfo.secret;
+	var orderId = luanmingli.orderInfo.orderId;
+	var secret = luanmingli.orderInfo.secret;
 	$.ajax({
 		type:"post",
-		url:lData.getUrl+"postPayInfo",
+		url:luanmingli.getUrl+"postPayInfo",
 		data:{
 //			orderId : orderId,
 //			secret : secret,
-			v: lData.srvVersion,
+			v: luanmingli.srvVersion,
 			content: encryptByDES(JSON.stringify({
 				orderId : orderId,
 				secret : secret,

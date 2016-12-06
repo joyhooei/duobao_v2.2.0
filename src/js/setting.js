@@ -9,12 +9,12 @@ $(function(){
 })
 
 function signOut(){
-	if (lData.userId) {
+	if (luanmingli.userId) {
 		if ((window.sessionStorage.getItem("qktId") != null || $.getUrlParam("qktId") != null) && !window.sessionStorage.getItem("backurl") ) {
 			return;
 		}
 		
-		if (lData.thirdId) {
+		if (luanmingli.thirdId) {
 			return;
 		}
 		
@@ -29,7 +29,7 @@ function signOut(){
 		}catch(e){
 		}
 
-		lData.userId = "";
+		luanmingli.userId = "";
 		
 		$.alert("注销成功",function(){
 			window.sessionStorage.setItem("qqSignOut","1");

@@ -22,11 +22,11 @@ function myShareGetData(curPage){
 	$.showIndicator();
 	$.ajax({
 		type:"post",
-		url:lData.getUrl+"getShareOrder",
+		url:luanmingli.getUrl+"getShareOrder",
 		data:{
 			currentPage : curPage,
-			userId : lData.userId,
-			v: lData.srvVersion
+			userId : luanmingli.userId,
+			v: luanmingli.srvVersion
 		},
 		async:true,
 		dataType:"json",

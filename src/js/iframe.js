@@ -17,7 +17,7 @@ $(function(){
 
 
 function actRegisterBtn(url){
-	if (!lData.userId) {
+	if (!luanmingli.userId) {
 		$.router.load(url);
 	}else{
 		$.alert('您已经是一元街老主顾啦～我们为您奉上"充值狂欢大礼包"',function(){

@@ -8,5 +8,5 @@ $(function(){
 
 
 function version(){
-	$(".version_page .v-text").html("一元街 v"+lData.version)
+	$(".version_page .v-text").html("一元街 v"+luanmingli.version)
 }

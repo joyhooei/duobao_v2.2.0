@@ -19,12 +19,12 @@ function chestFillData(curPage){
 	$.showIndicator();
 	$.ajax({
 		type:"get",
-		url:lData.getUrl+"getTreasureList",
+		url:luanmingli.getUrl+"getTreasureList",
 		data:{
 			"currentPage":curPage,
 			"order":1,
 			"type":2,
-			v: lData.srvVersion
+			v: luanmingli.srvVersion
 		},
 		async:true,
 		dataType:"json",

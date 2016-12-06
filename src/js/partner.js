@@ -24,11 +24,11 @@ var partnerTotlePage;
 function getData(treasureId,curPage,removeFlag,callback){
 	$.ajax({
 		type:"get",
-		url:lData.getUrl+"getCurrentPhaseParticipantList",
+		url:luanmingli.getUrl+"getCurrentPhaseParticipantList",
 		data:{
 			treasureId:treasureId,
 			currentPage:curPage,
-			v: lData.srvVersion
+			v: luanmingli.srvVersion
 		},
 		async:true,
 		dataType:"json",

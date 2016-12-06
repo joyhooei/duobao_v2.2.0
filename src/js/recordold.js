@@ -61,11 +61,11 @@ function recordGetData(flag,ele){
 	
 	$.ajax({
 		type:"post",
-		url:lData.getUrl+"getTreasureRecordList",
+		url:luanmingli.getUrl+"getTreasureRecordList",
 		data:{
-			userId : lData.userId,
+			userId : luanmingli.userId,
 			flag : flag,
-			v: lData.srvVersion
+			v: luanmingli.srvVersion
 		},
 		async:true,
 		dataType:"json",

@@ -10,9 +10,9 @@ var results = (function($){
 	var request = function(curpage,callback){
 		$.ajax({
 			type:"post",
-			url:lData.getUrl+"getLotteryTreasure",
+			url:luanmingli.getUrl+"getLotteryTreasure",
 			data:{
-				v: lData.srvVersion,
+				v: luanmingli.srvVersion,
 				currentPage: curpage
 			},
 			async:true,

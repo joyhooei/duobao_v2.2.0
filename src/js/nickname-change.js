@@ -11,7 +11,7 @@ var nickChange = (function($){
 	var ipt = $("#nickname-change-ipt");
 	var btn = $("#p-nickname-change .j-change-button");
 	var placeholder = function(){
-		ipt.attr("placeholder",lData.userInfo.nickName);
+		ipt.attr("placeholder",luanmingli.userInfo.nickName);
 	}
 	var btnClick = function(){
 		btn.on("click",function(){
@@ -30,9 +30,9 @@ var nickChange = (function($){
 	var request = function(){
 		$.ajax({
 			type:"get",
-			url:lData.getUrl+"resetNickName",
+			url:luanmingli.getUrl+"resetNickName",
 			data:{
-				v: lData.srvVersion,
+				v: luanmingli.srvVersion,
 				content: encryptByDES(JSON.stringify({
 					userKey: window.localStorage.getItem("userKey"),
 					nickName : ipt.val()

@@ -310,7 +310,7 @@ function forceSignOut(){
 	}catch(e){
 	}
 
-	lData.userId = "";
+	luanmingli.userId = "";
 	
 	var channel = window.sessionStorage.getItem("channel");
 	var skin = window.sessionStorage.getItem("skin");
@@ -329,7 +329,7 @@ function forceSignOut(){
 }
 
 function callback(o) {
-	if (lData.userId) {
+	if (luanmingli.userId) {
 		return;
 	}
 //	var qqcb = o;
@@ -389,7 +389,7 @@ function saveToDesktop() {
 //弹出注册领红包遮罩层
 function alertRegisterBonus(status){
 	if (status == "show") {
-		if (!lData.userId) {
+		if (!luanmingli.userId) {
 			$(".alert-resiger-bonus").show();
 		}
 	}else if(status == "hide") {
@@ -410,12 +410,12 @@ $.ajaxSettings.error = function(e,f){
 
 
 //传入数据
-var lData = {
+var luanmingli = {
 	userId: "",		//用户ID
-	version: "2.3.0",	//客户端版本号
+	version: "2.2.1",	//客户端版本号
 	srvVersion: "2.1.0",		//服务端版本号
 	channel: "h5",		//channel ID
-	jsVersion: CryptoJS.MD5("1202").toString(),    //先加载的js文件版本号
+	jsVersion: CryptoJS.MD5("1206").toString(),    //先加载的js文件版本号
 	
 	//正式网
 	getUrl: "http://api.2333db.com/raiders/restWeb/",
@@ -439,13 +439,13 @@ var lData = {
 	}
 }
 
-//参数中带有channelID，则相应改变lData.channel
+//参数中带有channelID，则相应改变luanmingli.channel
 if ($.getUrlParam("channel")) {
-	lData.channel = $.getUrlParam("channel");
+	luanmingli.channel = $.getUrlParam("channel");
 	window.sessionStorage.setItem("channel",$.getUrlParam("channel"));
 }else{
 	if (window.sessionStorage.getItem("channel")) {
-		lData.channel = window.sessionStorage.getItem("channel");
+		luanmingli.channel = window.sessionStorage.getItem("channel");
 	}
 }
 
@@ -456,8 +456,8 @@ if (/iphone|ipad/i.test(navigator.userAgent)) {
 //判断userId相关是否状态正常，不正常则强制注销
 if (window.localStorage.getItem("userId") != null && window.localStorage.getItem("userInfo") != null && window.localStorage.getItem("userInfo") != 'undefined') {
 	if (window.localStorage.getItem("userId")&&CryptoJS.MD5(window.localStorage.getItem("userId")).toString() == window.localStorage.getItem("mid")) { 
-		lData.userId = window.localStorage.getItem("userId");
-		lData.userInfo = $.parseJSON(window.localStorage.getItem("userInfo"));
+		luanmingli.userId = window.localStorage.getItem("userId");
+		luanmingli.userInfo = $.parseJSON(window.localStorage.getItem("userInfo"));
 	}else{
 		forceSignOut();
 	}
@@ -471,9 +471,9 @@ function getUserInfo(){
 	if (window.localStorage.getItem("userId")&&CryptoJS.MD5(window.localStorage.getItem("userId")).toString() == window.localStorage.getItem("mid")) {
 		$.ajax({
 			type:"post",
-			url:lData.getUrl+"userDetail",
+			url:luanmingli.getUrl+"userDetail",
 			data:{
-				v: lData.srvVersion,
+				v: luanmingli.srvVersion,
 				content: encryptByDES(JSON.stringify({
 					userId:window.localStorage.getItem("userId")
 				}))
@@ -483,7 +483,7 @@ function getUserInfo(){
 			success:function(o){
 				console.log(o);
 				if (o.stateCode == 0) {
-					lData.userInfo = o.userInfo;
+					luanmingli.userInfo = o.userInfo;
 					
 					window.localStorage.setItem("userInfo",JSON.stringify(o.userInfo));
 					window.sessionStorage.setItem("bunusList",JSON.stringify(o.userInfo.hongbaoList));
@@ -560,8 +560,8 @@ function vdshm(){
 	window._vds = _vds;
 	(function(){
 		_vds.push(['setAccountId', 'bdd0f83d74ae607c']);
-		_vds.push(['setCS1', 'channel', lData.channel]);
-		_vds.push(['setCS2', 'version', lData.version]);
+		_vds.push(['setCS1', 'channel', luanmingli.channel]);
+		_vds.push(['setCS2', 'version', luanmingli.version]);
 
 		(function() {
 			var vds = document.createElement('script');
@@ -591,13 +591,13 @@ $(function(){
 	saveToDesktop();
 	
 //	//正式网调用百度统计
-	if (!lData.calcTestUrl && !/127.0.0.1/.test(window.location.href)) {
+	if (!luanmingli.calcTestUrl && !/127.0.0.1/.test(window.location.href)) {
 		if ($.getUrlParam("userId") != null && $.getUrlParam("token") != null ) {
-			lData.channel = "hongbao";
+			luanmingli.channel = "hongbao";
 		}else if (!!$.getUrlParam("qktId")) {
-			lData.channel = "qikuaitang";
+			luanmingli.channel = "qikuaitang";
 		}else if(!!$.getUrlParam("channel")) {
-			lData.channel = $.getUrlParam("channel");
+			luanmingli.channel = $.getUrlParam("channel");
 		}
 		
 		bdhm();
@@ -664,12 +664,12 @@ $(document).on("pageInit", function(e, pageId, $page) {
 	//7块糖相关js
 	if (window.sessionStorage.getItem("qktId") != null || $.getUrlParam("qktId") != null) {
 		baseFuc.swipe();
-		_getScript("js/qkt.js?rev="+lData.jsVersion);
+		_getScript("js/qkt.js?rev="+luanmingli.jsVersion);
 	}
 	
 	//第三方渠道相关js
 	if ((window.sessionStorage.getItem("thirdId") != null && window.sessionStorage.getItem("thirdToken") != null ) || ($.getUrlParam("token") != null && $.getUrlParam("userId") != null )) {
-		_getScript("js/third.js?rev="+lData.jsVersion);
+		_getScript("js/third.js?rev="+luanmingli.jsVersion);
 	}
 	
 	
@@ -681,11 +681,11 @@ $(document).on("pageInit", function(e, pageId, $page) {
 	}
 	
 	//加载对应页面js
-	_getScript("js/"+ pageId.substring(2) + ".js?rev="+lData.jsVersion);
+	_getScript("js/"+ pageId.substring(2) + ".js?rev="+luanmingli.jsVersion);
 	
 	//测试网调用标题栏加测试文字
-	if (!!lData.calcTestUrl) {
-		lData.test();
+	if (!!luanmingli.calcTestUrl) {
+		luanmingli.test();
 	}
 });
  

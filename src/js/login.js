@@ -6,7 +6,7 @@ $(function() {
 			if (/127.0.0.1/.test(window.location.href)) {
 				$.router.load("iframe.html?url=http://127.0.0.1:8020/duobao_v2.1.0/other/src/act-register.html?telephone="+toActRegisterTel+"&backurl=http://127.0.0.1:8020/duobao_v2.1.0/src/personal.html");
 			}else{
-				$.router.load("iframe.html?url=http://www.2333db.com/activity/act-register.html?telephone="+toActRegisterTel+"&backurl="+lData.bannerBackUrl);
+				$.router.load("iframe.html?url=http://www.2333db.com/activity/act-register.html?telephone="+toActRegisterTel+"&backurl="+luanmingli.bannerBackUrl);
 			}
 		}else{
 			qqLogin();
@@ -69,21 +69,21 @@ function telLogin() {
 
 			$.ajax({
 				type: "post",
-				url: lData.getUrl + "login",
+				url: luanmingli.getUrl + "login",
 				data: {
 //					v: "2.0.0",
 //					platform: 3,
 //					phoneNum: telNum,
 //					password: psdNum,
-//					clientData: lData.channel+"&" + lData.version + "&3",
-					v: lData.srvVersion,
+//					clientData: luanmingli.channel+"&" + luanmingli.version + "&3",
+					v: luanmingli.srvVersion,
 					content: encryptByDES(JSON.stringify({
 						platform: 3,
 						phoneNum: telNum,
 						password: psdNum,
-//						clientData: lData.channel+"&" + lData.version + "&3",
-						channelid: lData.channel,
-						appversion: lData.version,
+//						clientData: luanmingli.channel+"&" + luanmingli.version + "&3",
+						channelid: luanmingli.channel,
+						appversion: luanmingli.version,
 						clienttype: 3,
 						deviceId: 1
 					}))
@@ -94,13 +94,13 @@ function telLogin() {
 					$.hideIndicator();
 					console.log(o);
 					if (o.stateCode == 0) {
-						lData.userId = o.userInfo.userId;
-						lData.userInfo = o.userInfo;
+						luanmingli.userId = o.userInfo.userId;
+						luanmingli.userInfo = o.userInfo;
 						window.localStorage.setItem("userId", o.userInfo.userId);
 						window.localStorage.setItem("userInfo",JSON.stringify(o.userInfo));
 						window.localStorage.setItem("userKey",o.userInfo.userKey);
 						window.localStorage.setItem("mid",CryptoJS.MD5(o.userInfo.userId).toString());
-						window.localStorage.setItem("loginSrv",lData.getUrl);
+						window.localStorage.setItem("loginSrv",luanmingli.getUrl);
 						
 						$.alert("登录成功", function() {
 							$.showIndicator();
@@ -133,7 +133,7 @@ function qqLogin() {
 	});
 	$("#qqLoginBtn img").attr("src", "img/qqlogin.png");
 	$("#qqLoginBtn img").click(function() {
-		var reUrl = lData.qqLoginReUrl;
+		var reUrl = luanmingli.qqLoginReUrl;
 		if (/127.0.0.1/.test(window.location.href)) {
 			reUrl = "www.2333db.com/callback/test-qc_back.v210.html";
 		}

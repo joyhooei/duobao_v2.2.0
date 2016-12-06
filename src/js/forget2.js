@@ -26,11 +26,11 @@ function forget2(){
 			var mmMd5 = CryptoJS.MD5(psd.eq(1).val()).toString();
 			$.ajax({
 				type:"post",
-				url:lData.getUrl+"resetPassword",
+				url:luanmingli.getUrl+"resetPassword",
 				data:{
 //					phoneNum : tel,
 //					password : mmMd5,
-					v: lData.srvVersion,
+					v: luanmingli.srvVersion,
 					content: encryptByDES(JSON.stringify({
 						phoneNum : tel,
 						password : mmMd5

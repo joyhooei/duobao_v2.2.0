@@ -260,14 +260,14 @@ function upLoadImageToOwn(){
 	
 	$.showPreloader('上传中');
 	
-	var FileController = lData.getUrl+"addShareOrder";
+	var FileController = luanmingli.getUrl+"addShareOrder";
 //	var FileController = "http://192.168.0.197:8080/raiders/restWeb/addShareOrder";
 	
 	var form = new FormData();
-	form.append("userId", lData.userId);
+	form.append("userId", luanmingli.userId);
 	form.append("treasureId", $.getUrlParam("treasureId"));
 	form.append("shareContent", $("#textArea").val());
-	form.append("v",lData.srvVersion);
+	form.append("v",luanmingli.srvVersion);
 	
 //	$.each(fileArr, function(i,n) {
 //		form.append("file", n);

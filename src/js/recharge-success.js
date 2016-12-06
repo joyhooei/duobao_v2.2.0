@@ -11,9 +11,9 @@ $(function(){
 function checkBonus(){
 	$.ajax({
 		type:"post",
-		url:lData.getUrl+"userDetail",
+		url:luanmingli.getUrl+"userDetail",
 		data:{
-			v: lData.srvVersion,
+			v: luanmingli.srvVersion,
 			content: encryptByDES(JSON.stringify({
 				userId:window.localStorage.getItem("userId")
 			}))

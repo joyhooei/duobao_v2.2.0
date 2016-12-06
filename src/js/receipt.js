@@ -12,13 +12,13 @@ $(function(){
 function receiptSelect(){
 	$.ajax({
 		type:"post",
-		url:lData.getUrl+"addressManager",
+		url:luanmingli.getUrl+"addressManager",
 		data:{
-//			userId : lData.userId,
+//			userId : luanmingli.userId,
 //			way : 1,
-			v: lData.srvVersion,
+			v: luanmingli.srvVersion,
 			content: encryptByDES(JSON.stringify({
-				userId : lData.userId,
+				userId : luanmingli.userId,
 				way : 1
 			}))
 		},
@@ -106,16 +106,16 @@ function setDefaultAddress(addId,that){
 	setTimeout(function(){
 		$.ajax({
 			type:"post",
-			url:lData.getUrl+"addressManager",
+			url:luanmingli.getUrl+"addressManager",
 			data:{
-//				userId : lData.userId,
+//				userId : luanmingli.userId,
 //				way : 5,
 //				addressId : addId,
-//				v: lData.srvVersion
+//				v: luanmingli.srvVersion
 				
-				v: lData.srvVersion,
+				v: luanmingli.srvVersion,
 				content: encryptByDES(JSON.stringify({
-					userId : lData.userId,
+					userId : luanmingli.userId,
 					way : 5,
 					addressId : addId,
 				}))
@@ -252,14 +252,14 @@ function receiptSave(id){
 function receiptInsert(name,tel,address){
 	$.ajax({
 		type:"get",
-		url:lData.getUrl+"addressManager",
+		url:luanmingli.getUrl+"addressManager",
 		data:{
-//			userId : lData.userId,
+//			userId : luanmingli.userId,
 //			way : 2,
 //			address : address,
 //			telephone : tel,
 //			name : name,
-//			v: lData.srvVersion,
+//			v: luanmingli.srvVersion,
 //			code1: $("#picker").attr("data-lv1"),
 //			code2: $("#picker").attr("data-lv2"),
 //			code3: $("#picker").attr("data-lv3"),
@@ -269,9 +269,9 @@ function receiptInsert(name,tel,address){
 //			address3: $("#picker").attr("data-lvname3"),
 //			address4: $("#picker").attr("data-lvname4")?$("#picker").attr("data-lvname4"):""
 			
-			v: lData.srvVersion,
+			v: luanmingli.srvVersion,
 			content: encryptByDES(JSON.stringify({
-				userId : lData.userId,
+				userId : luanmingli.userId,
 				way : 2,
 				address : address,
 				telephone : tel,
@@ -308,16 +308,16 @@ function receiptDelete(addId,that){
 		function() {
 			$.ajax({
 				type:"post",
-				url:lData.getUrl+"addressManager",
+				url:luanmingli.getUrl+"addressManager",
 				data:{
-//					userId : lData.userId,
+//					userId : luanmingli.userId,
 //					way : 4,
 //					addressId : addId,
-//					v: lData.srvVersion
+//					v: luanmingli.srvVersion
 					
-					v: lData.srvVersion,
+					v: luanmingli.srvVersion,
 					content: encryptByDES(JSON.stringify({
-						userId : lData.userId,
+						userId : luanmingli.userId,
 						way : 4,
 						addressId : addId
 					}))
@@ -347,15 +347,15 @@ function receiptDelete(addId,that){
 function receiptUpdate(id,name,tel,address){
 	$.ajax({
 		type:"get",
-		url:lData.getUrl+"addressManager",
+		url:luanmingli.getUrl+"addressManager",
 		data:{
-//			userId : lData.userId,
+//			userId : luanmingli.userId,
 //			way : 3,
 //			addressId : id ,
 //			address : address,
 //			telephone : tel,
 //			name : name.toString(),
-//			v: lData.srvVersion,
+//			v: luanmingli.srvVersion,
 //			code1: $("#picker").attr("data-lv1"),
 //			code2: $("#picker").attr("data-lv2"),
 //			code3: $("#picker").attr("data-lv3"),
@@ -365,9 +365,9 @@ function receiptUpdate(id,name,tel,address){
 //			address3: $("#picker").attr("data-lvname3"),
 //			address4: $("#picker").attr("data-lvname4")?$("#picker").attr("data-lvname4"):""
 			
-			v: lData.srvVersion,
+			v: luanmingli.srvVersion,
 			content: encryptByDES(JSON.stringify({
-				userId : lData.userId,
+				userId : luanmingli.userId,
 				way : 3,
 				addressId : id ,
 				address : address,
@@ -497,7 +497,7 @@ function receiptLinkTo(){
 //	var addList = "";
 //	$.ajax({
 //		type:"get",
-//		url:lData.getUrl+"getAddressCodes",
+//		url:luanmingli.getUrl+"getAddressCodes",
 //		data:{
 //			addressLevel: lv,
 //			parentCode: code

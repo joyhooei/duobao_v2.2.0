@@ -1,6 +1,6 @@
 $(function(){
 	try{
-		if (lData.userInfo.usertelephone) {
+		if (luanmingli.userInfo.usertelephone) {
 			$("#p-bindtel").find("h1.title").html("修改手机号");
 		}else{
 			$("#p-bindtel").find("h1.title").html("添加手机号");
@@ -99,13 +99,13 @@ function bindTelBind(tel){
 	$.showIndicator();
 	$.ajax({
 		type:"post",
-		url:lData.getUrl+"resetTelephone",
+		url:luanmingli.getUrl+"resetTelephone",
 		data:{
-//			userId : lData.userId,
+//			userId : luanmingli.userId,
 //			telephone : tel,
-			v: lData.srvVersion,
+			v: luanmingli.srvVersion,
 			content: encryptByDES(JSON.stringify({
-//				userId : lData.userId,
+//				userId : luanmingli.userId,
 				userKey: window.localStorage.getItem("userKey"),
 				telephone : tel
 			}))
@@ -115,7 +115,7 @@ function bindTelBind(tel){
 		success:function(o){
 			console.log(o);
 			if (o.stateCode == 0) {
-				lData.userInfo = o.userInfo;
+				luanmingli.userInfo = o.userInfo;
 				setTimeout(function(){
 					$.hideIndicator();
 					$.alert("设置成功",function(){

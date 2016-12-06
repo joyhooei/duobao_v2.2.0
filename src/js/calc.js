@@ -10,7 +10,7 @@ $(function(){
 
 
 function calc(treasureId,goodtype){
-	var test = lData.calcTestUrl;
+	var test = luanmingli.calcTestUrl;
 	if (goodtype == 2) {
 		$("#calc-iframe").attr("src","http://www.2333db.com/calc-second/index.html?treasureId="+treasureId+test);
 	}else{

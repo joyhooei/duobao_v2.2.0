@@ -54,12 +54,12 @@ function getDetail(treasureId,type){
 	$.showIndicator();
 	$.ajax({
 		type:"get",
-		url:lData.getUrl+"getTreasureDetail",
+		url:luanmingli.getUrl+"getTreasureDetail",
 		data:{
 			treasureId:treasureId,
-			userId:lData.userId,
+			userId:luanmingli.userId,
 			type:type,
-			v: lData.srvVersion
+			v: luanmingli.srvVersion
 		},
 		async:true,
 		dataType:"json",
@@ -325,7 +325,7 @@ function dbBuyButton(fewestCount,leftCount,treasureId){
 	}
 	
 	
-	if (!lData.userId) {
+	if (!luanmingli.userId) {
 		$.router.load("login.html");
 		return;
 	}
@@ -363,18 +363,18 @@ function browserText(){
 function dbSaveOrder(iptNum,treasureId){
 	$.ajax({
 		type:"post",
-		url:lData.getUrl+"saveOrder",
+		url:luanmingli.getUrl+"saveOrder",
 		data:{
 //			treasureId : treasureId,
-////			userId : lData.userId,
+////			userId : luanmingli.userId,
 //			userKey: window.localStorage.getItem("userKey"),
 //			buyCount : iptNum,
-			v: lData.srvVersion,
+			v: luanmingli.srvVersion,
 			content: encryptByDES(JSON.stringify({
 				treasureId : treasureId,
 				userKey: window.localStorage.getItem("userKey"),
 				buyCount: iptNum,
-				channelId: lData.channel
+				channelId: luanmingli.channel
 			}))
 		},
 		async:true,

@@ -1,6 +1,6 @@
 $(function(){
 	try{
-		bonusFillData();
+		bonusFilluanmingli();
 		bonusExplanation();
 	}catch(e){
 		//TODO handle the exception
@@ -9,13 +9,13 @@ $(function(){
 
 
 
-function bonusFillData(){
+function bonusFilluanmingli(){
 	$.ajax({
 		type:"post",
-		url:lData.getUrl + "getUserHongbaoList",
+		url:luanmingli.getUrl + "getUserHongbaoList",
 		data: {
-			v: lData.srvVersion,
-			userId: lData.userId
+			v: luanmingli.srvVersion,
+			userId: luanmingli.userId
 		},
 		dataType: "json",
 		async:true,

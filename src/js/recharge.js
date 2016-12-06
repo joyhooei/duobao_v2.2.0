@@ -45,20 +45,20 @@ function recharge(){
 
 function preRecharge(way,num){
 	var emptyPage = "http://www.2333db.com/callback/callback_empty.html";
-	if (lData.qktId || lData.thirdId || navigator.userAgent.indexOf("QQ") > -1) {
-//		emptyPage = window.location.href+"?backId="+lData.orderInfo.treasureId;
+	if (luanmingli.qktId || luanmingli.thirdId || navigator.userAgent.indexOf("QQ") > -1) {
+//		emptyPage = window.location.href+"?backId="+luanmingli.orderInfo.treasureId;
 		emptyPage = window.location.href;
 	}
 	
 	var callBackUrl = "&goodsDetailUrl="+emptyPage+"&paySuccessUrl="+emptyPage;
 	
 
-//	var preChargeUrl = lData.getUrl+"preCharge?v="+lData.srvVersion+"&way=" + way + "&userId="+lData.userId + "&points="+num +callBackUrl;
+//	var preChargeUrl = luanmingli.getUrl+"preCharge?v="+luanmingli.srvVersion+"&way=" + way + "&userId="+luanmingli.userId + "&points="+num +callBackUrl;
 
 
-	var preChargeUrl = lData.getUrl+"preCharge?v="+lData.srvVersion+"&content="+ encodeURIComponent(encryptByDES(JSON.stringify({
+	var preChargeUrl = luanmingli.getUrl+"preCharge?v="+luanmingli.srvVersion+"&content="+ encodeURIComponent(encryptByDES(JSON.stringify({
 		way: way,
-		userId: lData.userId,
+		userId: luanmingli.userId,
 		points: num,
 		callBackUrl: emptyPage,
 		paySuccessUrl: emptyPage
@@ -71,10 +71,10 @@ function preRecharge(way,num){
 
 //请求支付宝
 function zfbRecharge(preChargeUrl){
-	window.sessionStorage.setItem("pointsNum",lData.userInfo.detailInfo.points);
+	window.sessionStorage.setItem("pointsNum",luanmingli.userInfo.detailInfo.points);
 	checkRecharge();
 	
-	if ((lData.qktId && !lData.qkt.backUrl) || lData.thirdId || navigator.userAgent.indexOf("QQ") > -1) {
+	if ((luanmingli.qktId && !luanmingli.qkt.backUrl) || luanmingli.thirdId || navigator.userAgent.indexOf("QQ") > -1) {
 		window.location.href = preChargeUrl;
 	}else{
 		window.open(preChargeUrl);
@@ -94,9 +94,9 @@ function checkRecharge(){
 			setTimeout(function(){
 				$.ajax({
 					type:"post",
-					url:lData.getUrl + "userDetail",
+					url:luanmingli.getUrl + "userDetail",
 					data:{
-						v: lData.srvVersion,
+						v: luanmingli.srvVersion,
 						content: encryptByDES(JSON.stringify({
 							userId:window.localStorage.getItem("userId")
 						}))

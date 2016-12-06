@@ -188,7 +188,7 @@ function awardAddressButton(o){
 function awardAddressFill(add){
 	$(".a-address-text").find("*").remove();
 	
-	lData.awardAddId = add.id;
+	luanmingli.awardAddId = add.id;
 	
 	$(".a-address-text").append(
 		'<span>'+add.name+'</span>'+
@@ -218,19 +218,19 @@ function awardChoose(){
 		var treasureId = $.parseJSON(window.sessionStorage.getItem("prizeInfo")).treasureId;
 		$.ajax({
 			type:"post",
-			url:lData.getUrl+"changePrizeStatus",
+			url:luanmingli.getUrl+"changePrizeStatus",
 			data:{
-//				userId : lData.userId,
+//				userId : luanmingli.userId,
 //				userKey: window.localStorage.getItem("userKey"),
 //				treasureId : treasureId,
 //				status : 2,
-//				addressId : lData.awardAddId,
-				v: lData.srvVersion,
+//				addressId : luanmingli.awardAddId,
+				v: luanmingli.srvVersion,
 				content:encryptByDES(JSON.stringify({
 					userKey: window.localStorage.getItem("userKey"),
 					treasureId : treasureId,
 					status : 2,
-					addressId : lData.awardAddId
+					addressId : luanmingli.awardAddId
 				}))
 			},
 			async:true,
@@ -296,7 +296,7 @@ function awardOther(type){
 		$(".award-popup-list").append(
 			'<li class="item-content">'+
 				function(id){
-					if (id == lData.awardAddId) {
+					if (id == luanmingli.awardAddId) {
 						return '<div class="item-media"><i class="icon icon-check" style="color:#da3651;font-size:1rem;font-weight:bold;"></i></div>';
 					}else{
 						return "";
@@ -322,7 +322,7 @@ function awardOtherCancel(){
 	$.closeModal(".award-popup");
 	var addObj = $.parseJSON(window.sessionStorage.getItem("prizeAddress"));
 	$.each(addObj, function(i,n) {
-		if (n.id == lData.awardAddId) {
+		if (n.id == luanmingli.awardAddId) {
 			awardAddressFill(addObj[i]);
 		}
 	});
@@ -461,15 +461,15 @@ function awardAddEditSave(id,type){
 function receiptUpdate(id,name,tel,address){
 	$.ajax({
 		type:"get",
-		url:lData.getUrl+"addressManager",
+		url:luanmingli.getUrl+"addressManager",
 		data:{
-//			userId : lData.userId,
+//			userId : luanmingli.userId,
 //			way : 3,
 //			addressId : id ,
 //			address : address,
 //			telephone : tel,
 //			name : name,
-//			v: lData.srvVersion,
+//			v: luanmingli.srvVersion,
 //			code1: $("#picker").attr("data-lv1"),
 //			code2: $("#picker").attr("data-lv2"),
 //			code3: $("#picker").attr("data-lv3"),
@@ -479,9 +479,9 @@ function receiptUpdate(id,name,tel,address){
 //			address3: $("#picker").attr("data-lvname3"),
 //			address4: $("#picker").attr("data-lvname4")?$("#picker").attr("data-lvname4"):""
 			
-			v: lData.srvVersion,
+			v: luanmingli.srvVersion,
 			content: encryptByDES(JSON.stringify({
-				userId : lData.userId,
+				userId : luanmingli.userId,
 				way : 3,
 				addressId : id ,
 				address : address,
@@ -520,14 +520,14 @@ function receiptUpdate(id,name,tel,address){
 function receiptInsert(name,tel,address,type){
 	$.ajax({
 		type:"get",
-		url:lData.getUrl+"addressManager",
+		url:luanmingli.getUrl+"addressManager",
 		data:{
-//			userId : lData.userId,
+//			userId : luanmingli.userId,
 //			way : 2,
 //			address : address,
 //			telephone : tel,
 //			name : name,
-//			v: lData.srvVersion,
+//			v: luanmingli.srvVersion,
 //			code1: $("#picker").attr("data-lv1"),
 //			code2: $("#picker").attr("data-lv2"),
 //			code3: $("#picker").attr("data-lv3"),
@@ -537,9 +537,9 @@ function receiptInsert(name,tel,address,type){
 //			address3: $("#picker").attr("data-lvname3"),
 //			address4: $("#picker").attr("data-lvname4")?$("#picker").attr("data-lvname4"):""
 			
-			v: lData.srvVersion,
+			v: luanmingli.srvVersion,
 			content: encryptByDES(JSON.stringify({
-				userId : lData.userId,
+				userId : luanmingli.userId,
 				way : 2,
 				address : address,
 				telephone : tel,
@@ -607,13 +607,13 @@ function awardConfirmGetBtn(that){
 			var treasureId = $.parseJSON(window.sessionStorage.getItem("prizeInfo")).treasureId;
 			$.ajax({
 				type:"post",
-				url:lData.getUrl+"changePrizeStatus",
+				url:luanmingli.getUrl+"changePrizeStatus",
 				data:{
-//					userId : lData.userId,
+//					userId : luanmingli.userId,
 //					userKey: window.localStorage.getItem("userKey"),
 //					treasureId : treasureId,
 //					status : 1,
-					v: lData.srvVersion,
+					v: luanmingli.srvVersion,
 					content:encryptByDES(JSON.stringify({
 						userKey: window.localStorage.getItem("userKey"),
 						treasureId : treasureId,

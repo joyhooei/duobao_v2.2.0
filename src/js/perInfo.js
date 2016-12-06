@@ -9,9 +9,9 @@ $(function(){
 
 
 function perInfo(){
-	$(".a-perInfo-id").html(lData.userId);
+	$(".a-perInfo-id").html(luanmingli.userId);
 	
-	var usertelephone = lData.userInfo.usertelephone;
+	var usertelephone = luanmingli.userInfo.usertelephone;
 	if (!!usertelephone) {
 		var telphoneArr = usertelephone.split("");
 		telphoneArr.splice(3,5,"******");
@@ -19,7 +19,7 @@ function perInfo(){
 		$(".phone-number").html(tel);
 	}
 	
-	var nickname = lData.userInfo.nickName;
+	var nickname = luanmingli.userInfo.nickName;
 	if (!!nickname) {
 		$("#p-perInfo .nick-name").html(nickname);
 	}

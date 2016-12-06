@@ -25,6 +25,29 @@ var $ = (function($){
 		return null;
 	};
 	
+	$.alert = function(text){
+		if ($(".we-alert").length > 0) {
+			$(".we-alert").remove();
+		}
+		$("body").append(
+			'<div style="display: none;" class="we-alert">'+
+			    '<div class="weui-mask"></div>'+
+			    '<div class="weui-dialog">'+
+			        '<div class="weui-dialog__bd">'+text+'</div>'+
+			        '<div class="weui-dialog__ft">'+
+			            '<a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default">确定</a>'+
+			        '</div>'+
+			    '</div>'+
+			'</div>'
+		);
+		$(".we-alert").fadeIn(200);
+		$(".we-alert .weui-dialog__btn").on("click",function(){
+			$(".we-alert").fadeOut(200,function(){
+				$(".we-alert").remove();
+			});
+		});
+	}
+	
 	$.loading = {
 		show: function(){
 			$('body').append(
@@ -58,12 +81,12 @@ var flow = (function($){
 		$("#receive-btn").on("click",function(){
 			var tel = $("#tel-ipt");
 			if (!tel.val()) {
-				alert("请输入手机号");
+				$.alert("请输入手机号");
 				return;
 			}
 			var reg = /^(0|86|17951)?1\d{10}$/;
 			if (!reg.test(tel.val())) {
-				alert("请输入正确的手机号码")
+				$.alert("请输入正确的手机号码")
 				return;
 			}
 			
@@ -84,9 +107,11 @@ var flow = (function($){
 			success:function(o){
 				console.log(o);
 				if (o.stateCode == 0) {
-					alert("活动参加成功");
+					$.alert("活动参加成功");
+				}else if(o.stateCode == 302){
+					$.alert("该手机号已参加过活动");
 				}else{
-					alert(o.message);
+					$.alert(o.message);
 				}
 				$.loading.hide();
 			}

@@ -31,15 +31,15 @@ function register2(){
 			var mmMd5 = CryptoJS.MD5(psd.eq(1).val()).toString();
 			$.ajax({
 				type:"post",
-				url:lData.getUrl+"register",
+				url:luanmingli.getUrl+"register",
 				data:{
-					v: lData.srvVersion,
+					v: luanmingli.srvVersion,
 					content: encryptByDES(JSON.stringify({
 						phoneNum : tel,
 						password : mmMd5,
 						nickName : nick.val(),
-						channelid: lData.channel,
-						appversion: lData.version,
+						channelid: luanmingli.channel,
+						appversion: luanmingli.version,
 						clienttype: 3
 					})),
 				},
@@ -56,13 +56,13 @@ function register2(){
 //							window.sessionStorage.setItem("toActRegister",tel);
 //							window.history.go(-2);
 
-							lData.userId = o.userInfo.userId;
-							lData.userInfo = o.userInfo;
+							luanmingli.userId = o.userInfo.userId;
+							luanmingli.userInfo = o.userInfo;
 							window.localStorage.setItem("userId", o.userInfo.userId);
 							window.localStorage.setItem("userInfo",JSON.stringify(o.userInfo));
 							window.localStorage.setItem("userKey",o.userInfo.userKey);
 							window.localStorage.setItem("mid",CryptoJS.MD5(o.userInfo.userId).toString());
-							window.localStorage.setItem("loginSrv",lData.getUrl);
+							window.localStorage.setItem("loginSrv",luanmingli.getUrl);
 							
 							$.router.load("personal.html");
 						})

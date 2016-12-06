@@ -33,11 +33,11 @@ function prizeGetData(curPage,callback){
 	
 	$.ajax({
 		type:"post",
-		url:lData.getUrl+"getMyPrize",
+		url:luanmingli.getUrl+"getMyPrize",
 		data:{
-			userId : lData.userId,
+			userId : luanmingli.userId,
 			currentPage : curPage,
-			v: lData.srvVersion
+			v: luanmingli.srvVersion
 		},
 		async:true,
 		dataType:"json",
@@ -52,7 +52,7 @@ function prizeGetData(curPage,callback){
 						$("#p-prize").find(".z_not_record").remove();
 					}
 					
-					lData.prizeTotlePage = o.totalPage;
+					luanmingli.prizeTotlePage = o.totalPage;
 					
 					window.sessionStorage.setItem("prize"+o.currentPage,JSON.stringify(o));
 					
@@ -259,7 +259,7 @@ function prizeShare(){
 
 //下拉刷新
 function prizeRefresh(){
-	lData.prizeNomore = "";
+	luanmingli.prizeNomore = "";
 	$("#p-prize").find(".z_my_prize_model").remove();
 	prizeGetData(1);
 //	$.toast('刷新成功', 1000, 'toast-10');
@@ -272,7 +272,7 @@ function prizeBottomLoadmore(){
 	var loadMoreFlag = false;
 	
 	$(document).on('infinite', '#p-prize .infinite-scroll',function() {
-		if (loadMoreFlag || lData.prizeNomore) {
+		if (loadMoreFlag || luanmingli.prizeNomore) {
 			return;
 		}
 		
@@ -287,9 +287,9 @@ function prizeBottomLoadmore(){
 		
 		setTimeout(function(){
 			var curPage = (Math.ceil($("#p-prize").find(".content").find(".card").length/10) + 1);
-			if (curPage>lData.prizeTotlePage) {
+			if (curPage>luanmingli.prizeTotlePage) {
 				setTimeout(function(){
-					lData.prizeNomore = true;
+					luanmingli.prizeNomore = true;
 					$.hideIndicator();
 					$.toast('没有更多数据', 1000, 'toast-80');
 					loadMoreFlag = false;

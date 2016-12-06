@@ -70,19 +70,19 @@ function recordGetDataType(recordType) {
 	recordBottomLoadmore();
 }
 
-lData.recordTotlePage=[];
+luanmingli.recordTotlePage=[];
 
 //请求数据
 function recordGetData(flag,ele,curPage,callback){
 	
 	$.ajax({
 		type:"post",
-		url:lData.getUrl+"getTreasureRecordList",
+		url:luanmingli.getUrl+"getTreasureRecordList",
 		data:{
-			userId : lData.userId,
+			userId : luanmingli.userId,
 			flag : flag,
 			currentPage : curPage,
-			v: lData.srvVersion
+			v: luanmingli.srvVersion
 		},
 		async:true,
 		dataType:"json",
@@ -97,7 +97,7 @@ function recordGetData(flag,ele,curPage,callback){
 					$.router.load("index.html");
 				});
 			}else{
-				lData.recordTotlePage[flag] = o.totalPage;
+				luanmingli.recordTotlePage[flag] = o.totalPage;
 				$(ele).find(".cont").show();
 				$(ele).find(".z_not_record").hide();
 				if (curPage == 1) {
@@ -283,9 +283,9 @@ function recordBottomLoadmore(){
 		$.showIndicator();
 		
 		setTimeout(function(){
-			console.log(lData.recordTotlePage)
+			console.log(luanmingli.recordTotlePage)
 			var curPage = (Math.ceil($(recordEle).find(".card").length/10) + 1);
-			if (curPage>lData.recordTotlePage[recordFlag]) {
+			if (curPage>luanmingli.recordTotlePage[recordFlag]) {
 				setTimeout(function(){
 					$.hideIndicator();
 					$.toast('没有更多数据', 1000, 'toast-80');

@@ -26,11 +26,11 @@ function buyDetail(treasureId,name,phase,time,lucky,count){
 	
 	$.ajax({
 		type:"post",
-		url:lData.getUrl+"getMyTreasureDetail",
+		url:luanmingli.getUrl+"getMyTreasureDetail",
 		data:{
-			userId : lData.userId,
+			userId : luanmingli.userId,
 			treasureId : treasureId,
-			v: lData.srvVersion
+			v: luanmingli.srvVersion
 		},
 		async:true,
 		dataType:"json",

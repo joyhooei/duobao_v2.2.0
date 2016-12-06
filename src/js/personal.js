@@ -3,7 +3,7 @@ var personal = {
 	times : 1,
 	loginOrNot : function(){
 		$.showIndicator();
-		if (lData.userId == "") {
+		if (luanmingli.userId == "") {
 			setTimeout(function(){
 				personal.times++;
 				if ( personal.times == 10 ) {
@@ -24,7 +24,7 @@ var personal = {
 	},
 	
 	login : function(){
-		if (lData.userId) {
+		if (luanmingli.userId) {
 			$("#p-personal").find(".not_login").hide();
 			$("#p-personal").find(".have_login").show();
 			personal.haveLogin();
@@ -37,8 +37,8 @@ var personal = {
 	
 	//已登录
 	haveLogin : function(){
-		$("#balanceName").html(lData.userInfo.nickName);
-		$("#balanceSum").html(lData.userInfo.detailInfo.points);
+		$("#balanceName").html(luanmingli.userInfo.nickName);
+		$("#balanceSum").html(luanmingli.userInfo.detailInfo.points);
 		
 		$("#p-personal").find(".recharge-btn").click(function(){
 			if (navigator.userAgent.indexOf("QQ") > -1 || navigator.userAgent.indexOf("MicroMessenger") > -1) {
@@ -87,21 +87,21 @@ var QCsaveAuth = function(openId, nickName) {
 	
 	$.ajax({
 		type:"get",
-		url:lData.getUrl+"saveAuth",
+		url:luanmingli.getUrl+"saveAuth",
 		data:{
 //			platform : 1,
 //			openId : openId,
 //			nickName : nickName,
-//			clientData : lData.channel+"&"+lData.version+"&1",
+//			clientData : luanmingli.channel+"&"+luanmingli.version+"&1",
 			
-			v: lData.srvVersion,
+			v: luanmingli.srvVersion,
 			content: encryptByDES(JSON.stringify({
 				platform : 1,
 				openId : openId,
 				nickName : nickName,
-//				clientData : lData.channel+"&"+lData.version+"&1"
-				channelid: lData.channel,
-				appversion: lData.version,
+//				clientData : luanmingli.channel+"&"+luanmingli.version+"&1"
+				channelid: luanmingli.channel,
+				appversion: luanmingli.version,
 				clienttype: 3
 			}))
 		},
@@ -124,13 +124,13 @@ var QCsaveAuth = function(openId, nickName) {
 				})
 				
 			}else{
-				lData.userId = o.userInfo.userId;
-				lData.userInfo = o.userInfo;
+				luanmingli.userId = o.userInfo.userId;
+				luanmingli.userInfo = o.userInfo;
 				window.localStorage.setItem("userId", o.userInfo.userId);
 				window.localStorage.setItem("userInfo",JSON.stringify(o.userInfo));
 				window.localStorage.setItem("userKey",o.userInfo.userKey);
 				window.localStorage.setItem("mid",CryptoJS.MD5(o.userInfo.userId).toString());
-				window.localStorage.setItem("loginSrv",lData.getUrl);
+				window.localStorage.setItem("loginSrv",luanmingli.getUrl);
 		
 				personal.loginOrNot();
 			}
@@ -142,7 +142,7 @@ var QCsaveAuth = function(openId, nickName) {
 
 //qq登录回调
 function getOpenId(){
-	if ($.getUrlParam("access_token") != null && !lData.userId && window.sessionStorage.getItem("qqSignOut") != 1 ) {
+	if ($.getUrlParam("access_token") != null && !luanmingli.userId && window.sessionStorage.getItem("qqSignOut") != 1 ) {
 		$.ajax({
 			type: "get",
 			url: "https://graph.qq.com/oauth2.0/me",
@@ -237,7 +237,7 @@ function getOpenId(){
 
 personal.linkTo = function(){
 	$("#p-personal").find(".p-record").find(".record-list").click(function(){
-		if (lData.userId) {
+		if (luanmingli.userId) {
 			$.showIndicator();
 			$.router.load("record.html?type="+$(this).index());
 		}else{
@@ -253,7 +253,7 @@ personal.linkTo = function(){
 	});
 	
 	$(".j-my-prize").click(function(){
-		if (lData.userId) {
+		if (luanmingli.userId) {
 			$.router.load("prize.html");
 		}else{
 			$.showIndicator();
@@ -262,7 +262,7 @@ personal.linkTo = function(){
 	});
 	
 	$(".j-my-share").click(function(){
-		if (lData.userId) {
+		if (luanmingli.userId) {
 			$.router.load("myshare.html");
 		}else{
 			$.showIndicator();
@@ -271,7 +271,7 @@ personal.linkTo = function(){
 	});
 	
 	$(".j-bonus").click(function(){
-		if (!!lData.userId) {
+		if (!!luanmingli.userId) {
 			$.router.load("bonus.html");
 		}else{
 			$.showIndicator();
@@ -297,8 +297,8 @@ $(function(){
 	}
 	
 	if (!!window.sessionStorage.getItem("fromActRecharge")) {
-		if (!!lData.userId) {
-			if (!!lData.userInfo.usertelephone) {
+		if (!!luanmingli.userId) {
+			if (!!luanmingli.userInfo.usertelephone) {
 				$.router.load("recharge.html");
 			}else{
 				$.alert("请先绑定手机号",function(){
@@ -315,7 +315,7 @@ $(function(){
 	}
 	
 	if (!!window.sessionStorage.getItem("fromActRegister")) {
-		if (!lData.userId) {
+		if (!luanmingli.userId) {
 			$.router.load("login.html");
 		}else{
 			$.alert('您已经是一元街老主顾啦～我们为您奉上"充值狂欢大礼包"',function(){
@@ -327,7 +327,7 @@ $(function(){
 	getOpenId();
 	
 	
-	if (lData.userId){
+	if (luanmingli.userId){
 		getUserInfo();
 	}else{
 		

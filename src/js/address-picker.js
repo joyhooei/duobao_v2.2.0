@@ -95,11 +95,11 @@ function addressLevel2(lv,code){
 	var addList = "";
 	$.ajax({
 		type:"get",
-		url:lData.getUrl+"getAddressCodes",
+		url:luanmingli.getUrl+"getAddressCodes",
 		data:{
 			addressLevel: lv,
 			parentCode: code,
-			v: lData.srvVersion
+			v: luanmingli.srvVersion
 		},
 		async:false,
 		dataType:"json",

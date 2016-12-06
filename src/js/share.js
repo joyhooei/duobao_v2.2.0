@@ -17,10 +17,10 @@ function shareGetData(curPage){
 	$.showIndicator();
 	$.ajax({
 		type:"post",
-		url:lData.getUrl+"getShareOrder",
+		url:luanmingli.getUrl+"getShareOrder",
 		data:{
 			currentPage : curPage,
-			v: lData.srvVersion
+			v: luanmingli.srvVersion
 		},
 		async:true,
 		dataType:"json",
