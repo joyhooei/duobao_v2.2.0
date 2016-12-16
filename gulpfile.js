@@ -187,12 +187,12 @@ gulp.task('copylib', function() {
 
 	//sass编译
 	gulp.task('sass2', function() {
-		return sass('other/src/*/css/*.scss', {
+		return sass('other/activity/*/css/*.scss', {
 			style: 'expanded',
 			sourcemap: true
 		})
 		.pipe(sourcemaps.write("./"))
-		.pipe(gulp.dest('other/src/'))
+		.pipe(gulp.dest('other/activity/'))
 	});
 	
 	//sass编译
@@ -204,6 +204,16 @@ gulp.task('copylib', function() {
 		.pipe(sourcemaps.write("./"))
 		.pipe(gulp.dest('other/html/'))
 	});
+	
+	//sass编译
+	gulp.task('sass4', function() {
+		return sass('other/web/*/css/*.scss', {
+			style: 'expanded',
+			sourcemap: true
+		})
+		.pipe(sourcemaps.write("./"))
+		.pipe(gulp.dest('other/web/'))
+	});
 
 
 
@@ -212,8 +222,9 @@ gulp.task('watch', function() {
 	gulp.watch('src/sass/*.scss', ['sass']);
 	gulp.watch(['src/include/_header.html', 'src/include/_footer.html','src/html/*.html'], ['include']);
 	
-	gulp.watch('other/src/*/css/*.scss', ['sass2']);
+	gulp.watch('other/activity/*/css/*.scss', ['sass2']);
 	gulp.watch('other/html/*/css/*.scss', ['sass3']);
+	gulp.watch('other/web/*/css/*.scss', ['sass4']);
 });
 
 //allmin

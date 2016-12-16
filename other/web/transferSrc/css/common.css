@@ -1,0 +1,86 @@
+html {
+  font-size: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: #e43f6b;
+}
+
+.g-wrapper {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 450px;
+  min-height: 100%;
+  overflow-x: hidden;
+  line-height: 1;
+}
+
+.m-img {
+  width: 100%;
+  display: block;
+}
+
+.g-header {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3.5rem;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.g-header .g-header-inner {
+  position: relative;
+  max-width: 450px;
+  margin: 0 auto;
+}
+.g-header i {
+  position: absolute;
+  top: 50%;
+}
+.g-header .close {
+  left: .65rem;
+  margin-top: -.575rem;
+  width: 1.15rem;
+  height: 1.15rem;
+  background: url(../img/close.png) 0 0 no-repeat;
+  background-size: contain;
+}
+.g-header .logo {
+  left: 2.4rem;
+  margin-top: -1.125rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  background: url(../img/icon.png) 0 0 no-repeat;
+  background-size: contain;
+}
+.g-header span {
+  line-height: 3.5rem;
+  padding-left: 5rem;
+  font-size: .7rem;
+  color: #fff;
+}
+.g-header .btn {
+  position: absolute;
+  right: .75rem;
+  top: 50%;
+  margin-top: -.85rem;
+  width: 4.55rem;
+  height: 1.7rem;
+  border: 2px solid #fff;
+  border-radius: .2rem;
+  line-height: 1.5rem;
+  text-align: center;
+  color: #fff;
+  font-size: .7rem;
+}
+
+
+
+/*# sourceMappingURL=common.css.map */

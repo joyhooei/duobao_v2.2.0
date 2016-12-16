@@ -95,7 +95,7 @@ function thirdLogin(){
 //				userLogo:"1"
 			}))
 		},
-		async:true,
+		async:false,
 		dataType:"json",
 		success:function(o){
 			console.log(o);
