@@ -1,5 +1,5 @@
 $(function(){
-	$("#iframe").attr("src",window.location.href.split("?url=")[1]);
+	$("#iframe").attr("src",window.location.href.split("?url=")[1] || window.location.href.split("&url=")[1]);
 	
 	$("#p-iframe .iframe-back").click(function(){
 		event.preventDefault();
@@ -32,4 +32,20 @@ function actRechargeBtn(url){
 
 function actRegisterSuccessBtn(url){
 	$.router.load("index.html");
+}
+
+
+var carCallBack = function(carId){
+	$.alert('创建成功,车牌号:'+carId,function(){
+		$.router.back();
+	});
+}
+
+
+if (!!$.getUrlParam('name')) {
+	if (!!luanmingli.calcTestUrl) {
+		$('header .title').html($.getUrlParam('name')+('（测试版）'));
+	}else{
+		$('header .title').html($.getUrlParam('name'));
+	}
 }

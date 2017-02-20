@@ -447,7 +447,7 @@ $iconColor: common;  //底部导航栏背景图
         line-height: 1.6rem;
     }
     
-    .icon-1 , .icon-2 , .icon-3 ,.icon-4{
+    .icon-1 , .icon-2 , .icon-3 ,.icon-4,.icon-5{
         display: inline-block;
         width: 1.5rem;
         height: 1.25rem;
@@ -464,6 +464,10 @@ $iconColor: common;  //底部导航栏背景图
         background: url(../img/nav-img-3.png) center 0 no-repeat;
         background-size: contain;
     }
+    .icon-5 {
+        background: url(../img/nav-img-5.png) center 0 no-repeat;
+        background-size: contain;
+    }
     
     .active .icon-text {
         color: #5d5d5d;
@@ -478,6 +482,10 @@ $iconColor: common;  //底部导航栏背景图
     }
     .active .icon-3 {
         background: url(../img/nav-img-3-#{$iconColor}.png) center 0 no-repeat;
+        background-size: contain;
+    }
+    .active .icon-5 {
+        background: url(../img/nav-img-5-#{$iconColor}.png) center 0 no-repeat;
         background-size: contain;
     }
     
@@ -3195,5 +3203,165 @@ $iconColor: common;  //底部导航栏背景图
 
 
 
+//开车
+#p-car {
+    .car-help {
+        position: relative;
+        z-index: 999;
+        margin-right: .5rem;
+        width: 1.2rem;
+        height: 100%;
+        background: url(../img/help.png) center center no-repeat;
+        background-size: contain;
+    }
+    
+    .u-btn-wrap {
+        position: relative;
+        height: 6.6rem;
+        background-color: #fff;
+        
+        .u-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -1.35rem;
+//          width: 7.2rem;
+//          height: 2.7rem;
+//          background-color: $color1;
+//          border-radius: .2rem;
+//          font-size: .75rem;
+//          text-align: center;
+//          line-height: 2.7rem;
+//          color: #fff;
+            width: 7.05rem;
+            height: 2.7rem;
+            
+            &.u-btn-1 {
+                margin-left: -7.8rem;
+                background: url(../img/car-getin.png) 0 0 no-repeat;
+                background-size: contain;
+            }
+            &.u-btn-2 {
+                margin-left: .6rem;
+                background: url(../img/car-drive.png) 0 0 no-repeat;
+                background-size: contain;
+            }
+            
+            &:active {
+                background-color: $color1 +#111;
+            }
+        }
+    }
+    
+}
+
+#p-carshare {
+    .content {
+        padding-bottom: 3.4rem !important;
+    }
+    
+    .car-header {
+        padding-top: 1.2rem;
+        padding-bottom: 1.2rem;
+        background-color: #fff;
+        margin-bottom: .5rem;
+        p {
+            margin: 0;
+        }
+        
+        .car-header-num {
+            margin: 0 auto 1.2rem;
+            width: 6.4rem;
+            height: 2.1rem;
+            background: url(../img/car-num.png) 0 0 no-repeat;
+            background-size: contain;
+            line-height: 2.1rem;
+            color: #fff;
+            text-align: center;
+            font-size: .75rem;
+        }
+        
+        .car-header-num-2 {
+            color: $color1;
+        }
+        
+        p {
+            font-size: .75rem;
+            color: #5d5d5d;
+            text-align: center;
+        }
+    }
+    
+    .car-bottom {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3.2rem;
+        background-color: #fff;
+        border-top: 1px solid #ccc;
+        
+        .u-btn {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 12.2rem;
+            height: 2.1rem;
+            line-height: 2.1rem;
+            font-size: .75rem;
+            color: #fff;
+            text-align: center;
+            background-color: $color1;
+            border-radius: .3rem;
+        }
+    }
+}
 
 
+//p-car-help
+#p-car-help {
+    .help-page .list-box {
+        margin: 0;
+        color: #5d5d5d;
+    }
+    .help-page .drop-ct {
+        margin: 0;
+        border-bottom: 1px solid #e7e7e7;
+        box-shadow: none;
+    }
+    .help-page .drop-ct .card-content-inner {
+        color: #b0b0b0;
+    }
+    .help-page .drop-ct p {
+        margin: 0 0 .3rem;
+    }
+    .help-page .drop-ct p:last-child {
+        margin: 0;
+    }
+
+}
+
+
+//mycar
+#p-mycar {
+    .car-record {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 3rem;
+        height: 3rem;
+        background: url(../img/car-record.png) 0 0 no-repeat;
+        background-size: contain;
+    }
+}
+
+
+//car-record
+#p-car-record {
+    .bar-nav ~ .content {
+        top: 0;
+    }
+}

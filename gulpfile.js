@@ -48,6 +48,8 @@ var gulp = require('gulp'),
 	
 	mkdirp = require('mkdirp');
 	
+var babel = require('gulp-babel'),
+	rename = require("gulp-rename");
 	
 	
 //js压缩混淆
@@ -61,6 +63,19 @@ gulp.task('jsmin',function(){
             console.log(e);
          }))
 		.pipe(gulp.dest('dist/js/'));
+});
+
+//js压缩混淆
+gulp.task('aaaa',function(){
+	return gulp.src('src/libs/msui.js')
+		.pipe(uglify({
+			compress: {
+		         drop_console: true
+		    }
+		}).on('error', function(e){
+            console.log(e);
+         }))
+		.pipe(gulp.dest('./'));
 });
 
 
@@ -217,6 +232,27 @@ gulp.task('copylib', function() {
 
 
 
+// babel
+gulp.task('babel', function() {
+    return gulp.src('other/html/*/js/es6.js')
+        .pipe(babel({
+            presets: ['es2015']
+        }))
+        .pipe(uglify({
+			compress: {
+//		         drop_console: true
+		    }
+		}).on('error', function(e){
+            console.log(e);
+        }))
+        .pipe(rename(function (path) {
+		    path.basename = "common";
+		  }))
+        .pipe(gulp.dest('other/html/'));
+});
+
+
+
 //自动watch sass编译
 gulp.task('watch', function() {
 	gulp.watch('src/sass/*.scss', ['sass']);
@@ -225,6 +261,8 @@ gulp.task('watch', function() {
 	gulp.watch('other/activity/*/css/*.scss', ['sass2']);
 	gulp.watch('other/html/*/css/*.scss', ['sass3']);
 	gulp.watch('other/web/*/css/*.scss', ['sass4']);
+	
+	gulp.watch('other/html/*/js/es6.js', ['babel']);
 });
 
 //allmin

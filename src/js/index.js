@@ -10,7 +10,7 @@ $(function(){
 		$(".alert-resiger-bonus .alert-button").click(function(){
 			var alertRegisterUrl = "iframe.html?url=http://www.2333db.com/activity/act-register.html?backurl="+luanmingli.bannerBackUrl
 			if (/127.0.0.1/.test(window.location.href)) {
-				alertRegisterUrl = "iframe.html?url=http://127.0.0.1:8020/duobao_v2.1.0/other/src/act-recharge.html?backurl=http://127.0.0.1:8020/duobao_v2.1.0/src/register.html";
+				alertRegisterUrl = "iframe.html?url=http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/other/activity/act-recharge.html?backurl=http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/src/register.html";
 			}
 			$.router.load(alertRegisterUrl);
 		});
@@ -562,13 +562,13 @@ function fillBanner(bannerInfo){
 			}
 		}else{
 			if (!!/register/.test(n.bannerUrl)) {
-				n.bannerUrl = "http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/other/src/act-register.html?backurl=http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/src/register.html";
+				n.bannerUrl = "http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/other/activity/act-register.html?backurl=http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/src/register.html";
 			}else if(!!/recharge/.test(n.bannerUrl)){
-				n.bannerUrl = "http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/other/src/act-recharge.html?backurl=http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/src/personal.html";
+				n.bannerUrl = "http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/other/activity/act-recharge.html?backurl=http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/src/personal.html";
 			}else if(!!/extract/.test(n.bannerUrl)) {
 				n.bannerUrl = "http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/other/html/extract.html"+extractUrl;
 			}else if(!!/qun/.test(n.bannerUrl)) {
-				n.bannerUrl = "http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/other/src/act-qun.html";
+				n.bannerUrl = "http://127.0.0.1:8020/duobao_v"+luanmingli.version+"/other/activity/act-qun.html";
 			}
 		}
 	});
@@ -617,7 +617,7 @@ function indexTopList(){
 		}else if(bannerType == 4){
 			$.alert("qq群号为：<span>21859967</span>");
 		}else{
-			$.alert("TODO");
+			$.alert("敬请期待……");
 		}
 		
 	});

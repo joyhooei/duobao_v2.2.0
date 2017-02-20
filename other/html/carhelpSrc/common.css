@@ -1,0 +1,25 @@
+.help-page header.bar {
+	background: #ffda44;
+}
+.help-page header .title {
+	font-size: 1rem;
+}
+
+.help-page .list-box {
+	margin: 0;
+	color: #5d5d5d;
+}
+.help-page .drop-ct {
+	margin: 0;
+	border-bottom: 1px solid #e7e7e7;
+	box-shadow: none;
+}
+.help-page .drop-ct .card-content-inner {
+	color: #b0b0b0;
+}
+.help-page .drop-ct p {
+	margin: 0 0 .3rem;
+}
+.help-page .drop-ct p:last-child {
+	margin: 0;
+}

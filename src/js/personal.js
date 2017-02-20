@@ -279,6 +279,15 @@ personal.linkTo = function(){
 		}
 	});
 	
+	$(".j-car").click(function(){
+		$.showIndicator();
+		if (!!luanmingli.userId) {
+			$.router.load("mycar.html");
+		}else{
+			$.router.load("login.html");
+		}
+	});
+	
 	$(".j-setting").click(function(){
 		$.showIndicator();
 		$.router.load("setting.html");

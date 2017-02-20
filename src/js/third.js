@@ -9,15 +9,15 @@ $(function(){
 			thirdLogin();
 		}
 		
-		if ($.whichPage("p-index")) {
-			if (!window.sessionStorage.getItem("forceLinkToDetail")) {
-				if (!!luanmingli.calcTestUrl) {
-					$.router.load("duobao.html?treasureId=953&type=2");
-				}else{
-					$.router.load("duobao.html?treasureId=1376&type=2");
-				}
-			}
-		}
+//		if ($.whichPage("p-index")) {
+//			if (!window.sessionStorage.getItem("forceLinkToDetail")) {
+//				if (!!luanmingli.calcTestUrl) {
+//					$.router.load("duobao.html?treasureId=953&type=2");
+//				}else{
+//					$.router.load("duobao.html?treasureId=1376&type=2");
+//				}
+//			}
+//		}
 		
 		
 		if($.whichPage("p-pay")){

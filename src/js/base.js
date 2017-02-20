@@ -412,10 +412,10 @@ $.ajaxSettings.error = function(e,f){
 //传入数据
 var luanmingli = {
 	userId: "",		//用户ID
-	version: "2.2.1",	//客户端版本号
+	version: "2.3.0",	//客户端版本号
 	srvVersion: "2.1.0",		//服务端版本号
 	channel: "h5",		//channel ID
-	jsVersion: CryptoJS.MD5("1206").toString(),    //先加载的js文件版本号
+	jsVersion: CryptoJS.MD5("0217").toString(),    //先加载的js文件版本号
 	
 	//正式网
 	getUrl: "http://api.2333db.com/raiders/restWeb/",
@@ -644,6 +644,10 @@ $(document).on("pageInit", function(e, pageId, $page) {
 //					'<span class="icon icon-4"></span>'+
 //					'<span class="tab-label icon-text">晒单</span>'+
 //				'</a>'+
+				'<a class="tab-item p-car" name="car.html" href="javascript:;">'+
+					'<span class="icon icon-5"></span>'+
+					'<span class="tab-label icon-text">开车</span>'+
+				'</a>'+
 				'<a class="tab-item p-personal" name="personal.html" href="javascript:;">'+
 					'<span class="icon icon-3"></span>'+
 					'<span class="tab-label icon-text">我</span>'+

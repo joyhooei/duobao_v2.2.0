@@ -9,12 +9,14 @@ $(function(){
 
 
 //请求服务器
-function chestFillData(curPage){
-	//有缓存则利用缓存，不主动请求
-	if ($(".chest_model").length > 0 && window.localStorage.getItem("chestForceRefresh") == null ){
-		return;
+function chestFillData(curPage,cb){
+	if (curPage == 1) {
+		//有缓存则利用缓存，不主动请求
+		if ($(".chest_model").length > 0 && window.localStorage.getItem("chestForceRefresh") == null ){
+			return;
+		}
+		$(".chest_model").remove();
 	}
-	$(".chest_model").remove();
 
 	$.showIndicator();
 	$.ajax({
@@ -38,6 +40,11 @@ function chestFillData(curPage){
 				appendData("#p-chest .content",n);
 			});
 			
+			chestTotlePage = o.totalPage;
+			chestBottomLoadmore(o.currentPage);
+			if (!!cb) {
+				cb();
+			}
 			
 			//强制刷新
 			window.localStorage.removeItem("chestForceRefresh");
@@ -103,4 +110,46 @@ function chestRefresh(){
 function routerToDuobao(treasureId){
 	$.showIndicator();
 	$.router.load("duobao.html?treasureId="+treasureId);
+}
+
+
+
+
+var chestloadMoreFlag = false;
+//上滑加载更多
+function chestBottomLoadmore(curPage){
+	$(document).off('infinite', '#p-chest .infinite-scroll');
+	
+	$(document).on('infinite', '#p-chest .infinite-scroll',function() {
+		if (chestloadMoreFlag) {
+			return;
+		}
+		
+		chestloadMoreFlag = true;
+		$.showIndicator();
+		
+		setTimeout(function(){
+			if (chestTotlePage && curPage >= chestTotlePage){
+				setTimeout(function(){
+					$.hideIndicator();
+					$.toast('没有更多数据', 1000, 'toast-80');
+					setTimeout(function(){
+						chestloadMoreFlag = false;
+					},1000);
+				},200)
+				return;
+			}
+			
+			
+			chestFillData(curPage+1,function(){
+				setTimeout(function(){
+					$.hideIndicator();
+					$.toast('加载成功', 1000, 'toast-80');
+					chestloadMoreFlag = false;
+				},100)
+			});
+			
+		},100)
+
+	})
 }
