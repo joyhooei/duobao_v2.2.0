@@ -188,7 +188,7 @@ var carshare = (function($){
 				window.location.href = "https://itunes.apple.com/us/app/huang-jin-duo-bao/id1144036041?l=zh&ls=1&mt=8"; //苹果下载地址
 			}else{
 //				window.location.href = "http://doumob.oss-cn-hangzhou.aliyuncs.com/cps/hjdb_v"+version+"_"+chennel+".apk"; //安卓下载地址
-				window.location.href = "http://raiders.oss-cn-hangzhou.aliyuncs.com/apk/yyj-2.4.2-fenxiang_616614.apk";
+				window.location.href = "http://alicdn.2333db.com/apk/yyj-2.4.3-fenxiang_312250.apk";
 			}
 		});
 	}

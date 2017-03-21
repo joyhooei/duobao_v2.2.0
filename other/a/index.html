@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title></title>
+		<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1, maximum-scale=1">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="email=no" />
+		
+		<link rel="stylesheet" href="http://www.2333db.com/static/reset.css" />
+		<style>
+			body {
+				min-width: 700px;
+			}
+			
+			.wrapper {
+				position: relative;
+			}
+			
+			img {
+				width: 100%;
+			}
+			
+			.btn-1 {
+				position: absolute;
+				top: .79rem;
+				right: 2rem;
+				width: 5.4rem;
+			}
+			
+			.btn-2 , .btn-3{
+				position: absolute;
+				width: 7.7rem;
+				right: 4.6rem;
+			}
+			.btn-2 {
+				top: 10rem;
+			}
+			.btn-3 {
+				top: 12.9rem;
+			}
+			p {
+				font-size: 16px;
+				line-height: 40px;
+				margin-bottom: 20px;
+				text-align: center;
+			}
+			p a {
+				color: #72ACE3;
+				text-decoration: underline;
+			}
+		</style>
+		
+		<script>
+			var FZ = function(a, b) {
+				function getFZ() {
+					var width = document.documentElement.clientWidth || document.body.clientWidth;
+					if (width <= 700) {
+						width = 700;
+					}
+					var fontSize = (a / b) * width;
+					return fontSize;
+				};
+				document.documentElement.style.fontSize = getFZ() + "px";
+				window.onresize = function() {
+					setTimeout(function() {
+						document.documentElement.style.fontSize = getFZ() + "px";
+					}, 100);
+				};
+			};
+			FZ(20,700);
+		</script>
+	</head>
+	<body>
+		<div class="wrapper">
+			<img src="image/image.png" />
+			<a href="http://www.2333db.com/duobao/">
+				<img class="btn-1" src="image/chuping.png" />
+			</a>
+			<a href="http://itunes.apple.com/us/app/huang-jin-duo-bao/id1144036041?l=zh&ls=1&mt=8">
+				<img class="btn-2" src="image/btn-2.png" />
+			</a>
+			<a href="http://alicdn.2333db.com/apk/yyj-2.4.3-fenxiang_312250.apk">
+				<img class="btn-3" src="image/btn-3.png" />
+			</a>
+		</div>
+		<p>如有问题请联系客服，客服邮箱是<a href="mailto:2467430775@qq.com">2467430775@qq.com</a></p>
+	</body>
+</html>

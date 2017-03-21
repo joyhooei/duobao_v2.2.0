@@ -415,7 +415,7 @@ var luanmingli = {
 	version: "2.3.0",	//客户端版本号
 	srvVersion: "2.1.0",		//服务端版本号
 	channel: "h5",		//channel ID
-	jsVersion: CryptoJS.MD5("0217").toString(),    //先加载的js文件版本号
+	jsVersion: CryptoJS.MD5("0221").toString(),    //先加载的js文件版本号
 	
 	//正式网
 	getUrl: "http://api.2333db.com/raiders/restWeb/",
